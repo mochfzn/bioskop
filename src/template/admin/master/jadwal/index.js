@@ -465,4 +465,5 @@ class Jadwal extends Component {
     }
 }
  
+// perubahan
 export default Jadwal;
