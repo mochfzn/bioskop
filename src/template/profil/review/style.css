@@ -1,0 +1,61 @@
+.container .lihat-profil {
+    width: 455px;
+    background-color: #F7F6F3;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    margin: 20px auto 0;
+    padding: 20px 45px 20px 50px;
+    overflow: auto;
+}
+
+.container .lihat-profil .judul {
+    font-size: 30px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.container .lihat-profil .row label {
+    width: 130px;
+    height: 35px;
+    line-height: 35px;
+    float: left;
+}
+
+.container .lihat-profil .row .input {
+    width: 296px;
+    height: 31px;
+    border: 2px solid grey;
+    border-radius: 6px;
+    background-color: gainsboro;
+    margin: 0 0 20px 10px;
+    padding: 0 0 0 10px;
+    float: left;
+}
+
+.container .lihat-profil .row .textarea {
+    width: 296px;
+    height: 91px;
+    border: 2px solid grey;
+    border-radius: 6px;
+    background-color: gainsboro;
+    margin: 0 0 20px 10px;
+    padding: 10px 0 0 10px;
+    display: inline-block;
+    resize: vertical;
+}
+
+.container .lihat-profil .tombol {
+    width: 280px;
+    height: 40px;
+    margin: 10px auto 0;
+    clear: left;
+}
+
+.container .lihat-profil .tombol .button {
+    width: 126px;
+    height: 36px;
+    border-radius: 6px;
+    border: 2px solid #99B7B8;
+    background-color: #D9E4E7;
+    margin: 5px;
+}

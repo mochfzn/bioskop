@@ -1,0 +1,143 @@
+.container .data {
+    width: 1060px;
+    /* height: 550px; */
+    background-color: #F7F6F3;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    margin-top: 20px;
+    border-radius: 20px;
+    padding: 20px;
+}
+
+.container .data .pengaturan {
+    width: 1000px;
+    height: 30px;
+    padding: 0 30px 10px;
+}
+
+.container .data .pengaturan .label {
+    font-size: 20px;
+    line-height: 30px;
+    float: left;
+    margin-right: 10px;
+}
+
+.container .data .pengaturan .select {
+    width: 106px;
+    height: 30px;
+    padding: 0px;
+    margin: 0px;
+    border-radius: 5px;
+    border: 2px solid #99B7B8;
+    background-color: #D9E4E7;
+    float: left;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.container .data .pengaturan .select:last-child {
+    width: 106px;
+    height: 30px;
+    padding: 0px;
+    margin: 0px;
+    border-radius: 5px;
+    border: 2px solid #99B7B8;
+    float: right;
+    cursor: pointer;
+}
+
+.container .data .pengaturan .input {
+    width: 450px;
+    height: 24px;
+    border: 2px solid #99B7B8;
+    border-radius: 6px;
+    background-color: #D9E4E7;
+    float: left;
+    margin-right: 10px;
+}
+
+.container .data .pengaturan .button {
+    width: 50px;
+    height: 30px;
+    border: 2px solid #165076;
+    background-color: #0A7EA2;
+    color: #F7F6F3;
+    border-radius: 5px;
+    float: left;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.container .data .table, .table-data .table th, .table-data .table td {
+    border: 1px solid #537D7F;
+}
+
+.container .data .tabel {
+    width: 1060px;
+    /* height: 470px; */
+}
+
+.container .data .table {
+    width: 1060px;
+    border-collapse: collapse;
+}
+
+.container .data .table th {
+    padding: 10px;
+    text-align: center;
+    background-color: #537D7F;
+    color: white;
+}
+
+.container .data .table td {
+    padding: 10px;
+    text-align: left;
+}
+
+.container .data .table tbody tr:hover {
+    background-color: #99B7B8;
+}
+
+.container .data .table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.container .data .table tbody td {
+    border: 1px solid #537D7F;
+}
+
+.container .data .halaman {
+    width: 1000px;
+    height: 30px;
+    padding: 10px 30px 0;
+}
+
+.container .data .halaman .pagination {
+    display: inline-block;
+    margin-left: 660px;
+}
+  
+.container .data .halaman .pagination a {
+    color: black;
+    float: left;
+    padding: 5px 16px;
+    text-decoration: none;
+    border: 1px solid #ddd;
+}
+
+.container .data .halaman .pagination a.active {
+    background-color: #F16A29;
+    color: white;
+    border: 1px solid #F16A29;
+}
+
+.container .data .halaman .pagination a:hover:not(.active) {background-color: #ddd;}
+
+.container .data .halaman .pagination a:first-child {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.container .data .halaman .pagination a:last-child {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}

@@ -1,0 +1,74 @@
+.container .ruang {
+    width: 660px;
+    height: 105px;
+    background-color: #F7F6F3;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    margin-top: 20px;
+    padding: 20px;
+}
+
+.container .ruang .judul {
+    width: 660px;
+    height: 30px;
+    text-align: center;
+}
+
+.container .ruang .form {
+    width: 660px;
+    height: 35px;
+}
+
+.container .ruang .form .input {
+    width: 186px;
+    height: 31px;
+    border: 2px solid #99B7B8;
+    border-radius: 6px;
+    background-color: #D9E4E7;
+    margin: 0 10px;
+    padding: 0 0 0 10px;
+    float: left;
+}
+
+.container .ruang .form .select {
+    width: 200px;
+    height: 35px;
+    border: 2px solid #99B7B8;
+    border-radius: 6px;
+    background-color: #D9E4E7;
+    margin: 0 10px;
+    padding: 2px 0 2px 10px;
+    float: left;
+    cursor: pointer;
+}
+
+.container .ruang .tombol {
+    width: 650px;
+    height: 30px;
+    padding-top: 10px;
+    padding-right: 10px;
+}
+
+.container .ruang .tombol .button-batal {
+    width: 96px;
+    height: 26px;
+    border: 2px solid #a00000;
+    background-color: #bb0909;
+    color: #F7F6F3;
+    border-radius: 5px;
+    margin-left: 5px;
+    float: right;
+    cursor: pointer;
+}
+
+.container .ruang .tombol .button-simpan {
+    width: 96px;
+    height: 26px;
+    border: 2px solid #165076;
+    background-color: #0A7EA2;
+    color: #F7F6F3;
+    border-radius: 5px;
+    margin-left: 5px;
+    float: right;
+    cursor: pointer;
+}

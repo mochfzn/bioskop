@@ -1,0 +1,193 @@
+@keyframes animatetop {
+    from {top: -300px; opacity: 0}
+    to {top: 0; opacity: 1}
+}
+
+/* The Modal (background) */
+#modal-rincian {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 40px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+}
+
+#modal-rincian > .modal-content {
+    position: relative;
+    margin: auto;
+    padding: 0;
+    border-width: 0px;
+    border-radius: 5px;
+    width: 700px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    animation-name: animatetop;
+    animation-duration: 0.4s;
+}
+
+#modal-rincian > .modal-content > .modal-header {
+    width: 688px;
+    height: 31px;
+    padding: 2px 6px; 
+    font-size: 18px;
+    text-align: center;
+    line-height: 31px;
+    background-color: #1C7664;
+    color: #D9E4E7;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+#modal-rincian > .modal-content > .modal-header > .close {
+    color: #F7F6F3;
+    float: right;
+    font-size: 25px;
+    line-height: 31px;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+#modal-rincian > .modal-content > .modal-header > .close:hover,
+#modal-rincian > .modal-content > .modal-header > .close:focus {
+    color: #AAAAAA;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#modal-rincian > .modal-content > .modal-body {
+    background-color: #FEFEFE;
+    padding: 10px 16px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    overflow: auto;
+}
+
+#modal-rincian > .modal-content > .modal-body > .id > .judul {
+    display: block;
+}
+
+#modal-rincian > .modal-content > .modal-body > .id > .isi {
+    font-size: 25px;
+    display: block;
+    margin-bottom: 15px;
+}
+
+#modal-rincian > .modal-content > .modal-body > img {
+    width: 200px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    float: left;
+}
+
+#modal-rincian > .modal-content > .modal-body > .judul {
+    width: 434px;
+    padding-left: 34px;
+    display: block;
+    float: left;
+}
+
+#modal-rincian > .modal-content > .modal-body > .judul > label {
+    font-size: 20px;
+    display: block;
+}
+
+#modal-rincian > .modal-content > .modal-body > .judul > span {
+    font-size: 14px;
+    display: block;
+}
+
+#modal-rincian > .modal-content > .modal-body > .rincian {
+    padding-left: 34px;
+    width: 434px;
+    margin-top: 10px;
+    float: left;
+}
+
+#modal-rincian > .modal-content > .modal-body > .rincian > .field {
+    margin-bottom: 5px;
+}
+
+#modal-rincian > .modal-content > .modal-body > .rincian > .field > label.judul {
+    display: inline-block;
+    width: 70px;
+}
+
+#modal-rincian > .modal-content > .modal-body > .rincian > .field > i {
+    width: 20px;
+    font-size: 15px;
+}
+
+#modal-rincian > .modal-content > .modal-body > .rincian > .kiri {
+    width: 180px;
+    float: left;
+}
+
+#modal-rincian > .modal-content > .modal-body > .rincian > .kiri > .field {
+    margin-bottom: 5px;
+}
+
+#modal-rincian > .modal-content > .modal-body > .rincian > .kiri > .field > i {
+    width: 20px;
+    font-size: 15px;
+}
+
+#modal-rincian > .modal-content > .modal-body > .rincian > .kiri > .field > label.judul {
+    display: inline-block;
+    width: 70px;
+}
+
+#modal-rincian > .modal-content > .modal-body > .rincian > .kanan {
+    padding-left: 14px;
+    width: 220px;
+    float: left;
+}
+
+#modal-rincian > .modal-content > .modal-body > .rincian > .kanan > .field {
+    margin-bottom: 5px;
+}
+
+#modal-rincian > .modal-content > .modal-body > .rincian > .kanan > .field > label.judul {
+    display: inline-block;
+    width: 110px;
+}
+
+#modal-rincian > .modal-content > .modal-body > .rincian > .kanan > .total > .judul {
+    font-size: 16px;
+    display: block;
+}
+
+#modal-rincian > .modal-content > .modal-body > .rincian > .kanan > .total > .jumlah {
+    font-size: 30px;
+}
+
+#modal-rincian > .modal-content > .modal-body > .deskripsi {
+    padding-top: 20px;
+    clear: left;
+}
+
+#modal-rincian > .modal-content > .modal-body > .deskripsi > label.judul {
+    font-size: 18px;
+}
+
+#modal-rincian > .modal-content > .modal-body > .deskripsi > p {
+    margin-top: 7px;
+    text-align: justify;
+}
+
+#modal-rincian > .modal-content > .modal-body > .button {
+    width: 81px;
+    height: 32px;
+    border: 2px solid #99B7B8;
+    background-color: #D9E4E7;
+    border-radius: 5px;
+    float: right;
+}
+
+#modal-rincian > .kosong {
+    width: 700px;
+    height: 100px;
+}

@@ -1,0 +1,133 @@
+.container > .navigation {
+    width: 970px;
+    height: 34px;
+    padding-top: 20px;
+    margin: 0 auto;
+}
+
+.container > .navigation > img {
+    float: left;
+    margin-right: 20px;
+}
+
+.container > .navigation > .link {
+    width: 80px;
+    height: 30px; 
+    color: #165076; 
+    border: 2px solid #165076; 
+    background-color: #F7F6F3; 
+    border-radius: 20px; 
+    float: left;
+    text-decoration: none;
+    line-height: 30px;
+    text-align: center;
+    margin-right: 20px;
+    font-size: 13px;
+}
+
+.container > .navigation > .link:hover {
+    color: #0A7EA2;
+    border-color: #0A7EA2;
+}
+
+.container > .navigation > .dropdown {
+    position: relative;
+}
+
+.container > .navigation > .dropdown > .dropbtn {
+    width: 84px;
+    height: 34px; 
+    color: #165076; 
+    border: 2px solid #165076; 
+    background-color: white; 
+    border-radius: 20px; 
+    float: left;
+    text-align: center;
+    margin-right: 20px;
+    font-size: 13px;
+}
+
+.container > .navigation > .dropdown:hover > .dropbtn {
+    color: #0A7EA2;
+    border-color: #0A7EA2;
+}
+
+.container > .navigation > .dropdown > .dropdown-content {
+    display: none;
+    position: absolute;
+    top: 0px;
+    left: 156px;
+    width: 84px;
+    height: 156px;
+    padding-top: 40px;
+}
+
+.container > .navigation > .dropdown:hover > .dropdown-content {
+    display: block;
+}
+
+.container > .navigation > .dropdown > .dropdown-content a {
+    width: 80px;
+    height: 30px; 
+    color: #165076; 
+    border: 2px solid #165076; 
+    background-color: white;
+    border-radius: 20px; 
+    text-decoration: none;
+    line-height: 30px;
+    text-align: center;
+    font-size: 13px;
+    display: block;
+    margin-bottom: 5px;
+    cursor: pointer;
+}
+
+.container > .navigation > .dropdown > .dropdown-content a:hover {
+    color: #0A7EA2;
+    border: 2px solid #0A7EA2;
+}
+
+.container > .navigation > .profil > i {
+    font-size: 32px;
+    color: #F7F6F3;
+    float: right;
+}
+
+.container > .navigation > .profil {
+    position: relative;
+}
+
+.container > .navigation > .profil > .profilbtn {
+    display: none;
+    position: absolute;
+    width: 84px;
+    height: 117px;
+    left: 886px;
+    padding-top: 39px;
+}
+
+.container > .navigation > .profil:hover > .profilbtn {
+    display: block;
+}
+
+.container > .navigation > .profil > .profilbtn > a {
+    width: 84px;
+    height: 30px; 
+    color: #165076; 
+    border: 2px solid #165076; 
+    background-color: white;
+    border-radius: 20px; 
+    text-decoration: none;
+    line-height: 30px;
+    text-align: center;
+    font-size: 13px;
+    display: block;
+    margin-bottom: 5px;
+    z-index: 1;
+    cursor: pointer;
+}
+
+.container > .navigation > .profil > .profilbtn > a:hover {
+    color: #0A7EA2; 
+    border-color: #0A7EA2;
+}

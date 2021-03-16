@@ -1,0 +1,66 @@
+.container .login-password {
+    border-radius: 15px;
+    padding: 20px;
+    background-color: #F7F6F3;
+    text-align: center;
+    position: absolute;
+    top: 65px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.container .login-password span {
+    font-size: 30px;
+    display: block;
+    white-space: nowrap;
+    margin: 0 auto 10px;
+}
+
+.container .login-password .input {
+    width: 290px;
+    height: 35px;
+    background-color: Gainsboro;
+    border: 1px solid Gainsboro;
+    border-radius: 25px;
+    padding: 0 15px;
+    margin: 0 auto;
+    display: block;
+}
+
+.container .login-password .button {
+    width: 320px;
+    height: 35px;
+    color: #F7F6F3;
+    background-color: #1C7664;
+    border: 1px solid #1C7664;
+    border-radius: 25px;
+    margin: 65px auto 0;
+    display: block;
+    cursor: pointer;
+}
+
+.container .login-password .button[value="Kembali"] {
+    width: 320px;
+    height: 35px;
+    color: #1C7664;
+    background-color: #F7F6F3;
+    border: 1px solid #1C7664;
+    border-radius: 25px;
+    margin: 10px auto 0;
+    display: block;
+    cursor: pointer;
+}
+
+.container .login-password i {
+    font-size: 120px;
+    color: gray;
+    display: block;
+    margin: 0 auto 10px;
+}
+
+.container .login-password label {
+    font-size: 20px;
+    color: black;
+    display: block;
+    margin: 0 auto 30px;
+}

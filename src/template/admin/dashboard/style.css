@@ -1,0 +1,97 @@
+.container .dashboard-admin {
+    width: 1060px;
+    height: 410px;
+    background-color: #F7F6F3;
+    margin-top: 20px;
+    border-radius: 20px;
+    padding: 20px;
+}
+
+.container .dashboard-admin .tanggal {
+    width: 260px;
+    height: 30px;
+    background-color: #1C7664;
+    color: #F7F6F3;
+    border-radius: 5px;
+    padding: 5px;
+    line-height: 30px;
+    font-size: 23px;
+    text-align: center;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+.container .dashboard-admin .tanggal .logo {
+    width: 30px;
+    height: 30px;
+    background-color: #F7F6F3;
+    color: #537D7F;
+    font-size: 15px;
+    border-radius: 5px;
+    float: right;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    cursor: pointer;
+}
+
+.container .dashboard-admin .tanggal .logo:hover {
+    background-color: #D9E4E7;
+}
+
+.container .dashboard-admin .counts {
+    margin: 0 5px;
+}
+
+.container .dashboard-admin .counts .count {
+    width: 260px;
+    height: 100px;
+    border-radius: 5px;
+    background-color: #1C7664;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    float: left;
+    margin: 25px;
+    padding: 10px 20px;
+}
+
+.container .dashboard-admin .counts .count .judul {
+    width: 260px;
+    height: 35px;
+    background-color: #F7F6F3;
+    color: #537D7F;
+    border-radius: 2px;
+    text-align: center;
+    line-height: 35px;
+}
+
+.container .dashboard-admin .counts .count .isi {
+    width: 260px;
+    height: 65px;
+    color: #F7F6F3;
+    text-align: center;
+    line-height: 65px;
+}
+
+.container .dashboard-admin .tombol-utama {
+    width: 360px;
+    height: 50px;
+    margin: 0 auto;
+    padding-top: 50px;
+    clear: left;
+}
+
+.container .dashboard-admin .tombol-utama .tombol {
+    width: 50px;
+    height: 50px;
+    background-color: #1C7664;
+    color: #F7F6F3;
+    font-size: 25px;
+    text-align: center;
+    line-height: 50px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    margin: 0 5px;
+    float: left;
+    cursor: pointer;
+}
+
+.container .dashboard-admin .tombol-utama .tombol:hover {
+    background-color: #537D7F;
+}

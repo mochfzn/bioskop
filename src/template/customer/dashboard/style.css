@@ -1,0 +1,87 @@
+.container > .pelanggan > .movie {
+    position: relative;
+    width: 200px;
+    height: 300px;
+    margin: 30px 37.5px 0;
+    float: left;
+    z-index: -1;
+}
+
+.container > .pelanggan > .movie .image {
+    opacity: 1;
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    transition: .5s ease;
+    backface-visibility: hidden;
+}
+
+.container > .pelanggan > .movie .middle {
+    transition: .5s ease;
+    opacity: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.container > .pelanggan > .movie:hover .image {
+    opacity: 0.3;
+}
+
+.container > .pelanggan > .movie:hover .middle {
+    opacity: 1;
+}
+
+.container > .pelanggan > .movie > .middle > .button {
+    width: 150px;
+    height: 35px;
+    color: #1C7664;
+    background-color: #D9E4E7;
+    border: 1px solid #99B7B8;
+    border-radius: 25px;
+    margin: 10px auto;
+    display: block;
+    cursor: pointer;
+}
+
+.container > .pelanggan > .halaman {
+    width: 1000px;
+    height: 30px;
+    padding: 20px 30px 40px;
+    float: left;
+}
+
+.container > .pelanggan > .halaman > .pagination {
+    display: inline-block;
+    margin-left: 660px;
+}
+  
+.container > .pelanggan > .halaman > .pagination > a {
+    color: #D9E4E7;
+    float: left;
+    padding: 5px 16px;
+    text-decoration: none;
+    background-color: #1C7664;
+    border: 1px solid #537D7F;
+}
+
+.container > .pelanggan > .halaman > .pagination > a.active {
+    background-color: #F16A29;
+    color: white;
+    border: 1px solid #537D7F;
+}
+
+.container > .pelanggan > .halaman > .pagination > a:hover:not(.active) {background-color: #ddd;}
+
+.container > .pelanggan > .halaman > .pagination > a:first-child {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.container > .pelanggan > .halaman > .pagination > a:last-child {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}

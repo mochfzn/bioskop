@@ -1,0 +1,60 @@
+.container > .login {
+    width: 360px;
+    height: 410px;
+    margin: 0 auto;
+    border-radius: 15px;
+    padding: 20px;
+    background-color: white;
+    text-align: center;
+    position: absolute;
+    top: 65px;
+    left: 350px;
+}
+
+.container > .login > span {
+    font-size: 30px;
+    display: block;
+    width: 120px;
+    margin: 0 auto 15px;
+}
+
+.container > .login > i {
+    font-size: 120px;
+    color: gray;
+    display: block;
+    width: 120px;
+    margin: 0 auto 30px;
+}
+
+.container > .login > .input {
+    width: 290px;
+    height: 35px;
+    background-color: Gainsboro;
+    border: 1px solid Gainsboro;
+    border-radius: 25px;
+    padding: 0 15px;
+    margin: 30px auto 50px;
+    display: block;
+}
+
+.container > .login > .button {
+    width: 320px;
+    height: 35px;
+    color: white;
+    background-color: #1C7664;
+    border: 1px solid #1C7664;
+    border-radius: 25px;
+    margin: 10px auto;
+    display: block;
+}
+
+.container > .login > .button[value="Daftar"] {
+    width: 320px;
+    height: 35px;
+    color: #1C7664;
+    background-color: white;
+    border: 1px solid #1C7664;
+    border-radius: 25px;
+    margin: 10px auto;
+    display: block;
+}

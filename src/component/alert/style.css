@@ -1,0 +1,47 @@
+.container > .notification {
+    width: 456px;
+    /* height: 33px; */
+    border-radius: 5px;
+    padding: 10px 20px;
+    line-height: 20px;
+    border: 2px solid tomato;
+    background-color: whitesmoke;
+    color: tomato;
+    position: fixed;
+    display: none;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+}
+
+.container > .notification > span:first-child {
+    display: block;
+    text-align: justify;
+    width: 430px;
+    padding-right: 10px;
+    float: left;
+}
+
+.container > .notification > span:last-child {
+    float: right;
+    cursor: pointer;
+    line-height: 20px;
+}
+
+.container > .navigation + .notification {
+    width: 456px;
+    /* height: 33px; */
+    border-radius: 5px;
+    padding: 10px 20px;
+    line-height: 20px;
+    border: 2px solid tomato;
+    background-color: whitesmoke;
+    color: tomato;
+    position: fixed;
+    display: none;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    z-index: 1;
+}

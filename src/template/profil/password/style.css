@@ -1,0 +1,49 @@
+.container .ubah-kata-sandi {
+    width: 455px;
+    background-color: #F7F6F3;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    margin: 20px auto 0;
+    padding: 20px 45px 20px 50px;
+    overflow: auto;
+}
+
+.container .ubah-kata-sandi .judul {
+    font-size: 30px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.container .ubah-kata-sandi .row label {
+    width: 130px;
+    height: 35px;
+    line-height: 35px;
+    float: left;
+}
+
+.container .ubah-kata-sandi .row .input {
+    width: 296px;
+    height: 31px;
+    border: 2px solid #99B7B8;
+    border-radius: 6px;
+    background-color: #D9E4E7;
+    margin: 0 0 20px 10px;
+    padding: 0 0 0 10px;
+    float: left;
+}
+
+.container .ubah-kata-sandi .tombol {
+    width: 280px;
+    height: 40px;
+    margin: 10px auto 0;
+    clear: left;
+}
+
+.container .ubah-kata-sandi .tombol .button {
+    width: 126px;
+    height: 36px;
+    border-radius: 6px;
+    border: 2px solid #99B7B8;
+    background-color: #D9E4E7;
+    margin: 5px;
+}
