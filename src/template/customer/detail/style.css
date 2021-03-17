@@ -46,55 +46,55 @@
     display: block;
 }
 
-.container > .detail-film > .deskripsi {
+.container > .detail-film > .keterangan {
     width: 770px;
     padding-top: 20px;
     padding-left: 30px;
     float: left;
 }
 
-.container > .detail-film > .deskripsi > .kiri {
+.container > .detail-film > .keterangan .kiri {
     width: 200px;
     float: left;
 }
 
-.container > .detail-film > .deskripsi > .kiri > .field {
+.container > .detail-film > .keterangan .kanan {
+    float: left;
+}
+
+.container > .detail-film > .keterangan .deskripsi {
+    clear: left;
+}
+
+.container > .detail-film > .keterangan .field {
     height: 20px;
     margin-bottom: 10px;
 }
 
-.container > .detail-film > .deskripsi > .kiri > .field > i {
+.container > .detail-film > .keterangan i {
     width: 40px;
     font-size: 20px;
     float: left;
 }
 
-.container > .detail-film > .deskripsi > .kiri > .field > label {
+.container > .detail-film > .keterangan label {
     float: left;
     line-height: 20px;
 }
 
-.container > .detail-film > .deskripsi > .kanan {
-    float: left;
-    width: 570px;
+.container > .detail-film > .keterangan .judul {
+    width: 70px;
 }
 
-.container > .detail-film > .deskripsi > .kanan > .judul {
-    width: 90px;
-    padding-bottom: 10px;
-    float: left;
+.container > .detail-film > .keterangan .deskripsi label {
+    float: none;
+    display: block;
 }
 
-.container > .detail-film > .deskripsi > .kanan > label.isi {
-    width: 480px;
-    padding-bottom: 10px;
-    float: left;
-}
-
-.container > .detail-film > .deskripsi > .kanan > p.isi {
-    width: 570px;
+.container > .detail-film > .keterangan .deskripsi p {
+    width: 770px;
     text-align: justify;
     display: block;
+    padding-top: 10px;
     margin: 0;
-    float: left;
 }

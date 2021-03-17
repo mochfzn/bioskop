@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 
-import {Div} from '../../../component';
+import { Div } from '../../../component';
 import logo from '../../../images/cinema-4d.png';
 import './style.css';
 

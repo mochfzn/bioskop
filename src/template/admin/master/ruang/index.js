@@ -200,7 +200,15 @@ class Ruang extends Component {
             .then(json => {
                 if(typeof json.errorMessage !== 'undefined')
                 {
-                    this.setState({alert: json.errorMessage});
+                    if(json.errorMessage === "Duplicate entry '" + this.state.ruang.nama + "' for key 'nama'")
+                    {
+                        this.setState({alert: "Nama ruang sudah tersedia!"});
+                    }
+                    else
+                    {
+                        this.setState({alert: json.errorMessage});
+                    }
+                    
                     alert.style.display = "block";
                 }
                 else

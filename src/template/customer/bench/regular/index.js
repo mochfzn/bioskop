@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+
 import '../style.css';
 import Navigation from '../../navigation';
+import { Div, Button } from '../../../../component';
 
 class Regular extends Component {
     constructor(props) {
@@ -16,87 +18,87 @@ class Regular extends Component {
         return ( 
             <React.Fragment>
                 <Navigation />
-                <div class="kursi">
-                    <div class="judul">Denah</div>
-                    <div class="denah">
-                        <div class="kiri">
-                            <input type="button" class="button" value="J5" />
-                            <input type="button" class="button" value="I5" />
-                            <input type="button" class="button" value="H5" />
-                            <input type="button" class="button" value="G5" />
-                            <input type="button" class="button" value="F5" />
+                <Div class="kursi">
+                    <Div class="judul">Denah</Div>
+                    <Div class="denah">
+                        <Div class="kiri">
+                            <Button class="button" value="J5" />
+                            <Button class="button" value="I5" />
+                            <Button class="button" value="H5" />
+                            <Button class="button" value="G5" />
+                            <Button class="button" value="F5" />
 
-                            <input type="button" class="button" value="J4" />
-                            <input type="button" class="button" value="I4" />
-                            <input type="button" class="button" value="H4" />
-                            <input type="button" class="button" value="G4" />
-                            <input type="button" class="button" value="F4" />
+                            <Button class="button" value="J4" />
+                            <Button class="button" value="I4" />
+                            <Button class="button" value="H4" />
+                            <Button class="button" value="G4" />
+                            <Button class="button" value="F4" />
 
-                            <input type="button" class="button" value="J3" />
-                            <input type="button" class="button" value="I3" />
-                            <input type="button" class="button" value="H3" />
-                            <input type="button" class="button" value="G3" />
-                            <input type="button" class="button" value="F3" />
+                            <Button class="button" value="J3" />
+                            <Button class="button" value="I3" />
+                            <Button class="button" value="H3" />
+                            <Button class="button" value="G3" />
+                            <Button class="button" value="F3" />
 
-                            <input type="button" class="button" value="J2" />
-                            <input type="button" class="button" value="I2" />
-                            <input type="button" class="button" value="H2" />
-                            <input type="button" class="button" value="G2" />
-                            <input type="button" class="button" value="F2" />
+                            <Button class="button" value="J2" />
+                            <Button class="button" value="I2" />
+                            <Button class="button" value="H2" />
+                            <Button class="button" value="G2" />
+                            <Button class="button" value="F2" />
 
-                            <input type="button" class="button" value="J1" />
-                            <input type="button" class="button" value="I1" />
-                            <input type="button" class="button" value="H1" />
-                            <input type="button" class="button" value="G1" />
-                            <input type="button" class="button" value="F1" />
-                        </div>
-                        <div class="kanan">
-                            <input type="button" class="button" value="E5" />
-                            <input type="button" class="button" value="D5" />
-                            <input type="button" class="button" value="C5" />
-                            <input type="button" class="button" value="B5" />
-                            <input type="button" class="button" value="A5" />
+                            <Button class="button" value="J1" />
+                            <Button class="button" value="I1" />
+                            <Button class="button" value="H1" />
+                            <Button class="button" value="G1" />
+                            <Button class="button" value="F1" />
+                        </Div>
+                        <Div class="kanan">
+                            <Button class="button" value="E5" />
+                            <Button class="button" value="D5" />
+                            <Button class="button" value="C5" />
+                            <Button class="button" value="B5" />
+                            <Button class="button" value="A5" />
 
-                            <input type="button" class="button" value="E4" />
-                            <input type="button" class="button" value="D4" />
-                            <input type="button" class="button" value="C4" />
-                            <input type="button" class="button" value="B4" />
-                            <input type="button" class="button" value="A4" />
+                            <Button class="button" value="E4" />
+                            <Button class="button" value="D4" />
+                            <Button class="button" value="C4" />
+                            <Button class="button" value="B4" />
+                            <Button class="button" value="A4" />
 
-                            <input type="button" class="button" value="E3" />
-                            <input type="button" class="button" value="D3" />
-                            <input type="button" class="button" value="C3" />
-                            <input type="button" class="button" value="B3" />
-                            <input type="button" class="button" value="A3" />
+                            <Button class="button" value="E3" />
+                            <Button class="button" value="D3" />
+                            <Button class="button" value="C3" />
+                            <Button class="button" value="B3" />
+                            <Button class="button" value="A3" />
 
-                            <input type="button" class="button" value="E2" />
-                            <input type="button" class="button" value="D2" />
-                            <input type="button" class="button" value="C2" />
-                            <input type="button" class="button" value="B2" />
-                            <input type="button" class="button" value="A2" />
+                            <Button class="button" value="E2" />
+                            <Button class="button" value="D2" />
+                            <Button class="button" value="C2" />
+                            <Button class="button" value="B2" />
+                            <Button class="button" value="A2" />
 
-                            <input type="button" class="button" value="E1" />
-                            <input type="button" class="button" value="D1" />
-                            <input type="button" class="button" value="C1" />
-                            <input type="button" class="button" value="B1" />
-                            <input type="button" class="button" value="A1" />
-                        </div>
-                        <div class="layar">Layar</div>
-                        <div class="keterangan">
-                            <div class="legend">
-                                <div class="kotak-abu"></div><span>Tidak tersedia</span>
-                                <div class="kotak-merah"></div><span>Sudah dipesan</span>
-                                <div class="kotak-hijau"></div><span>Tersedia</span>
-                                <div class="kotak-biru"></div><span>dipilih</span>
-                            </div>
-                            <span class="hitung">Pilih 5 bangku lagi.</span>
-                        </div>
-                        <div class="tombol">
-                            <input type="button" name="tombol" class="button-batal" value="Batal" />
-                            <input type="button" name="tombol" class="button-simpan" value="Simpan" />
-                        </div>
-                    </div>
-                </div>
+                            <Button class="button" value="E1" />
+                            <Button class="button" value="D1" />
+                            <Button class="button" value="C1" />
+                            <Button class="button" value="B1" />
+                            <Button class="button" value="A1" />
+                        </Div>
+                        <Div class="layar">Layar</Div>
+                        <Div class="keterangan">
+                            <Div class="legend">
+                                <Div class="kotak-abu"></Div><span>Tidak tersedia</span>
+                                <Div class="kotak-merah"></Div><span>Sudah dipesan</span>
+                                <Div class="kotak-hijau"></Div><span>Tersedia</span>
+                                <Div class="kotak-biru"></Div><span>dipilih</span>
+                            </Div>
+                            <span className="hitung">Pilih 5 bangku lagi.</span>
+                        </Div>
+                        <Div class="tombol">
+                            <Button name="tombol" class="button-batal" value="Batal" />
+                            <Button name="tombol" class="button-simpan" value="Simpan" />
+                        </Div>
+                    </Div>
+                </Div>
             </React.Fragment>
          );
     }

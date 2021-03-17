@@ -37,7 +37,7 @@ class Jadwal extends Component {
             alert: "",
             search: ""
          }
-        this.tableHeader = ["No", "Tanggal", "Ruang", "Film", "Jam"];
+        this.tableHeader = ["No", "Tanggal", "Ruang", "Harga", "Film", "Jam"];
         this.searchOption = ["Tanggal", "Ruang", "Film"];
         this.valueSubmit = "Simpan";
         this.valueSelect = "";
@@ -374,6 +374,7 @@ class Jadwal extends Component {
     
     render() { 
         const { tanggal, ruang, film, jam } = this.state.jadwal;
+        let incNumber = 1;
 
         return ( 
             <React.Fragment>
@@ -424,11 +425,12 @@ class Jadwal extends Component {
                         this.state.data.map((value, index) => {
                             return (
                                 <TableRow key={index}>
-                                    <TableData>{value.id}</TableData>
+                                    <TableData>{incNumber++}</TableData>
                                     <TableData>{value.tanggal}</TableData>
                                     <TableData>{value.ruang.nama}</TableData>
+                                    <TableData>{"Rp. " + value.ruang.harga.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".")}</TableData>
                                     <TableData>{value.film.judul}</TableData>
-                                    <TableData>{value.jam}</TableData>
+                                    <TableData>{value.jam.substring(0,5)}</TableData>
                                 </TableRow>
                             )
                         })
@@ -464,6 +466,5 @@ class Jadwal extends Component {
          );
     }
 }
- 
-// perubahan
+
 export default Jadwal;

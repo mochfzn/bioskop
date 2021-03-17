@@ -19,7 +19,7 @@ import alienXmas from './alien-xmas.jpg';
 import overTheMoon from './over-the-moon.jpg';
 import aWhiskerAway from './a-whisker-away.jpg';
 
-let film = [
+let Gambar = [
     {title: "Tom and Jerry The Movie", image: tomAndJerry},
     {title: "Raya and The Last Dragon", image: rayaAndTheLastDragon},
     {title: "Scooby-Doo! The Sword and The Scoob", image: scoobyDooTheSwordAndTheScoob},
@@ -42,4 +42,4 @@ let film = [
     {title: "A Whisker Away", image: aWhiskerAway},
 ];
 
-export default film;
+export default Gambar;

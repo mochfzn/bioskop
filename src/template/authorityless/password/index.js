@@ -135,7 +135,7 @@ class Password extends Component {
                 <Alert>{this.state.alert}</Alert>
                 <Div class="login-password">
                     <span>Kata Sandi</span>
-                    <i class="fa fa-user-circle"></i>
+                    <i className="fa fa-user-circle"></i>
                     <Label>{this.props.user.username}</Label>
                     <input type="password" id="password" name="password" className="input" placeholder="Kata Sandi" value={password} onChange={el => this.onChange(el)} />
                     <Button class="button" value="Masuk" onClick={this.doLogin} />

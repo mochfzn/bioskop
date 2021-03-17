@@ -33,15 +33,15 @@ class Main extends Component {
             <div className="container">
                 <Switch>
                     <Route path="/profil/password">
-                        <ProfilPassword />
+                        <ProfilPassword user={this.state.user} />
                     </Route>
                     <Route path="/profil/change">
-                        <Change />
+                        <Change user={this.state.user} />
                     </Route>
                     <Route path="/profil">
-                        <Review />
+                        <Review user={this.state.user} />
                     </Route>
-                    <Route path="/customer/detail/:filmId">
+                    <Route path="/customer/detail/:id">
                         <Detail />
                     </Route>
                     <Route path="/customer/history">

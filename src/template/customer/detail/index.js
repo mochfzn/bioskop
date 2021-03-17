@@ -1,74 +1,236 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
+
 import './style.css';
 import Navigation from '../navigation';
-
-import kimetsu from '../../../images/demon-slayer-the-movie-mugen-train.jpg';
+import Gambar from '../../../images';
+import { Div, Label, Button, ModalSchedule, Alert } from '../../../component';
 
 class Detail extends Component {
     constructor(props) {
         super(props);
-        this.state = {  }
+        this.state = { 
+            film: {
+                id: "",
+                judul: "",
+                produser: "",
+                direktur: "",
+                sensor: "",
+                bahasa: "",
+                judulTambahan: "",
+                durasi: "",
+                genre: [],
+                deskripsi: ""
+            },
+            schedules: [],
+            alert: "",
+            image: "",
+            sensor: "",
+            genre: ""
+         }
     }
 
     componentDidMount() {
         document.body.classList.remove("background");
+        let id = this.props.match.params.id;
+
+        this.getFilm(id);
+        this.getSchedules(id);
+    }
+
+    getFilm = id => {
+        const alert = document.getElementById("alert");
+
+        fetch('http://localhost:8080/bioskop/film/find/id/' + id, {
+            method: "get",
+            headers: {
+                 "Content-Type": "application/json; ; charset=utf-8",
+                 "Access-Control-Allow-Headers": "Authorization, Content-Type",
+                 "Access-Control-Allow-Origin": "*"
+            }
+        })
+        .then(response => response.json())
+        .then(json => {
+            this.setState({film: json});
+        })
+        .then(() => {
+            let image = this.getImage(this.state.film.judul);
+            let sensor = this.readSensor(this.state.film.sensor);
+            let genre = this.readGenre(this.state.film.genre);
+
+            this.setState({
+                image, 
+                sensor,
+                genre
+            });
+        })
+        .catch((e) => {
+            this.setState({alert: "Gagal mengambil data! ", e});
+            alert.style.display = "block";
+        });
+    }
+
+    getSchedules = id => {
+        const alert = document.getElementById("alert");
+
+        fetch('http://localhost:8080/bioskop/jadwal/find/film/' + id, {
+            method: "get",
+            headers: {
+                 "Content-Type": "application/json; ; charset=utf-8",
+                 "Access-Control-Allow-Headers": "Authorization, Content-Type",
+                 "Access-Control-Allow-Origin": "*"
+            }
+        })
+        .then(response => response.json())
+        .then(json => {
+            this.setState({ schedules: json })
+        })
+        .catch((e) => {
+            this.setState({alert: "Gagal mengambil data! ", e});
+            alert.style.display = "block";
+        });
+    }
+
+    showSchedules = () => {
+        const modal = document.getElementById("modal");
+        modal.style.display = "block";
+    }
+
+    getImage = title => {
+        let imageObject;
+
+        if(typeof title !== 'object')
+        {
+            imageObject = Gambar.find(value => {
+                return value.title === title;
+            });
+    
+            return imageObject.image;
+        }
+        
+        return "";
+    }
+
+    readSensor = sensor => {
+        let readSensor;
+        switch(sensor)
+        {
+            case 1:
+                readSensor = "Semua Umur";
+                break;
+            case 2: 
+                readSensor = "13 tahun keatas";
+                break;
+            case 3:
+                readSensor = "17 tahun keatas";
+                break;
+            default:
+                readSensor = "-";
+                break;
+        }
+
+        return readSensor;
+    }
+
+    readGenre = genre => {
+        let readGenre = "";
+
+        genre.forEach(value => {
+            if(value === genre[0])
+            {
+                readGenre += value;
+            }
+            else
+            {
+                readGenre += ", ";
+                readGenre += value;
+            }
+        });
+
+        return readGenre;
     }
     
     render() { 
+        const { judul, produser, direktur, bahasa, judulTambahan, durasi, deskripsi } = this.state.film;
+
         return ( 
             <React.Fragment>
                 <Navigation />
-                <div class="detail-film">
-                    <div class="gambar">
-                        <img src={kimetsu} alt="demon-slayer-the-movie-mugen-train-kimetsu-no-yaiba-mugen" class="image" />
-                        <input type="button" id="button-pesan" class="button" value="Beli Tiket" />
-                    </div>
-                    <div class="judul">
-                        <label>Demon Slayer: Kimetsu no Yaiba the Movie: Mugen Train</label>
-                        <span>Semua Umur</span>
-                    </div>
-                    <div class="deskripsi">
-                        <div class="kiri">
-                            <div class="field">
-                                <i class="far fa-clock"></i> <label>1 Jam 60 Menit</label>
-                            </div>
-                            <div class="field">
-                                <i class="fas fa-language"></i> <label>Inggris</label>
-                            </div>
-                            <div class="field">
-                                <i class="fa fa-comments"></i> <label>Indonesia</label>
-                            </div>
-                            <div class="field">
-                                <i class="fas fa-ticket-alt"></i> <label>Rp. 45.000,-</label>
-                            </div>
-                            <div class="field">
-                                <i class="far fa-gem"></i> <label>Rp. 65.000,-</label>
-                            </div>
-                        </div>
-                        <div class="kanan">
-                            <label class="judul">Produksi :</label>
-                            <label class="isi">Isi Produksi</label>
-
-                            <label class="judul">Direksi :</label>
-                            <label class="isi">Isi Direksi</label>
-
-                            <label class="judul">Genre :</label>
-                            <label class="isi">isi Genre</label>
-
-                            <label class="judul">Deskripsi :</label>
-                            <p class="isi">
-                                Tanjiro, Nezuko, Zenitsu, dan Inosuke naik kereta[N 1] untuk bertemu dengan Flame Hashira Kyōjurō Rengoku dan membantunya dalam misinya untuk berburu iblis yang telah membunuh lebih dari 40 pembunuh iblis di kereta. Segera setelah naik, mereka semua tertidur lelap, dan Enmu, Peringkat Satu Bawah dari Dua Belas Kizuki, menginstruksikan empat penumpang, semuanya menderita insomnia parah, menggunakan tali ajaib untuk memasuki mimpi para pembunuh iblis, dan menghancurkan inti spiritual mereka sehingga mereka tidak akan pernah bisa bangun lagi. Sebagai gantinya, Enmu akan memungkinkan mereka memiliki mimpi damai.
-
-                                Selama tidur mereka, Tanjiro bermimpi untuk bersatu kembali dengan mendiang keluarganya, Zenitsu bermimpi berkencan dengan Nezuko, Inosuke bermimpi melakukan misi eksplorasi goa, dan Kyōjirō bermimpi bertemu dengan saudaranya. Tanjiro menyadari bahwa dia sedang bermimpi dan mencoba untuk bangun, berhasil setelah diperintahkan oleh visi ayahnya untuk bunuh diri di dalam mimpi. Di saat yang sama, Nezuko menggunakan kekuatannya untuk membakar tali, membangunkan penumpang. Karena takut pada Enmu, penumpang menyerang Tanjiro.
-
-                                Sementara Nezuko membangunkan yang lain, Tanjiro menghadapi Enmu, dan akhirnya memenggal kepalanya. Namun, Enmu tidak mati dan mengungkapkan bahwa dia menyatukan kepalanya dengan kereta itu sendiri. Kyōjurō menginstruksikan Inosuke dan Tanjiro untuk mencari leher Enmu saat dia, Nezuko, dan Zenitsu tetap tinggal untuk melindungi penumpang lain. Tanjiro dan Inosuke menemukan tulang leher Enmu di ruang mesin dan Tanjiro memotongnya, membunuhnya dan menghentikan kereta.
+                <Alert>{this.state.alert}</Alert>
+                <Div class="detail-film">
+                    <Div class="gambar">
+                        <img src={this.state.image} alt={judul} className="image" />
+                        <Button id="button-pesan" class="button" value="Lihat Jadwal" onClick={this.showSchedules} />
+                    </Div>
+                    <Div class="judul">
+                        <Label>{judul}</Label>
+                        <span>{this.state.sensor}</span>
+                    </Div>
+                    <Div class="keterangan">
+                        <Div class="kiri">
+                            <Div class="field">
+                                <i class="far fa-clock"></i> <Label>{durasi}</Label>
+                            </Div>
+                            <Div class="field">
+                                <i class="fas fa-language"></i> <Label>{bahasa}</Label>
+                            </Div>
+                            <Div class="field">
+                                <i class="fa fa-comments"></i> <Label>{judulTambahan}</Label>
+                            </Div>
+                        </Div>
+                        <Div class="kanan">
+                            <Div class="field">
+                                <Label class="judul">Produser :</Label> <Label>{produser}</Label>
+                            </Div>
+                            <Div class="field">
+                                <Label class="judul">Direktur :</Label> <Label>{direktur}</Label>
+                            </Div>
+                            <Div class="field">
+                                <Label class="judul">Genre :</Label> <Label>{this.state.genre}</Label>
+                            </Div>
+                        </Div>
+                        <Div class="deskripsi">
+                            <Label>Deskripsi :</Label>
+                            <p>
+                                {deskripsi}
                             </p>
-                        </div>
-                    </div>
-                </div>
+                        </Div>
+                        
+                    </Div>
+                </Div>
+                <ModalSchedule>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Tanggal</th>
+                                <th>Jam</th>
+                                <th>Tipe Ruangan</th>
+                                <th>Harga</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                this.state.schedules.map((value, index) => {
+                                    return (
+                                        <tr key={index}>
+                                            <td>{value.tanggal}</td>
+                                            <td>{value.jam.substring(0,5)}</td>
+                                            <td>{(value.ruang.jenis === 1) ? "Regular" : "VIP"}</td>
+                                            <td className="right">{"Rp. " + value.ruang.harga.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".")}</td>
+                                            <td className="center">
+                                                <input type="button" class="button" value="Pesan" />
+                                            </td>
+                                        </tr>
+                                    )
+                                })
+                            }
+                        </tbody>
+                    </table>
+                </ModalSchedule>
             </React.Fragment>
          );
     }
 }
  
-export default Detail;
+export default withRouter(Detail);

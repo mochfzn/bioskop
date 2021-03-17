@@ -2,12 +2,21 @@ import React, { Component } from 'react';
 import  { Redirect } from 'react-router-dom';
 
 import './style.css';
-import Navigation from '../../admin/navigation'
+import AdminNavigation from '../../admin/navigation';
+import CustomerNavigation from '../../customer/navigation';
 
 class Review extends Component {
     constructor(props) {
         super(props);
         this.state = { 
+            user: {
+                nama: "",
+                alamat: "",
+                telepon: "",
+                email: "",
+                username: "",
+                hakAkses: ""
+            },
             change: false,
             password: false
          };
@@ -15,6 +24,7 @@ class Review extends Component {
 
     componentDidMount() {
         document.body.classList.remove("background");
+        this.setState({user: this.props.user});
     }
 
     toPageChange = () => {
@@ -30,6 +40,9 @@ class Review extends Component {
     }
 
     render() { 
+        const { nama, alamat, telepon, email, username } = this.state.user;
+        let navigation;
+
         if(this.state.change === true) 
         {
             return <Redirect to="/profil/change" />
@@ -39,30 +52,39 @@ class Review extends Component {
             return <Redirect to="/profil/password" />
         }
 
+        if(this.state.user.hakAkses === 0)
+        {
+            navigation = <AdminNavigation />;
+        }
+        else if(this.state.user.hakAkses === 1)
+        {
+            navigation = <CustomerNavigation />;
+        }
+
         return ( 
             <React.Fragment>
-                <Navigation />
+                {navigation}
                 <div class="lihat-profil">
                     <div class="judul">Profil</div>
                     <div class="row">
                         <label>Nama Lengkap :</label>
-                        <input type="text" name="nama" class="input" placeholder="Nama Lengkap" disabled="disabled" />
+                        <input type="text" name="nama" class="input" value={nama} placeholder="Nama Lengkap" disabled="disabled" />
                     </div>
                     <div class="row">
                         <label>Alamat :</label>
-                        <textarea class="textarea" placeholder="Alamat" disabled="disabled"></textarea>
+                        <textarea name="alamat" class="textarea" value={alamat} placeholder="Alamat" disabled="disabled"></textarea>
                     </div>
                     <div class="row">
                         <label>No. Telepon/HP :</label>
-                        <input type="text" name="nama" class="input" placeholder="No. Telepon/HP" disabled="disabled" />
+                        <input type="text" name="nama" class="input" value={telepon} placeholder="No. Telepon/HP" disabled="disabled" />
                     </div>
                     <div class="row">
                         <label>Email :</label>
-                        <input type="text" name="nama" class="input" placeholder="Email" disabled="disabled" />
+                        <input type="text" name="nama" class="input" value={email} placeholder="Email" disabled="disabled" />
                     </div>
                     <div class="row">
                         <label>Nama Pengguna :</label>
-                        <input type="text" name="nama" class="input" placeholder="Nama Pengguna" disabled="disabled" />
+                        <input type="text" name="nama" class="input" value={username} placeholder="Nama Pengguna" disabled="disabled" />
                     </div>
                     <div class="tombol">
                         <input type="button" class="button" value="Ubah Profil" onClick={this.toPageChange} />

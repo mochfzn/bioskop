@@ -149,8 +149,8 @@ class SavePassword extends Component {
                 <Alert>{this.state.alert}</Alert>
                 <Div class="simpan-kata-sandi">
                     <span>Simpan Kata Sandi</span>
-                    <input type="password" class="input" placeholder="Kata Sandi" value={password} onChange={el => this.onChange(el, "password")} />
-                    <input type="password" class="input" placeholder="Ulang Kata Sandi" value={repeatPassword} onChange={el => this.onChange(el, "repeatPassword")} />
+                    <input type="password" className="input" placeholder="Kata Sandi" value={password} onChange={el => this.onChange(el, "password")} />
+                    <input type="password" className="input" placeholder="Ulang Kata Sandi" value={repeatPassword} onChange={el => this.onChange(el, "repeatPassword")} />
                     <Button class="button" value="Simpan" onClick={this.onClickSubmit} />
                     <Button class="button" value="Batal" onClick={this.back} />
                 </Div>

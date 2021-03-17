@@ -8,7 +8,7 @@ class Div extends Component {
 
     render() {
         return(
-            <div id={this.props.id} className={this.props.class}>{this.props.children}</div>
+            <div id={this.props.id} className={this.props.class} onClick={this.props.onClick}>{this.props.children}</div>
         );
     }
 }

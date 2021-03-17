@@ -1,0 +1,118 @@
+@keyframes animatetop {
+    from {top: -300px; opacity: 0}
+    to {top: 0; opacity: 1}
+}
+
+/* The Modal (background) */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 30px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modal > .modal-content {
+    position: relative;
+    margin: auto;
+    padding: 0;
+    border-width: 0px;
+    border-radius: 5px;
+    width: 800px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    animation-name: animatetop;
+    animation-duration: 0.4s;
+}
+
+.modal > .modal-content > .modal-header {
+    width: 788px;
+    height: 31px;
+    padding: 2px 6px; 
+    font-size: 18px;
+    text-align: center;
+    line-height: 31px;
+    background-color: #1C7664;
+    color: #fefefe;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.modal > .modal-content > .modal-header > .close {
+    color: #fefefe;
+    float: right;
+    font-size: 25px;
+    line-height: 31px;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.modal > .modal-content > .modal-header > .close:hover,
+.modal > .modal-content > .modal-header > .close:focus {
+    color: #aaaaaa;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal > .modal-content > .modal-body {
+    background-color: #fefefe;
+    padding: 10px 16px;
+}
+
+.modal > .modal-content > .modal-body table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.modal > .modal-content > .modal-body table th {
+    padding: 10px;
+    text-align: center;
+    background-color: #1C7664;
+    color: #fefefe;
+    border: 1px solid #1C7664;
+}
+
+.modal > .modal-content > .modal-body table td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #1C7664;
+}
+
+.modal > .modal-content > .modal-body table td.center {
+    text-align: center;
+}
+
+.modal > .modal-content > .modal-body table td.right {
+    text-align: right;
+}
+
+.modal > .modal-content > .modal-body table tbody tr:hover {
+    background-color: #D9E4E7;
+}
+
+.modal > .modal-content > .modal-body table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.modal > .modal-content > .modal-body table tbody .button {
+    border: 2px solid #99B7B8;
+    background-color: #D9E4E7;
+    border-radius: 5px;
+    font-size: 13px;
+    padding: 4px 12px;
+}
+
+.modal > .modal-content > .modal-footer {
+    width: 788px;
+    height: 10px;
+    padding: 10px 6px;
+    background-color: #1C7664;
+    color: white;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}

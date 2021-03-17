@@ -1,111 +1,77 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import './style.css';
 import Navigation from '../navigation';
 import film from '../../../images';
+import { Div } from '../../../component';
 
 class Dashboard extends Component {
     constructor(props) {
         super(props);
         this.state = { 
+            data: [],
+            alert: "",
             detail: false
          }
     }
 
     componentDidMount() {
         document.body.classList.remove("background");
+        this.getFilmIsPlaying();
     }
 
-    toDetail = () => {
-        this.setState({
-            detail: true
+    getFilmIsPlaying = () => {
+        const alert = document.getElementById("alert");
+
+        fetch('http://localhost:8080/bioskop/film/playing/', {
+            method: "get",
+            headers: {
+                 "Content-Type": "application/json; ; charset=utf-8",
+                 "Access-Control-Allow-Headers": "Authorization, Content-Type",
+                 "Access-Control-Allow-Origin": "*"
+            }
+        })
+        .then(response => response.json())
+        .then(json => {
+            this.setState({ data: json })
+        })
+        .catch((e) => {
+            this.setState({alert: "Gagal mengambil data! ", e});
+            alert.style.display = "block";
         });
     }
 
-    render() { 
-        if(this.state.detail === true) {
-            return <Redirect to="/customer/detail" />
-        }
+    getImage = title => {
+        let imageObject;
 
+        imageObject = film.find(value => {
+            return value.title === title;
+        });
+
+        return imageObject.image;
+    }
+
+    render() { 
         return ( 
             <React.Fragment>
                 <Navigation />
-                <div class="pelanggan">
-                    <div class="movie">
-                        <img src={film[0].image} alt="demon-slayer-the-movie-mugen-train-kimetsu-no-yaiba-mugen" class="image" />
-                        <div class="middle">
-                            <input type="button" class="button" value="Lihat" onClick={this.toDetail} />
-                        </div>
-                    </div>
-                    <div class="movie">
-                        <img src={film[1].image} alt="dreambuilders-drammebyggerne-2020" class="image" />
-                        <div class="middle">
-                            <input type="button" class="button" value="Lihat" onClick={this.toDetail} />
-                        </div>
-                    </div>
-                    <div class="movie">
-                        <img src={film[2].image} alt="legend-of-deification-jiang-ziya-2020" class="image" />
-                        <div class="middle">
-                            <input type="button" class="button" value="Lihat" />
-                        </div>
-                    </div>
-                    <div class="movie">
-                        <img src={film[3].image} alt="norm-of-the-north-family-vacation-2020" class="image" />
-                        <div class="middle">
-                            <input type="button" class="button" value="Lihat" />
-                        </div>
-                    </div>
-                    <div class="movie">
-                        <img src={film[4].image} alt="onward-2020" class="image" />
-                        <div class="middle">
-                            <input type="button" class="button" value="Lihat" />
-                        </div>
-                    </div>
-                    <div class="movie">
-                        <img src={film[5].image} alt="scooby-doo-the-sword-and-the-scoob-2021" class="image" />
-                        <div class="middle">
-                            <input type="button" class="button" value="Lihat" />
-                        </div>
-                    </div>
-                    <div class="movie">
-                        <img src={film[6].image} alt="soul-2020" class="image" />
-                        <div class="middle">
-                            <input type="button" class="button" value="Lihat" />
-                        </div>
-                    </div>
-                    <div class="movie">
-                        <img src={film[7].image} alt="the-croods-a-new-age-2020" class="image" />
-                        <div class="middle">
-                            <input type="button" class="button" value="Lihat" />
-                        </div>
-                    </div>
-                    <div class="movie">
-                        <img src={film[8].image} alt="the-lego-star-wars-holiday-special-2020" class="image" />
-                        <div class="middle">
-                            <input type="button" class="button" value="Lihat" />
-                        </div>
-                    </div>
-                    <div class="movie">
-                        <img src={film[9].image} alt="tom-and-jerry-2021" class="image" />
-                        <div class="middle">
-                            <input type="button" class="button" value="Lihat" />
-                        </div>
-                    </div>
-                    <div class="movie">
-                        <img src={film[10].image} alt="xicos-journey-el-camino-de-xico-2020" class="image" />
-                        <div class="middle">
-                            <input type="button" class="button" value="Lihat" />
-                        </div>
-                    </div>
-                    <div class="movie">
-                        <img src={film[11].image} alt="batman-soul-of-the-dragon-2021" class="image" />
-                        <div class="middle">
-                            <input type="button" class="button" value="Lihat" />
-                        </div>
-                    </div>
-                    <div class="halaman">
-                        <div class="pagination">
+                <Div class="pelanggan">
+                    {
+                        this.state.data.map((value, index) => {
+                            return(
+                                <Div class="movie" key={index}>
+                                    <img src={this.getImage(value.judul)} alt={value.judul} class="image" />
+                                    <Div class="middle">
+                                        <Link to={"/customer/detail/" + value.id} className="button">Lihat</Link>
+                                    </Div>
+                                </Div>
+                            )
+                        })
+                    }
+                    
+                    <Div class="halaman">
+                        <Div class="pagination">
                             <a href="/#">&laquo;</a>
                             <a href="/#">1</a>
                             <a class="active" href="/#">2</a>
@@ -114,9 +80,9 @@ class Dashboard extends Component {
                             <a href="/#">5</a>
                             <a href="/#">6</a>
                             <a href="/#">&raquo;</a>
-                        </div>
-                    </div>
-                </div>
+                        </Div>
+                    </Div>
+                </Div>
             </React.Fragment>
          );
     }
