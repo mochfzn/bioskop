@@ -61,7 +61,7 @@ class Dashboard extends Component {
                         this.state.data.map((value, index) => {
                             return(
                                 <Div class="movie" key={index}>
-                                    <img src={this.getImage(value.judul)} alt={value.judul} class="image" />
+                                    <img src={this.getImage(value.judul)} alt={value.judul} className="image" />
                                     <Div class="middle">
                                         <Link to={"/customer/detail/" + value.id} className="button">Lihat</Link>
                                     </Div>
@@ -74,7 +74,7 @@ class Dashboard extends Component {
                         <Div class="pagination">
                             <a href="/#">&laquo;</a>
                             <a href="/#">1</a>
-                            <a class="active" href="/#">2</a>
+                            <a className="active" href="/#">2</a>
                             <a href="/#">3</a>
                             <a href="/#">4</a>
                             <a href="/#">5</a>

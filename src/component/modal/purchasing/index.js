@@ -1,71 +1,170 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
+
 import './style.css';
+import Seat from './seat';
+import Table from './table';
+import { Div } from '../../index';
 
 class Purchasing extends Component {
     constructor(props) {
         super(props);
-        this.state = {  }
+        this.state = { 
+            // Data
+            total: "",
+            purchasingBySchedule: [],
+            restSeats: "",
+
+            // Navigation
+            toRegular: false,
+            toVip: false,
+            order: false,
+
+            // Alert
+            alert: ""
+         }
     }
+
+    close = () => {
+        const modal = document.getElementById("modal");
+        modal.style.display = "none";
+
+        this.setState({order: false});
+        this.props.setSchedule({});
+        this.props.setSeat("");
+    }
+
+    saveSchedule = schedule => {
+        this.props.setSchedule(schedule);
+        this.getPurchasing();
+    }
+
+    backToSchedule = () => {
+        this.props.setSchedule({});
+        this.props.setSeat("");
+
+        this.setState({
+            order: false
+        });
+    }
+
+    onClickSaveSeat = () => {
+
+        if(this.validation() === true)
+        {
+            if(this.props.schedule.ruang.jenis === 1)
+            {
+                this.setState({
+                    toRegular: true
+                });
+            }
+            else if(this.props.schedule.ruang.jenis === 2)
+            {
+                this.setState({
+                    toVip: true
+                });
+            }
+    
+            const modal = document.getElementById("modal");
+            modal.style.display = "none";
+        }
+    }
+
+    onChangeSeatAmount = event => {
+        let amount = event.target.value;
+        let total = amount * this.props.schedule.ruang.harga;
+
+        this.props.setSeat(amount);
+        this.setState({
+            total: total
+        });
+
+        const totalDom = document.getElementById("total")
+        totalDom.style.display = "block";
+    }
+
+    validation = () => {
+        const alert = document.getElementById("notification");
+
+        if(this.props.seatAmount === "")
+        {
+            alert.style.display = "block";
+            return false;
+        }
+
+        return true;
+    }
+
+    getPurchasing = () => {
+        //const alert = document.getElementById("alert");
+
+        fetch('http://localhost:8080/bioskop/pembelian/jadwal/' + this.props.schedule.id, {
+            method: "get",
+            headers: {
+                "Content-Type": "application/json; ; charset=utf-8",
+                "Access-Control-Allow-Headers": "Authorization, Content-Type",
+                "Access-Control-Allow-Origin": "*"
+            }
+        })
+        .then(response => response.json())
+        .then(json => {
+            if(typeof json.errorMessage !== 'undefined')
+            {
+                this.setState({alert: json.errorMessage});
+                alert.style.display = "block";
+            }
+            else
+            {
+                this.setState({
+                    purchasingBySchedule: json
+                });
+            }
+        })
+        .then(() => {
+            //console.log(this.state.purchasingBySchedule);
+
+            this.state.purchasingBySchedule.forEach(value => {
+                console.log(value.tempatDuduk[0].posisi);
+            });
+        })
+        .then(() => {
+            this.setState({
+                order: true
+            });
+        })
+        .catch((e) => {
+            //this.setState({alert: "Gagal mengirimkan data! " + e});
+            //alert.style.display = "block";
+
+            console.log(e);
+        });
+    }
+
     render() { 
+        let modal;
+
+        if(this.state.toRegular === true)
+        {
+            return <Redirect to="/customer/bench/regular" />
+        }
+        else if(this.state.toVip === true)
+        {
+            return <Redirect to="/customer/bench/vip" />
+        }
+
+        if(this.state.order !== false)
+        {
+            modal = <Seat close={this.close} seatAmount={this.props.seatAmount} onChangeSeatAmount={this.onChangeSeatAmount} total={this.state.total} onClickSaveSeat={this.onClickSaveSeat} backToSchedule={this.backToSchedule} purchasing={this.state.purchasingBySchedule} />;
+        }
+        else 
+        {
+            modal = <Table close={this.close} saveSchedule={this.saveSchedule} schedules={this.props.schedules} />;
+        }
+
         return ( 
-            <div id="modal-pesan">
-                <div class="notification">
-                    <span>Masukkan nama pengguna!</span>
-                    <span>&times;</span>
-                </div>
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <span id="close" class="close">&times;</span>
-                        Beli Tiket
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <label>Waktu :</label>
-                            <select name="tanggal" class="select">
-                                <option>Tanggal</option>
-                                <option>05-03-2021</option>
-                                <option>06-03-2021</option>
-                                <option>07-03-2021</option>
-                            </select>
-                            <select name="jam" class="select">
-                                <option>Jam</option>
-                                <option>10:00</option>
-                                <option>12:00</option>
-                                <option>19:00</option>
-                            </select>
-                        </div>
-                        <div class="row">
-                            <label>Tipe Ruangan :</label>
-                            <div class="radio-group">
-                                <input type="radio" id="regular" name="gender" class="radio" value="regular" /><label for="regular">Regular</label>
-                                <input type="radio" id="vip" name="gender" class="radio" value="vip" /><label for="vip">VIP</label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <label>Harga :</label>
-                            <label>Rp. 50.000,-</label>
-                        </div>
-                        <div class="row">
-                            <label>Jumlah Kursi :</label>
-                            <select name="kursi" class="select">
-                                <option>Jumlah Kursi</option>
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
-                            </select>
-                        </div>
-                        <div class="total">
-                            <label class="judul">Total</label>
-                            <div class="jumlah">Rp. 79.000,-</div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <input type="button" id="simpan" name="tombol" class="button" value="Simpan" />
-                    </div>
-                </div>
-            </div>
+            <Div id="modal" class="modal">
+                {modal}
+            </Div>
          );
     }
 }

@@ -17,7 +17,6 @@ class Confirm extends Component {
     render() { 
         return ( 
             <Div id="confirm" class="confirm">
-                {/* <span class="close" title="Close Modal">&times;</span> */}
                 <Div class="modal-content">
                     <Div class="container">
                         <h1>{this.props.title}</h1>

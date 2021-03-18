@@ -1,9 +1,28 @@
 .container > .detail-film {
-    padding-top: 30px;
+    padding-top: 20px;
     padding-left: 50px;
     padding-right: 50px;
     padding-bottom: 30px;
     color: #F7F6F3;
+}
+
+.container > .detail-film > .kembali {
+    display: block;
+    margin-bottom: 20px;
+}
+
+.container > .detail-film > .kembali > .button {
+    background-color: #F7F6F3;
+    border-radius: 5px;
+    font-size: 13px;
+    text-decoration: none;
+    color: #1C7664;
+    padding: 6px 12px;
+    cursor: pointer;
+}
+
+.container > .detail-film > .gambar:before {
+    clear: both;
 }
 
 .container > .detail-film > .gambar {

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 import './style.css';
 import Navigation from '../navigation';
 import Gambar from '../../../images';
-import { Div, Label, Button, ModalSchedule, Alert } from '../../../component';
+import { Div, Label, Button, Alert, ModalPurchasing } from '../../../component';
 
 class Detail extends Component {
     constructor(props) {
@@ -157,7 +157,11 @@ class Detail extends Component {
             <React.Fragment>
                 <Navigation />
                 <Alert>{this.state.alert}</Alert>
+                
                 <Div class="detail-film">
+                    <Div class="kembali">
+                        <Link to="/customer" className="button"><i className="fas fa-arrow-left"></i> Kembali</Link>
+                    </Div>
                     <Div class="gambar">
                         <img src={this.state.image} alt={judul} className="image" />
                         <Button id="button-pesan" class="button" value="Lihat Jadwal" onClick={this.showSchedules} />
@@ -169,13 +173,13 @@ class Detail extends Component {
                     <Div class="keterangan">
                         <Div class="kiri">
                             <Div class="field">
-                                <i class="far fa-clock"></i> <Label>{durasi}</Label>
+                                <i className="far fa-clock"></i> <Label>{durasi}</Label>
                             </Div>
                             <Div class="field">
-                                <i class="fas fa-language"></i> <Label>{bahasa}</Label>
+                                <i className="fas fa-language"></i> <Label>{bahasa}</Label>
                             </Div>
                             <Div class="field">
-                                <i class="fa fa-comments"></i> <Label>{judulTambahan}</Label>
+                                <i className="fa fa-comments"></i> <Label>{judulTambahan}</Label>
                             </Div>
                         </Div>
                         <Div class="kanan">
@@ -198,36 +202,7 @@ class Detail extends Component {
                         
                     </Div>
                 </Div>
-                <ModalSchedule>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Tanggal</th>
-                                <th>Jam</th>
-                                <th>Tipe Ruangan</th>
-                                <th>Harga</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {
-                                this.state.schedules.map((value, index) => {
-                                    return (
-                                        <tr key={index}>
-                                            <td>{value.tanggal}</td>
-                                            <td>{value.jam.substring(0,5)}</td>
-                                            <td>{(value.ruang.jenis === 1) ? "Regular" : "VIP"}</td>
-                                            <td className="right">{"Rp. " + value.ruang.harga.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".")}</td>
-                                            <td className="center">
-                                                <input type="button" class="button" value="Pesan" />
-                                            </td>
-                                        </tr>
-                                    )
-                                })
-                            }
-                        </tbody>
-                    </table>
-                </ModalSchedule>
+                <ModalPurchasing schedules={this.state.schedules} schedule={this.props.schedule} seatAmount={this.props.seatAmount} setSchedule={this.props.setSchedule} setSeat={this.props.setSeat} />
             </React.Fragment>
          );
     }

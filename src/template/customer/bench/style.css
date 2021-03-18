@@ -39,6 +39,21 @@
     background-color: #D9E4E7;
     border: 2px solid #99B7B8;
     float: left;
+    cursor: pointer;
+}
+
+.container > .kursi > .denah > .kiri > .biru {
+    background-color: lightcyan;
+    border: 2px solid skyblue;
+}
+
+.container > .kursi > .denah > .kiri > .merah {
+    border: 2px solid salmon;
+    background-color: lightsalmon;
+}
+
+.container > .kursi > .denah > .kiri > .blocked {
+    cursor: not-allowed;
 }
 
 .container > .kursi > .denah > .kanan > .button {
@@ -48,6 +63,21 @@
     background-color: #D9E4E7;
     border: 2px solid #99B7B8;
     float: left;
+    cursor: pointer;
+}
+
+.container > .kursi > .denah > .kanan > .biru {
+    background-color: lightcyan;
+    border: 2px solid skyblue;
+}
+
+.container > .kursi > .denah > .kanan > .merah {
+    border: 2px solid salmon;
+    background-color: lightsalmon;
+}
+
+.container > .kursi > .denah > .kanan > .blocked {
+    cursor: not-allowed;
 }
 
 .container > .kursi > .denah > .layar {
@@ -119,7 +149,7 @@
 }
 
 .container > .kursi > .denah > .keterangan > .hitung {
-    width: 130px;
+    width: 150px;
     display: block;
     text-align: right;
     margin-bottom: 5px;
@@ -127,21 +157,23 @@
 }
 
 .container > .kursi > .denah > .tombol > .button-batal {
-    width: 61px;
-    height: 28px;
+    /* width: 61px;
+    height: 28px; */
     border: 2px solid #99B7B8;
     background-color: #D9E4E7;
     border-radius: 5px;
+    padding: 5px 6px;
     margin-left: 5px;
     float: right;
 }
 
 .container > .kursi > .denah > .tombol > .button-simpan {
-    width: 61px;
-    height: 28px;
+    /* width: 61px;
+    height: 28px; */
     border: 2px solid #99B7B8;
     background-color: #D9E4E7;
     border-radius: 5px;
+    padding: 5px 6px;
     margin-left: 5px;
     float: right;
 }
@@ -164,6 +196,20 @@
     margin: 5px;
     background-color: #D9E4E7;
     border: 2px solid #99B7B8;
+}
+
+.container > .kursi > .denah > .atas > .col > .biru {
+    background-color: lightcyan;
+    border: 2px solid skyblue;
+}
+
+.container > .kursi > .denah > .atas > .col > .merah {
+    border: 2px solid salmon;
+    background-color: lightsalmon;
+}
+
+.container > .kursi > .denah > .atas > .col > .blocked {
+    cursor: not-allowed;
 }
 
 .container > .kursi > .denah > .bawah {
@@ -192,6 +238,20 @@
     border: 2px solid #99B7B8;
 }
 
+.container > .kursi > .denah > .bawah > .col > .biru {
+    background-color: lightcyan;
+    border: 2px solid skyblue;
+}
+
+.container > .kursi > .denah > .bawah > .col > .merah {
+    border: 2px solid salmon;
+    background-color: lightsalmon;
+}
+
+.container > .kursi > .denah > .bawah > .col > .blocked {
+    cursor: not-allowed;
+}
+
 .container > .kursi > .denah > .bawah > .col:last-child > .button {
     width: 40px;
     height: 40px;
@@ -199,4 +259,18 @@
     background-color: #D9E4E7;
     border: 2px solid #99B7B8;
     float: right
+}
+
+.container > .kursi > .denah > .bawah > .col:last-child > .biru {
+    background-color: lightcyan;
+    border: 2px solid skyblue;
+}
+
+.container > .kursi > .denah > .bawah > .col:last-child > .merah {
+    border: 2px solid salmon;
+    background-color: lightsalmon;
+}
+
+.container > .kursi > .denah > .bawah > .col:last-child > .blocked {
+    cursor: not-allowed;
 }

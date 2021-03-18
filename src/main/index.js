@@ -18,13 +18,51 @@ class Main extends Component {
                 email: "",
                 username: "",
                 hakAkses: 1
-            }
-         }
+            },
+            schedule: {
+                id: "",
+                tanggal: "",
+                jam: "",
+                ruang: {
+                    id: "",
+                    nama: "",
+                    jenis: "",
+                    harga: ""
+                }, 
+                film: {
+                    id: "",
+                    judul: "",
+                    produser: "",
+                    direktur: "",
+                    sensor: "",
+                    bahasa: "",
+                    judulTambahan: "",
+                    durasi: "",
+                    genre: [],
+                    deskripsi: ""
+                }
+            },
+            purchasingBySchedule: [],
+            seatAmount: "",
+            setBenchChoice: []
+        }
     }
 
     setUser = user => {
         this.setState({
             user
+        });
+    }
+
+    setSchedule = schedule => {
+        this.setState({
+            schedule
+        });
+    }
+
+    setSeat = amount => {
+        this.setState({
+            seatAmount: amount
         });
     }
 
@@ -42,16 +80,16 @@ class Main extends Component {
                         <Review user={this.state.user} />
                     </Route>
                     <Route path="/customer/detail/:id">
-                        <Detail />
+                        <Detail schedule={this.state.schedule} seatAmount={this.state.seatAmount} setSchedule={this.setSchedule} setSeat={this.setSeat} />
                     </Route>
                     <Route path="/customer/history">
                         <History />
                     </Route>
                     <Route path="/customer/bench/vip">
-                        <Vip />
+                        <Vip seatAmount={this.state.seatAmount} schedule={this.state.schedule} user={this.state.user} />
                     </Route>
                     <Route path="/customer/bench/regular">
-                        <Regular />
+                        <Regular seatAmount={this.state.seatAmount} schedule={this.state.schedule} user={this.state.user} />
                     </Route>
                     <Route path="/customer">
                         <DashboardCustomer />

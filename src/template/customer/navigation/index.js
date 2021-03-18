@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 import './style.css';
 import logo from '../../../images/cinema-4d.png';
+import { Div } from '../../../component';
 
 class Pelanggan extends Component {
     constructor(props) {
@@ -11,18 +12,18 @@ class Pelanggan extends Component {
     }
     render() { 
         return ( 
-            <div class="navigation">
+            <Div class="navigation">
                 <img src={logo} alt="logo" width="32px" />
                 
-                <div class="profil">
-                    <i class="fa fa-user-circle"></i>
-                    <div class="profilbtn">
+                <Div class="profil">
+                    <i className="fa fa-user-circle"></i>
+                    <Div class="profilbtn">
                         <Link to="/profil">Profil</Link>
                         <Link to="/customer/history">Riwayat</Link>
                         <Link to="/">Keluar</Link>
-                    </div>
-                </div>
-            </div>
+                    </Div>
+                </Div>
+            </Div>
          );
     }
 }
