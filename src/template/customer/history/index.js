@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+
 import './style.css';
 import Navigation from '../navigation';
 import Table from '../../../component/table';
@@ -14,6 +17,15 @@ class History extends Component {
     }
     
     render() { 
+        if(this.props.login === false)
+        {
+            return <Redirect to="/" />
+        }
+        else if(this.props.role === 0)
+        {
+            return <Redirect to="/admin" />
+        }
+        
         return ( 
             <React.Fragment>
                 <Navigation />
@@ -23,5 +35,13 @@ class History extends Component {
          );
     }
 }
+
+const mapStateToProps = state => {
+    return {
+        login: state.login,
+        role: state.role,
+        idUser: state.user
+    }
+}
  
-export default History;
+export default connect(mapStateToProps)(History);

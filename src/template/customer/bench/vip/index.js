@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import '../style.css';
 import Navigation from '../../navigation';
@@ -32,6 +33,23 @@ class Vip extends Component {
             seatAmount: this.props.seatAmount,
             pesan: pesan
         });
+
+        this.determineBenchBooked();
+    }
+
+    determineBenchBooked = () => {
+        let buttons = document.getElementsByClassName("button");
+
+        for(let button of buttons)
+        {
+            this.props.benchChoice.forEach(value => {
+                if(value === button.value)
+                {
+                    button.classList.add("merah");
+                    button.classList.add("blocked");
+                }
+            })
+        }
     }
 
     onClickSeatChosen = event => {
@@ -91,6 +109,7 @@ class Vip extends Component {
         if(this.state.seatAmount !== 0)
         {
             const alert = document.getElementById("alert");
+            this.setState({ alert: "Silahkan pilih kursi sebelum simpan." });
             alert.style.display = "block";
         }
         else
@@ -108,6 +127,7 @@ class Vip extends Component {
 
     addNotAllowedButton = () => {
         let buttons = document.getElementsByClassName("button");
+
         for(let button of buttons)
         {
             if(button.classList.contains("biru") === false)
@@ -153,7 +173,6 @@ class Vip extends Component {
             purchasing: purchasingNew
         });
 
-        console.log(this.state.purchasing);
         this.save();
     }
 
@@ -179,6 +198,7 @@ class Vip extends Component {
             else
             {
                 this.setState({
+                    purchasing: {},
                     finish: true
                 });
             }
@@ -190,6 +210,15 @@ class Vip extends Component {
     }
     
     render() { 
+        if(this.props.login === false)
+        {
+            return <Redirect to="/" />
+        }
+        else if(this.props.role === 0)
+        {
+            return <Redirect to="/admin" />
+        }
+        
         if(this.state.back === true)
         {
             return <Redirect to={"/customer/detail/" + this.props.schedule.film.id} />
@@ -202,7 +231,7 @@ class Vip extends Component {
         return ( 
             <React.Fragment>
                 <Navigation />
-                <Alert>{"Silahkan pilih kursi sebelum simpan."}</Alert>
+                <Alert>{this.state.alert}</Alert>
                 <Div class="kursi">
                     <Div class="judul">Denah</Div>
                     <Div class="denah">
@@ -251,5 +280,13 @@ class Vip extends Component {
          );
     }
 }
+
+const mapStateToProps = state => {
+    return {
+        login: state.login,
+        role: state.role,
+        idUser: state.user
+    }
+}
  
-export default Vip;
+export default connect(mapStateToProps)(Vip);

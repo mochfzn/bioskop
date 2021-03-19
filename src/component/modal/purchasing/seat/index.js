@@ -6,10 +6,24 @@ import { Div, Button, Label, Select, Option } from '../../../index';
 class Seat extends Component {
     constructor(props) {
         super(props);
-        this.state = { }
+        this.state = {
+            restSeats: []
+         }
+    }
+
+    componentDidMount() {
+        this.setState({
+            restSeats: this.props.restSeats
+        });
     }
 
     render() { 
+        let option = [];
+        for(let i = 1; i <= this.state.restSeats; i++)
+        {
+            option.push(<Option key={i} value={i}>{i} Kursi</Option>); 
+        }
+
         return ( 
             <Div id="seat" class="modal-content">
                 <Div class="modal-header">
@@ -21,11 +35,11 @@ class Seat extends Component {
                         <Label>Jumlah Kursi :</Label>
                         <Select name="kursi" class="select" value={this.props.seatAmount} onChange={this.props.onChangeSeatAmount}>
                             <Option value="" disabled="disabled">Jumlah Kursi</Option>
-                            <Option value="1">1 Kursi</Option>
-                            <Option value="2">2 Kursi</Option>
-                            <Option value="3">3 Kursi</Option>
-                            <Option value="4">4 Kursi</Option>
-                            <Option value="5">5 Kursi</Option>
+                            {
+                                option.map(value => {
+                                    return value;
+                                })
+                            }
                         </Select>
                         <span id="notification">Jumlah kursi tidak boleh kosong!</span>
                     </Div>

@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+
 import Navigation from '../navigation';
 
 class Laporan extends Component {
@@ -12,6 +15,15 @@ class Laporan extends Component {
     }
     
     render() { 
+        if(this.props.login === false)
+        {
+            return <Redirect to="/" />
+        }
+        else if(this.props.role === 1)
+        {
+            return <Redirect to="/customer" />
+        }
+        
         return ( 
             <React.Fragment>
                 <Navigation />
@@ -19,5 +31,13 @@ class Laporan extends Component {
          );
     }
 }
+
+const mapStateToProps = state => {
+    return {
+        login: state.login,
+        role: state.role,
+        idUser: state.user
+    }
+}
  
-export default Laporan;
+export default connect(mapStateToProps)(Laporan);

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, withRouter, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import './style.css';
 import Navigation from '../navigation';
@@ -153,6 +154,15 @@ class Detail extends Component {
     render() { 
         const { judul, produser, direktur, bahasa, judulTambahan, durasi, deskripsi } = this.state.film;
 
+        if(this.props.login === false)
+        {
+            return <Redirect to="/" />
+        }
+        else if(this.props.role === 0)
+        {
+            return <Redirect to="/admin" />
+        }
+        
         return ( 
             <React.Fragment>
                 <Navigation />
@@ -202,10 +212,19 @@ class Detail extends Component {
                         
                     </Div>
                 </Div>
-                <ModalPurchasing schedules={this.state.schedules} schedule={this.props.schedule} seatAmount={this.props.seatAmount} setSchedule={this.props.setSchedule} setSeat={this.props.setSeat} />
+                <ModalPurchasing schedules={this.state.schedules} schedule={this.props.schedule} seatAmount={this.props.seatAmount} 
+                        setSchedule={this.props.setSchedule} setSeat={this.props.setSeat} setBenchChoice={this.props.setBenchChoice} />
             </React.Fragment>
          );
     }
 }
+
+const mapStateToProps = state => {
+    return {
+        login: state.login,
+        role: state.role,
+        idUser: state.user
+    }
+}
  
-export default withRouter(Detail);
+export default connect(mapStateToProps)(withRouter(Detail));

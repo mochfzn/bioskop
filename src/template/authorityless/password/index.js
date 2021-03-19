@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import {Alert, Div, Button, Label} from '../../../component';
 import './style.css';
@@ -9,6 +10,7 @@ class Password extends Component {
         super(props);
         this.state = { 
             user: {
+                id: "",
                 nama: "",
                 alamat: "",
                 telepon: "",
@@ -28,6 +30,7 @@ class Password extends Component {
         document.body.classList.add("background");
         this.setState({
             user: {
+                id: this.props.user.id,
                 nama: this.props.user.nama,
                 alamat: this.props.user.alamat,
                 telepon: this.props.user.telepon,
@@ -63,6 +66,9 @@ class Password extends Component {
             .then(json => {
                 if(json.successMessage === "true")
                 {
+                    console.log(this.state.user.id);
+                    this.props.changeReduxPersist(this.state.user.hakAkses, this.state.user.id);
+
                     if(this.state.user.hakAkses === 1)
                     {
                         this.setState({
@@ -145,5 +151,17 @@ class Password extends Component {
          );
     }
 }
+
+const mapStateToProps = state => {
+    return {
+        login: state.login,
+        role: state.role,
+        idUser: state.user
+    }
+}
+
+const mapDispatchToProps = dispatch => ({
+    changeReduxPersist: (role, idUser) => dispatch({ type: "login", role: role, idUser: idUser })
+})
  
-export default Password;
+export default connect(mapStateToProps, mapDispatchToProps)(Password);

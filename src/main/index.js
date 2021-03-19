@@ -12,6 +12,7 @@ class Main extends Component {
         super(props);
         this.state = { 
             user: {
+                id: "",
                 nama: "",
                 alamat: "",
                 telepon: "",
@@ -44,7 +45,7 @@ class Main extends Component {
             },
             purchasingBySchedule: [],
             seatAmount: "",
-            setBenchChoice: []
+            benchChoice: []
         }
     }
 
@@ -66,6 +67,12 @@ class Main extends Component {
         });
     }
 
+    setBenchChoice = array => {
+        this.setState({
+            benchChoice: array
+        });
+    }
+
     render() { 
         return ( 
             <div className="container">
@@ -80,16 +87,16 @@ class Main extends Component {
                         <Review user={this.state.user} />
                     </Route>
                     <Route path="/customer/detail/:id">
-                        <Detail schedule={this.state.schedule} seatAmount={this.state.seatAmount} setSchedule={this.setSchedule} setSeat={this.setSeat} />
+                        <Detail schedule={this.state.schedule} seatAmount={this.state.seatAmount} setSchedule={this.setSchedule} setSeat={this.setSeat} setBenchChoice={this.setBenchChoice} />
                     </Route>
                     <Route path="/customer/history">
                         <History />
                     </Route>
                     <Route path="/customer/bench/vip">
-                        <Vip seatAmount={this.state.seatAmount} schedule={this.state.schedule} user={this.state.user} />
+                        <Vip seatAmount={this.state.seatAmount} schedule={this.state.schedule} user={this.state.user} benchChoice={this.state.benchChoice} />
                     </Route>
                     <Route path="/customer/bench/regular">
-                        <Regular seatAmount={this.state.seatAmount} schedule={this.state.schedule} user={this.state.user} />
+                        <Regular seatAmount={this.state.seatAmount} schedule={this.state.schedule} user={this.state.user} benchChoice={this.state.benchChoice} />
                     </Route>
                     <Route path="/customer">
                         <DashboardCustomer />

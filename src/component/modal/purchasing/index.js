@@ -11,8 +11,9 @@ class Purchasing extends Component {
         super(props);
         this.state = { 
             // Data
-            total: "",
             purchasingBySchedule: [],
+            total: "",
+            seatBooked: [],
             restSeats: "",
 
             // Navigation
@@ -36,7 +37,7 @@ class Purchasing extends Component {
 
     saveSchedule = schedule => {
         this.props.setSchedule(schedule);
-        this.getPurchasing();
+        this.getPurchasing(schedule);
     }
 
     backToSchedule = () => {
@@ -95,10 +96,10 @@ class Purchasing extends Component {
         return true;
     }
 
-    getPurchasing = () => {
+    getPurchasing = schedule => {
         //const alert = document.getElementById("alert");
 
-        fetch('http://localhost:8080/bioskop/pembelian/jadwal/' + this.props.schedule.id, {
+        fetch('http://localhost:8080/bioskop/pembelian/jadwal/' + schedule.id, {
             method: "get",
             headers: {
                 "Content-Type": "application/json; ; charset=utf-8",
@@ -121,15 +122,28 @@ class Purchasing extends Component {
             }
         })
         .then(() => {
-            //console.log(this.state.purchasingBySchedule);
-
             this.state.purchasingBySchedule.forEach(value => {
-                console.log(value.tempatDuduk[0].posisi);
+                value.tempatDuduk.forEach(value => {
+                    let seat = this.state.seatBooked;
+                    seat.push(value.posisi);
+                    
+                    this.setState({
+                        seatBooked: seat
+                    });
+                });
             });
+
+            this.props.setBenchChoice(this.state.seatBooked);
         })
         .then(() => {
+            this.countRestSeats();
+
             this.setState({
                 order: true
+            });
+
+            this.setState({
+                seatBooked: []
             });
         })
         .catch((e) => {
@@ -138,6 +152,30 @@ class Purchasing extends Component {
 
             console.log(e);
         });
+    }
+
+    countRestSeats = () => {
+        let totalRegular = 50;
+        let totalVip = 10;
+
+        if(this.props.schedule.ruang.jenis === 1)
+        {
+            let totalSeatBooked = this.state.seatBooked.length;
+            let rest = totalRegular - totalSeatBooked;
+
+            this.setState({
+                restSeats: rest
+            });
+        }
+        else if(this.props.schedule.ruang.jenis === 2)
+        {
+            let totalSeatBooked = this.state.seatBooked.length;
+            let rest = totalVip - totalSeatBooked;
+
+            this.setState({
+                restSeats: rest
+            });
+        }
     }
 
     render() { 
@@ -154,7 +192,9 @@ class Purchasing extends Component {
 
         if(this.state.order !== false)
         {
-            modal = <Seat close={this.close} seatAmount={this.props.seatAmount} onChangeSeatAmount={this.onChangeSeatAmount} total={this.state.total} onClickSaveSeat={this.onClickSaveSeat} backToSchedule={this.backToSchedule} purchasing={this.state.purchasingBySchedule} />;
+            modal = <Seat close={this.close} seatAmount={this.props.seatAmount} onChangeSeatAmount={this.onChangeSeatAmount} 
+                        total={this.state.total} onClickSaveSeat={this.onClickSaveSeat} backToSchedule={this.backToSchedule}
+                        purchasing={this.state.purchasingBySchedule} restSeats={this.state.restSeats} />;
         }
         else 
         {

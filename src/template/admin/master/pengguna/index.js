@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import './style.css';
 import { Table, Alert, Div, Text, Button, TableRow, TableData } from '../../../../component';
@@ -398,6 +400,15 @@ class Pengguna extends Component {
     render() { 
         const {nama, telepon, email, username, alamat} = this.state.user;
 
+        if(this.props.login === false)
+        {
+            return <Redirect to="/" />
+        }
+        else if(this.props.role === 1)
+        {
+            return <Redirect to="/customer" />
+        }
+        
         return ( 
             <React.Fragment>
                 <Navigation />
@@ -443,5 +454,14 @@ class Pengguna extends Component {
          );
     }
 }
+
+const mapStateToProps = state => {
+    return {
+        login: state.login,
+        role: state.role,
+        idUser: state.user
+    }
+}
+
  
-export default Pengguna;
+export default connect(mapStateToProps)(Pengguna);

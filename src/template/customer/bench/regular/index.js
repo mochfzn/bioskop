@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import '../style.css';
 import Navigation from '../../navigation';
@@ -14,10 +15,11 @@ class Regular extends Component {
                 total: "",
                 jadwal: {},
                 pengguna: {},
-                posisi: []
+                tempatDuduk: []
             },
             seatAmount: "",
             pesan: "",
+            alert: "",
             back: false,
             finish: false
          }
@@ -31,6 +33,23 @@ class Regular extends Component {
             seatAmount: this.props.seatAmount,
             pesan: pesan
         });
+
+        this.determineBenchBooked();
+    }
+
+    determineBenchBooked = () => {
+        let buttons = document.getElementsByClassName("button");
+
+        for(let button of buttons)
+        {
+            this.props.benchChoice.forEach(value => {
+                if(value === button.value)
+                {
+                    button.classList.add("merah");
+                    button.classList.add("blocked");
+                }
+            })
+        }
     }
 
     onClickSeatChosen = event => {
@@ -90,6 +109,7 @@ class Regular extends Component {
         if(this.state.seatAmount !== 0)
         {
             const alert = document.getElementById("alert");
+            this.setState({ alert: "Silahkan pilih kursi sebelum simpan." });
             alert.style.display = "block";
         }
         else
@@ -126,19 +146,96 @@ class Regular extends Component {
     }
 
     changeSaveConfirm = () => {
+        let buttonsSelected;
+        let purchasingNew;
+        let seatObject;
 
+        buttonsSelected = document.getElementsByClassName("biru");
+        purchasingNew = this.state.purchasing;
+
+        purchasingNew.jumlahTiket = this.props.seatAmount;
+        purchasingNew.jadwal = this.props.schedule;
+        purchasingNew.pengguna = this.props.user;
+
+        for(let button of buttonsSelected)
+        {
+            seatObject = {
+                posisi: button.value
+            };
+
+            purchasingNew.tempatDuduk.push(seatObject);
+        }
+
+        purchasingNew.total = this.props.seatAmount * this.props.schedule.ruang.harga;
+
+        this.setState({
+            purchasing: purchasingNew
+        });
+
+        this.save();
+    }
+
+    save = () => {
+        const alert = document.getElementById("alert");
+
+        fetch('http://localhost:8080/bioskop/pembelian/', {
+            method: "post",
+            headers: {
+                "Content-Type": "application/json; ; charset=utf-8",
+                "Access-Control-Allow-Headers": "Authorization, Content-Type",
+                "Access-Control-Allow-Origin": "*"
+            },
+            body: JSON.stringify(this.state.purchasing)
+        })
+        .then(response => response.json())
+        .then(json => {
+            if(typeof json.errorMessage !== 'undefined')
+            {
+                this.setState({alert: json.errorMessage});
+                alert.style.display = "block";
+            }
+            else
+            {
+                this.setState({
+                    purchasing: {},
+                    finish: true
+                });
+            }
+        })
+        .then(() => {
+            this.setState({
+                
+            })
+        })
+        .catch((e) => {
+            this.setState({alert: "Gagal mengirimkan data! " + e});
+            alert.style.display = "block";
+        });
     }
     
     render() {
+        if(this.props.login === false)
+        {
+            return <Redirect to="/" />
+        }
+        else if(this.props.role === 0)
+        {
+            return <Redirect to="/admin" />
+        }
+
         if(this.state.back === true)
         {
             return <Redirect to={"/customer/detail/" + this.props.schedule.film.id} />
+        }
+        else if(this.state.finish === true)
+        {
+            return <Redirect to="/customer" />
         }
 
         return ( 
             <React.Fragment>
                 <Navigation />
-                <Alert>{"Silahkan pilih kursi sebelum simpan."}</Alert>
+                <Alert>{this.state.alert}</Alert>
                 <Div class="kursi">
                     <Div class="judul">Denah</Div>
                     <Div class="denah">
@@ -220,10 +317,18 @@ class Regular extends Component {
                         </Div>
                     </Div>
                 </Div>
-                <Confirm title="Simpan Posisi Duduk!" question="Apakah Anda ingin menyimpan posisi tempat duduk yang dipilih?" />
+                <Confirm title="Simpan Posisi Duduk!" question="Apakah Anda ingin menyimpan posisi tempat duduk yang dipilih?" changeSaveConfirm={this.changeSaveConfirm} />
             </React.Fragment>
          );
     }
 }
+
+const mapStateToProps = state => {
+    return {
+        login: state.login,
+        role: state.role,
+        idUser: state.user
+    }
+}
  
-export default Regular;
+export default connect(mapStateToProps)(Regular);

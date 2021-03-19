@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import './style.css';
 import Navigation from '../../navigation';
@@ -492,6 +494,15 @@ class Film extends Component {
     render() { 
         const { judul, produser, direktur, sensor, bahasa, judulTambahan, durasi, genre, deskripsi } = this.state.film;
        
+        if(this.props.login === false)
+        {
+            return <Redirect to="/" />
+        }
+        else if(this.props.role === 1)
+        {
+            return <Redirect to="/customer" />
+        }
+        
         return ( 
             <React.Fragment>
                 <Navigation />
@@ -662,4 +673,12 @@ class Film extends Component {
     }
 }
  
-export default Film;
+const mapStateToProps = state => {
+    return {
+        login: state.login,
+        role: state.role,
+        idUser: state.user
+    }
+}
+
+export default connect(mapStateToProps)(Film);

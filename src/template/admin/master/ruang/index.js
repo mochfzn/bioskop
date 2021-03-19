@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import './style.css';
 import Navigation from '../../navigation';
@@ -322,6 +324,15 @@ class Ruang extends Component {
     render() { 
         const { nama, jenis, harga } = this.state.ruang;
 
+        if(this.props.login === false)
+        {
+            return <Redirect to="/" />
+        }
+        else if(this.props.role === 1)
+        {
+            return <Redirect to="/customer" />
+        }
+
         return ( 
             <React.Fragment>
                 <Navigation />
@@ -366,4 +377,12 @@ class Ruang extends Component {
     }
 }
  
-export default Ruang;
+const mapStateToProps = state => {
+    return {
+        login: state.login,
+        role: state.role,
+        idUser: state.user
+    }
+}
+
+export default connect(mapStateToProps)(Ruang);

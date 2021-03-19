@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import './style.css';
 import Navigation from '../../navigation';
@@ -376,6 +378,15 @@ class Jadwal extends Component {
         const { tanggal, ruang, film, jam } = this.state.jadwal;
         let incNumber = 1;
 
+        if(this.props.login === false)
+        {
+            return <Redirect to="/" />
+        }
+        else if(this.props.role === 1)
+        {
+            return <Redirect to="/customer" />
+        }
+
         return ( 
             <React.Fragment>
                 <Navigation />
@@ -467,4 +478,12 @@ class Jadwal extends Component {
     }
 }
 
-export default Jadwal;
+const mapStateToProps = state => {
+    return {
+        login: state.login,
+        role: state.role,
+        idUser: state.user
+    }
+}
+
+export default connect(mapStateToProps)(Jadwal);

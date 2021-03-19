@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import './style.css';
 import Navigation from '../navigation';
@@ -53,6 +54,15 @@ class Dashboard extends Component {
     }
 
     render() { 
+        if(this.props.login === false)
+        {
+            return <Redirect to="/" />
+        }
+        else if(this.props.role === 0)
+        {
+            return <Redirect to="/admin" />
+        }
+        
         return ( 
             <React.Fragment>
                 <Navigation />
@@ -87,5 +97,13 @@ class Dashboard extends Component {
          );
     }
 }
+
+const mapStateToProps = state => {
+    return {
+        login: state.login,
+        role: state.role,
+        idUser: state.user
+    }
+}
  
-export default Dashboard;
+export default connect(mapStateToProps)(Dashboard);

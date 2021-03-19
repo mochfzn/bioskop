@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import './style.css';
 import logo from '../../../images/cinema-4d.png';
@@ -10,6 +11,7 @@ class Login extends Component {
         super(props);
         this.state = { 
             user: {
+                id: "",
                 nama: "",
                 alamat: "",
                 telepon: "",
@@ -146,6 +148,15 @@ class Login extends Component {
     render() { 
         const { username } = this.state;
 
+        if(this.props.role === 0)
+        {
+            return <Redirect to="/admin" />
+        }
+        else if(this.props.role === 1)
+        {
+            return <Redirect to="/customer" />
+        }
+
         if(this.state.password === true)
         {
             return <Redirect to="/password" />
@@ -173,5 +184,13 @@ class Login extends Component {
          );
     }
 }
+
+const mapStateToProps = state => {
+    return {
+        login: state.login,
+        role: state.role,
+        idUser: state.user
+    }
+}
  
-export default Login;
+export default connect(mapStateToProps)(Login);
