@@ -363,8 +363,8 @@ class Ruang extends Component {
                                     <TableData>{value.id}</TableData>
                                     <TableData>{value.nama}</TableData>
                                     <TableData>{(value.jenis === 1) ? "Regular" : "VIP"}</TableData>
-                                    <TableData>{"Rp. " + value.harga.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".")}</TableData>
-                                    <TableData>
+                                    <TableData class="right">{"Rp. " + value.harga.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".")}</TableData>
+                                    <TableData class="center">
                                         <input type="button" id="update" name="update" class="button" value="Ubah" onClick={() => this.onClickUpdate(value)} />
                                     </TableData>
                                 </TableRow>

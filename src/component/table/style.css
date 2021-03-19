@@ -105,6 +105,31 @@
     border: 1px solid #537D7F;
 }
 
+.container .data .table tbody td.center {
+    text-align: center;
+}
+
+.container .data .table tbody td.right {
+    text-align: right;
+}
+
+.container .data .table tbody td:last-child .button {
+    border: 2px solid #99B7B8;
+    background-color: #D9E4E7;
+    border-radius: 5px;
+    padding: 3px 14px;
+    cursor: pointer;
+}
+
+.container .data .table tbody td:last-child .button:last-child {
+    border: 2px solid #99B7B8;
+    background-color: #D9E4E7;
+    border-radius: 5px;
+    padding: 3px 14px;
+    cursor: pointer;
+    margin-left: 5px;
+}
+
 .container .data .halaman {
     width: 1000px;
     height: 30px;

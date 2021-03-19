@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import  { Redirect } from 'react-router-dom';
+import  { Redirect, Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import './style.css';
 import AdminNavigation from '../../admin/navigation';
@@ -16,26 +17,35 @@ class Review extends Component {
                 email: "",
                 username: "",
                 hakAkses: ""
-            },
-            change: false,
-            password: false
+            }
          };
     }
 
     componentDidMount() {
         document.body.classList.remove("background");
-        this.setState({user: this.props.user});
+        this.getUserData();
     }
 
-    toPageChange = () => {
-        this.setState({
-            change: true
-        });
-    }
+    getUserData = () => {
+        //const alert = document.getElementById("alert");
 
-    toPagePassword = () => {
-        this.setState({
-            password: true
+        fetch('http://localhost:8080/bioskop/pengguna/id/' + this.props.idUser, {
+            method: "get",
+            headers: {
+                 "Content-Type": "application/json; ; charset=utf-8",
+                 "Access-Control-Allow-Headers": "Authorization, Content-Type",
+                 "Access-Control-Allow-Origin": "*"
+            }
+        })
+        .then(response => response.json())
+        .then(json => {
+            this.setState({user: json});
+        })
+        .catch((e) => {
+            //this.setState({alert: "Gagal mengambil data! ", e});
+            //alert.style.display = "block";
+
+            console.log("Error:", e);
         });
     }
 
@@ -43,20 +53,16 @@ class Review extends Component {
         const { nama, alamat, telepon, email, username } = this.state.user;
         let navigation;
 
-        if(this.state.change === true) 
+        if(this.props.login === false)
         {
-            return <Redirect to="/profil/change" />
-        } 
-        else if(this.state.password === true) 
-        {
-            return <Redirect to="/profil/password" />
+            return <Redirect to="/" />
         }
 
-        if(this.state.user.hakAkses === 0)
+        if(this.props.role === 0)
         {
             navigation = <AdminNavigation />;
         }
-        else if(this.state.user.hakAkses === 1)
+        else if(this.props.role === 1)
         {
             navigation = <CustomerNavigation />;
         }
@@ -87,13 +93,21 @@ class Review extends Component {
                         <input type="text" name="nama" class="input" value={username} placeholder="Nama Pengguna" disabled="disabled" />
                     </div>
                     <div class="tombol">
-                        <input type="button" class="button" value="Ubah Profil" onClick={this.toPageChange} />
-                        <input type="button" class="button" value="Ubah Kata Sandi" onClick={this.toPagePassword} />
+                        <Link to="/profil/change" className="link">Ubah Profil</Link>
+                        <Link to="/profil/password" className="link">Ubah Kata Sandi</Link>
                     </div>
                 </div>
             </React.Fragment>
          );
     }
 }
+
+const mapStateToProps = state => {
+    return {
+        login: state.login,
+        role: state.role,
+        idUser: state.user
+    }
+}
  
-export default Review;
+export default connect(mapStateToProps)(Review);

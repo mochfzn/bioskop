@@ -619,7 +619,7 @@ class Film extends Component {
                                     <TableData>{sensor}</TableData>
                                     <TableData>{value.bahasa}</TableData>
                                     <TableData>{value.durasi}</TableData>
-                                    <TableData>
+                                    <TableData class="center">
                                         <Button id="rincian" name="rincian" class="button" value="Rincian" onClick={() => this.onClickDetail(value)} />
                                         <Button id="update" name="update" class="button" value="Ubah" onClick={() => this.onClickUpdate(value)} />
                                     </TableData>

@@ -66,7 +66,6 @@ class Password extends Component {
             .then(json => {
                 if(json.successMessage === "true")
                 {
-                    console.log(this.state.user.id);
                     this.props.changeReduxPersist(this.state.user.hakAkses, this.state.user.id);
 
                     if(this.state.user.hakAkses === 1)

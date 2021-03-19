@@ -440,7 +440,7 @@ class Pengguna extends Component {
                                     <TableData>{value.username}</TableData>
                                     <TableData>{value.alamat}</TableData>
                                     <TableData>{(value.hakAkses === 1) ? "Pelanggan" : "Admin"}</TableData>
-                                    <TableData>
+                                    <TableData class="center">
                                         {
                                             (value.hakAkses === 1) ? <Button id="update" name="update" class="button" value="Ubah" onClick={() => this.onClickUpdate(value)} /> : ""
                                         }

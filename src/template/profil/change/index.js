@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import  { Redirect } from 'react-router-dom';
+import  { Redirect, Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import './style.css';
 import Alert from '../../../component/alert';
@@ -19,13 +20,34 @@ class Change extends Component {
                 hakAkses: ""
             }, 
             alert: "",
-            review: false
+            toReview: false
          }
     }
 
     componentDidMount() {
         document.body.classList.remove("background");
-        this.setState({user: this.props.user});
+        this.getUserData();
+    }
+
+    getUserData = () => {
+        const alert = document.getElementById("alert");
+
+        fetch('http://localhost:8080/bioskop/pengguna/id/' + this.props.idUser, {
+            method: "get",
+            headers: {
+                 "Content-Type": "application/json; ; charset=utf-8",
+                 "Access-Control-Allow-Headers": "Authorization, Content-Type",
+                 "Access-Control-Allow-Origin": "*"
+            }
+        })
+        .then(response => response.json())
+        .then(json => {
+            this.setState({user: json});
+        })
+        .catch((e) => {
+            this.setState({alert: "Gagal mengambil data! ", e});
+            alert.style.display = "block";
+        });
     }
 
     onChangeUser = el => {
@@ -75,10 +97,9 @@ class Change extends Component {
                 }
                 else
                 {
-                    this.setState({alert: "Pengguna " + this.state.user.nama + " berhasil diubah."});
-                    alert.style.display = "block";
-                    this.getAllData();
-                    this.reset();
+                    this.setState({
+                        toReview: true
+                    });
                 }
             })
             .catch((e) => {
@@ -163,26 +184,25 @@ class Change extends Component {
         return true;
     }
 
-    toReview = () => {
-        this.setState({
-            review: true
-        });
-    }
-
     render() { 
         const { nama, alamat, telepon, email, username } = this.state.user;
         let navigation;
 
-        if(this.state.review === true) 
+        if(this.props.login === false)
+        {
+            return <Redirect to="/" />
+        }
+
+        if(this.state.toReview === true)
         {
             return <Redirect to="/profil" />
         }
 
-        if(this.state.user.hakAkses === 0)
+        if(this.props.role === 0)
         {
             navigation = <AdminNavigation />;
         }
-        else if(this.state.user.hakAkses === 1)
+        else if(this.props.role === 1)
         {
             navigation = <CustomerNavigation />;
         }
@@ -214,13 +234,24 @@ class Change extends Component {
                         <input type="text" value={username} name="username" class="input" placeholder="Nama Pengguna" onChange={this.onChangeUser} />
                     </div>
                     <div class="tombol">
+                        {/* <Link to="/profil" className="link" onClick={this.onClickSubmit}>Simpan</Link> */}
                         <input type="button" class="button" value="Simpan" onClick={this.onClickSubmit} />
-                        <input type="button" class="button" value="Batal" onClick={this.toReview} />
+                        <Link to="/profil" className="link">Batal</Link>
+                        {/* <input type="button" class="button" value="Simpan" onClick={this.onClickSubmit} /> */}
+                        {/* <input type="button" class="button" value="Batal" onClick={this.toReview} /> */}
                     </div>
                 </div>
             </React.Fragment>
          );
     }
 }
+
+const mapStateToProps = state => {
+    return {
+        login: state.login,
+        role: state.role,
+        idUser: state.user
+    }
+}
  
-export default Change;
+export default connect(mapStateToProps)(Change);
