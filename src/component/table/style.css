@@ -55,6 +55,10 @@
     margin-right: 10px;
 }
 
+.container .data .pengaturan .input[type="date"] {
+    height: 26px;
+}
+
 .container .data .pengaturan .button {
     width: 50px;
     height: 30px;
@@ -94,7 +98,7 @@
 }
 
 .container .data .table tbody tr:hover {
-    background-color: #99B7B8;
+    background-color: #D9E4E7;
 }
 
 .container .data .table tbody tr:nth-child(even) {

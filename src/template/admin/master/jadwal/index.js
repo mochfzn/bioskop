@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import './style.css';
 import Navigation from '../../navigation';
-import { Table, Alert, Div, TableRow, TableData, Text, Select, Option, Button, Confirm } from '../../../../component';
+import { Table, Alert, Div, TableRow, TableData, Select, Option, Button, Confirm, Tanggal } from '../../../../component';
 
 class Jadwal extends Component {
     constructor(props) {
@@ -37,7 +37,8 @@ class Jadwal extends Component {
             ruang: [],
             film: [],
             alert: "",
-            search: ""
+            search: "",
+            showButtonSearch: false
          }
         this.tableHeader = ["No", "Tanggal", "Ruang", "Harga", "Film", "Jam"];
         this.searchOption = ["Tanggal", "Ruang", "Film"];
@@ -160,13 +161,19 @@ class Jadwal extends Component {
         {
             this.setState({showButtonSearch: false});
         }
+
+        if(this.valueSelect === "")
+        {
+            this.setState({search: ""});
+            this.getAllData();
+        }
     }
 
     onChangeSearchText = el => {
         const value = el.target.value;
         this.setState({search: value});
 
-        if((this.valueSelect === "") || (value === ""))
+        if(value === "")
         {
             this.getAllData();
         }
@@ -195,7 +202,19 @@ class Jadwal extends Component {
             this.setState({search: "&nbsp;"});
         }
 
-        fetch('http://localhost:8080/bioskop/jadwal/tanggal/' + this.state.search, {
+        let tanggal = new Date(this.state.search);
+        let hari = tanggal.getDate();
+        let bulan = tanggal.getMonth() + 1;
+        let tahun = tanggal.getFullYear();
+
+        if(bulan < 10)
+            bulan = '0' + bulan.toString();
+        if(hari < 10)
+            hari = '0' + hari.toString();
+
+        let dateSearch = hari + "-" + bulan + "-" + tahun;
+
+        fetch('http://localhost:8080/bioskop/jadwal/tanggal/' + dateSearch, {
             method: "get",
             headers: {
                  "Content-Type": "application/json; ; charset=utf-8",
@@ -396,7 +415,7 @@ class Jadwal extends Component {
                         Master Jadwal
                     </Div>
                     <Div class="form">
-                        <Text name="nama" class="input" placeholder="Tanggal" value={tanggal} onChange={el => this.onChangeText(el, "tanggal")} />
+                        <Tanggal name="nama" class="input" id="tanggal" placeholder="Tanggal" value={tanggal} onChange={el => this.onChangeText(el, "tanggal")} min={"min"} />
                         <Select name="ruangan" class="select" value={ruang.id} onChange={el => this.onChangeText(el, "ruang")}>
                             <Option value="" disabled="disabled">Ruangan</Option>
                             {

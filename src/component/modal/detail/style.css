@@ -164,6 +164,11 @@
     font-size: 30px;
 }
 
+#modal-rincian > .modal-content > .modal-body > .rincian > hr {
+    border: 0;
+    border-top: 1px solid #AAAAAA;
+}
+
 #modal-rincian > .modal-content > .modal-body > .deskripsi {
     padding-top: 20px;
     clear: left;
@@ -185,6 +190,7 @@
     background-color: #D9E4E7;
     border-radius: 5px;
     float: right;
+    cursor: pointer;
 }
 
 #modal-rincian > .kosong {

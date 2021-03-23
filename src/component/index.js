@@ -11,5 +11,6 @@ import Table from "./table";
 import TableData from "./table-data";
 import TableRow from "./table-row";
 import Text from "./text";
+import Tanggal from "./tanggal";
 
-export { Alert, Button, Confirm, Div, Label, ModalDetail, ModalPurchasing, Option, Paragraph, Select, Table, TableData, TableRow, Text };
+export { Alert, Button, Confirm, Div, Label, ModalDetail, ModalPurchasing, Option, Paragraph, Select, Table, TableData, TableRow, Text, Tanggal };

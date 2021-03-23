@@ -7,7 +7,7 @@ class TableData extends Component {
     }
     render() { 
         return ( 
-            <td className={this.props.class}>{this.props.children}</td>
+            <td className={this.props.class} style={this.props.style}>{this.props.children}</td>
          );
     }
 }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import {Div, Label, Select, Option, Text, TableRow, Button} from '../index';
+import {Div, Label, Select, Option, Text, TableRow, Button, Tanggal} from '../index';
 import './style.css';
 
 class Table extends Component {
@@ -20,6 +20,23 @@ class Table extends Component {
     }
 
     render() { 
+        let date = 
+            <React.Fragment>
+                <Tanggal name="nama" class="input" id="tanggal-cari" placeholder="Tanggal" value={this.props.searchText} onChange={this.props.onChangeSearch} />
+                <Button id="cari" name="cari" class="button" value="Cari" onClick={this.props.onClickSearch} />
+            </React.Fragment>;
+        let text = <Text name="cari" class="input" placeholder="Cari" value={this.props.searchText} onChange={this.props.onChangeSearch} />;
+        let show;
+
+        if(this.props.showButton === true)
+        {
+            show = date;
+        }
+        else 
+        {
+            show = text;
+        }
+
         return ( 
             <Div class="data">
                 <Div class="pengaturan">
@@ -32,12 +49,7 @@ class Table extends Component {
                             })
                         }
                     </Select>
-                    <Text name="cari" class="input" placeholder="Cari" value={this.props.searchText} onChange={this.props.onChangeSearch} />
-                    {
-                        (this.props.showButton === true) ?
-                            <Button id="cari" name="cari" class="button" value="Cari" onClick={this.props.onClickSearch} />
-                        :   ""
-                    }
+                    {show}
                     <Select name="cari" class="select">
                         <Option>Jumlah Baris</Option>
                         <Option>5</Option>

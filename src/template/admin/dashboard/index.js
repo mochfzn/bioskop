@@ -9,11 +9,19 @@ import Navigation from '../navigation';
 class Dashboard extends Component {
     constructor(props) {
         super(props);
-        this.state = {  }
+        this.state = { 
+            navigation: ""
+         }
     }
 
     componentDidMount() {
         document.body.classList.remove("background");
+    }
+
+    onChangeNavigation = value => {
+        this.setState({
+            navigation: value
+        });
     }
 
     render() { 
@@ -24,6 +32,25 @@ class Dashboard extends Component {
         else if(this.props.role === 1)
         {
             return <Redirect to="/customer" />
+        }
+
+        switch(this.state.navigation)
+        {
+            case "pengguna":
+                return <Redirect to="/admin/master/pengguna" />
+            case "ruang":
+                return <Redirect to="/admin/master/ruang" />
+            case "film":
+                return <Redirect to="/admin/master/film" />
+            case "jadwal":
+                return <Redirect to="/admin/master/jadwal" />
+            case "profil":
+                return <Redirect to="/profil" />
+            case "keluar":
+                this.props.changeReduxPersist();
+                break;
+            default:
+                break;
         }
 
         return ( 
@@ -49,12 +76,12 @@ class Dashboard extends Component {
                         </Div>
                     </Div>
                     <Div class="tombol-utama">
-                        <Div class="tombol"><i class="fas fa-user-alt"></i></Div>
-                        <Div class="tombol"><i class="fas fa-home"></i></Div>
-                        <Div class="tombol"><i class="fas fa-film"></i></Div>
-                        <Div class="tombol"><i class="fas fa-calendar-alt"></i></Div>
-                        <Div class="tombol"><i class="fas fa-edit"></i></Div>
-                        <Div class="tombol"><i class="fas fa-sign-out-alt"></i></Div>
+                        <Div class="tombol" onClick={() => this.onChangeNavigation("pengguna")}><i class="fas fa-user-alt"></i></Div>
+                        <Div class="tombol" onClick={() => this.onChangeNavigation("ruang")}><i class="fas fa-home"></i></Div>
+                        <Div class="tombol" onClick={() => this.onChangeNavigation("film")}><i class="fas fa-film"></i></Div>
+                        <Div class="tombol" onClick={() => this.onChangeNavigation("jadwal")}><i class="fas fa-calendar-alt"></i></Div>
+                        <Div class="tombol" onClick={() => this.onChangeNavigation("profil")}><i class="fas fa-edit"></i></Div>
+                        <Div class="tombol" onClick={() => this.onChangeNavigation("keluar")}><i class="fas fa-sign-out-alt"></i></Div>
                     </Div>
                 </Div>
             </React.Fragment>
@@ -69,5 +96,9 @@ const mapStateToProps = state => {
         idUser: state.user
     }
 }
+
+const mapDispatchToProps = dispatch => ({
+    changeReduxPersist: () => dispatch({ type: "logout" })
+});
  
-export default connect(mapStateToProps)(Dashboard);
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

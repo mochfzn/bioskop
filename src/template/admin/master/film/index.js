@@ -150,7 +150,7 @@ class Film extends Component {
         // variable
         let image;
 
-        // alert
+        // modal
         const modal = document.getElementById("modal-rincian");
         modal.style.display = "block";
 
@@ -619,7 +619,7 @@ class Film extends Component {
                                     <TableData>{sensor}</TableData>
                                     <TableData>{value.bahasa}</TableData>
                                     <TableData>{value.durasi}</TableData>
-                                    <TableData class="center">
+                                    <TableData class="center" style={{width: "150px"}}>
                                         <Button id="rincian" name="rincian" class="button" value="Rincian" onClick={() => this.onClickDetail(value)} />
                                         <Button id="update" name="update" class="button" value="Ubah" onClick={() => this.onClickUpdate(value)} />
                                     </TableData>
