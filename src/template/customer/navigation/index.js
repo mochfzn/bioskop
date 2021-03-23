@@ -21,11 +21,13 @@ class Pelanggan extends Component {
             <Div class="navigation">
                 <img src={logo} alt="logo" width="32px" />
                 
+                <Link to="/customer" className="link">Utama</Link>
+                <Link to="/customer/history" className="link">Riwayat</Link>
+
                 <Div class="profil">
                     <i className="fa fa-user-circle"></i>
                     <Div class="profilbtn">
                         <Link to="/profil">Profil</Link>
-                        <Link to="/customer/history">Riwayat</Link>
                         <Link to="/" onClick={this.doLogout}>Keluar</Link>
                     </Div>
                 </Div>

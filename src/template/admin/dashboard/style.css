@@ -7,33 +7,14 @@
     padding: 20px;
 }
 
-.container .dashboard-admin .tanggal {
-    width: 260px;
-    height: 30px;
-    background-color: #1C7664;
-    color: #F7F6F3;
-    border-radius: 5px;
-    padding: 5px;
-    line-height: 30px;
-    font-size: 23px;
-    text-align: center;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-}
-
-.container .dashboard-admin .tanggal .logo {
-    width: 30px;
-    height: 30px;
-    background-color: #F7F6F3;
-    color: #537D7F;
-    font-size: 15px;
-    border-radius: 5px;
-    float: right;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    cursor: pointer;
-}
-
-.container .dashboard-admin .tanggal .logo:hover {
+.container .dashboard-admin .input {
+    width: 186px;
+    height: 31px;
+    border: 2px solid #99B7B8;
+    border-radius: 6px;
     background-color: #D9E4E7;
+    margin: 0 10px;
+    padding: 0 0 0 10px;
 }
 
 .container .dashboard-admin .counts {

@@ -3,25 +3,139 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import './style.css';
-import {Div} from '../../../component';
+import { Div, Tanggal, Alert } from '../../../component';
 import Navigation from '../navigation';
 
 class Dashboard extends Component {
     constructor(props) {
         super(props);
         this.state = { 
-            navigation: ""
+            countFilm: 0,
+            countTicket: 0,
+            income: 0,
+            date: "",
+            navigation: "",
+            alert: ""
          }
     }
 
     componentDidMount() {
         document.body.classList.remove("background");
+        this.init();
+    }
+
+    init = () => {
+        let date = new Date();
+        let hari = date.getDate();
+        let bulan = date.getMonth() + 1;
+        let tahun = date.getFullYear();
+
+        if(bulan < 10)
+            bulan = '0' + bulan.toString();
+        if(hari < 10)
+            hari = '0' + hari.toString();
+
+        let dateSearch = hari + "-" + bulan + "-" + tahun;
+        this.getFilmScheduled(dateSearch);
+        this.ticketSold(dateSearch);
+    }
+
+    getFilmScheduled = date => {
+        const alert = document.getElementById("alert");
+
+        fetch('http://localhost:8080/bioskop/jadwal/tanggal/' + date, {
+            method: "get",
+            headers: {
+                 "Content-Type": "application/json; ; charset=utf-8",
+                 "Access-Control-Allow-Headers": "Authorization, Content-Type",
+                 "Access-Control-Allow-Origin": "*"
+            }
+        })
+        .then(response => response.json())
+        .then(json => {
+            this.countFilm(json);
+        })
+        .catch((e) => {
+            this.setState({alert: "Gagal mengambil data! ", e});
+            alert.style.display = "block";
+        });
+    }
+
+    ticketSold = date => {
+        const alert = document.getElementById("alert");
+
+        fetch('http://localhost:8080/bioskop/pembelian/tanggal/' + date, {
+            method: "get",
+            headers: {
+                 "Content-Type": "application/json; ; charset=utf-8",
+                 "Access-Control-Allow-Headers": "Authorization, Content-Type",
+                 "Access-Control-Allow-Origin": "*"
+            }
+        })
+        .then(response => response.json())
+        .then(json => {
+            this.setState({
+                countTicket: json.length
+            });
+
+            this.countIncome(json);
+        })
+        .catch((e) => {
+            this.setState({alert: "Gagal mengambil data! ", e});
+            alert.style.display = "block";
+        });
+    }
+
+    countFilm = data => {
+        let film = [];
+
+        data.forEach(value => {
+            if(film.indexOf(value.film.id) === -1)
+            {
+                film.push(value.film.id);
+            }
+        });
+
+        this.setState({
+            countFilm: film.length
+        });
+    }
+
+    countIncome = data => {
+        let count = 0;
+
+        data.forEach(value => {
+            count = count + value.total;
+        });
+        this.setState({
+            income: count 
+        });
     }
 
     onChangeNavigation = value => {
         this.setState({
             navigation: value
         });
+    }
+
+    onChangeDate = el => {
+        this.setState({
+            date: el.target.value
+        });
+
+        let date = new Date(el.target.value);
+        let hari = date.getDate();
+        let bulan = date.getMonth() + 1;
+        let tahun = date.getFullYear();
+
+        if(bulan < 10)
+            bulan = '0' + bulan.toString();
+        if(hari < 10)
+            hari = '0' + hari.toString();
+
+        let dateSearch = hari + "-" + bulan + "-" + tahun;
+        this.getFilmScheduled(dateSearch);
+        this.ticketSold(dateSearch);
     }
 
     render() { 
@@ -56,23 +170,21 @@ class Dashboard extends Component {
         return ( 
             <React.Fragment>
                 <Navigation />
+                <Alert>{this.state.alert}</Alert>
                 <Div class="dashboard-admin">
-                    <Div class="tanggal">
-                        <Div class="logo"><i class='fas fa-calendar'></i></Div>
-                        03-03-2021
-                    </Div>
+                    <Tanggal name="nama" class="input" id="tanggal" placeholder="Tanggal" value={this.state.date} onChange={this.onChangeDate} max={"max"} />
                     <Div class="counts">
                         <Div class="count">
                             <Div class="judul">Film Terjadwal</Div>
-                            <Div class="isi">7</Div>
+                            <Div class="isi">{this.state.countFilm}</Div>
                         </Div>
                         <Div class="count">
                             <Div class="judul">Tiket Terjual</Div>
-                            <Div class="isi">254</Div>
+                            <Div class="isi">{this.state.countTicket}</Div>
                         </Div>
                         <Div class="count">
                             <Div class="judul">Pendapatan</Div>
-                            <Div class="isi">Rp. 12.000.00,-</Div>
+                            <Div class="isi">Rp. {this.state.income.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".")} ,-</Div>
                         </Div>
                     </Div>
                     <Div class="tombol-utama">

@@ -21,7 +21,7 @@ class Navigation extends Component {
             <Div class="navigation">
                 <img src={logo} alt="logo" width="32px" />
 
-                <Link to="/admin/dashboard" className="link">Utama</Link>
+                <Link to="/admin" className="link">Utama</Link>
 
                 <Div class="dropdown">
                     <button className="dropbtn">Master

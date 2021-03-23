@@ -92,11 +92,18 @@ class History extends Component {
 
         if(this.valueSelect === "Tanggal")
         {
-            this.setState({showButtonSearch: true});
+            this.setState({
+                showButtonSearch: true,
+                search: ""
+            });
         }
         else
         {
-            this.setState({showButtonSearch: false});
+            this.getTransaction();
+            this.setState({
+                showButtonSearch: false,
+                search: ""
+            });
         }
     }
 
@@ -104,7 +111,7 @@ class History extends Component {
         const value = el.target.value;
         this.setState({search: value});
 
-        if((this.valueSelect === "") || (value === ""))
+        if(value === "")
         {
             this.getTransaction();
         }
@@ -137,13 +144,28 @@ class History extends Component {
 
     onClickSearch = () => {
         const alert = document.getElementById("alert");
+        let dateSearch;
 
         if(this.state.search === "") 
         {
-            this.setState({search: "&nbsp;"});
+            dateSearch = "&nbsp;";
+        }
+        else
+        {
+            let date = new Date(this.state.search);
+            let hari = date.getDate();
+            let bulan = date.getMonth() + 1;
+            let tahun = date.getFullYear();
+
+            if(bulan < 10)
+                bulan = '0' + bulan.toString();
+            if(hari < 10)
+                hari = '0' + hari.toString();
+
+            dateSearch = hari + "-" + bulan + "-" + tahun;
         }
 
-        fetch('http://localhost:8080/bioskop/pembelian/tanggal/' + this.state.search + "/customer/" + this.props.idUser, {
+        fetch('http://localhost:8080/bioskop/pembelian/tanggal/' + dateSearch + "/customer/" + this.props.idUser, {
             method: "get",
             headers: {
                  "Content-Type": "application/json; ; charset=utf-8",
