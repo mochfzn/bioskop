@@ -141,32 +141,34 @@
 }
 
 .container .data .halaman .pagination {
-    display: inline-block;
-    margin-left: 660px;
+    display: block;
+    float: right;
 }
   
-.container .data .halaman .pagination a {
+.container .data .halaman .pagination .button {
     color: black;
+    background-color: #F7F6F3;
     float: left;
     padding: 5px 16px;
     text-decoration: none;
     border: 1px solid #ddd;
+    cursor: pointer;
 }
 
-.container .data .halaman .pagination a.active {
+.container .data .halaman .pagination .active {
     background-color: #F16A29;
     color: white;
     border: 1px solid #F16A29;
 }
 
-.container .data .halaman .pagination a:hover:not(.active) {background-color: #ddd;}
+.container .data .halaman .pagination .button:hover:not(.active) {background-color: #ddd;}
 
-.container .data .halaman .pagination a:first-child {
+.container .data .halaman .pagination .button:first-child {
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
 }
 
-.container .data .halaman .pagination a:last-child {
+.container .data .halaman .pagination .button:last-child {
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
 }

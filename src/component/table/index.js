@@ -8,7 +8,16 @@ class Table extends Component {
         super(props);
         this.state = { 
             header: [],
-            option: []
+            option: [],
+            paging: {
+                startRow: 0,
+                maxRow: 0,
+                page: 0,
+                limit: 0,
+                currPage: 0,
+                offset: 0,
+                amount: 0
+            }
          }
     }
 
@@ -19,14 +28,23 @@ class Table extends Component {
         });
     }
 
+    static getDerivedStateFromProps(props, state) {
+        return {paging: props.paging};
+    }
+
     render() { 
-        let date = 
+        // variabel
+        const { startRow, maxRow, page, currPage } = this.state.paging;
+        let date, text, show, pages;
+
+        // Inisialisasi
+        date = 
             <React.Fragment>
                 <Tanggal name="nama" class="input" id="tanggal-cari" placeholder="Tanggal" value={this.props.searchText} onChange={this.props.onChangeSearch} />
                 <Button id="cari" name="cari" class="button" value="Cari" onClick={this.props.onClickSearch} />
             </React.Fragment>;
-        let text = <Text name="cari" class="input" placeholder="Cari" value={this.props.searchText} onChange={this.props.onChangeSearch} />;
-        let show;
+        text = <Text name="cari" class="input" placeholder="Cari" value={this.props.searchText} onChange={this.props.onChangeSearch} />;
+        pages = [];
 
         if(this.props.showButton === true)
         {
@@ -35,6 +53,16 @@ class Table extends Component {
         else 
         {
             show = text;
+        }
+
+        for(let i = startRow; i < (maxRow + startRow); i++)
+        {
+            if(i <= page)
+            {
+                pages.push (
+                    <Button key={i} class={(i === currPage) ? "button active" : "button"} onClick={() => this.props.setCurrPage(i)} value={i} />
+                )
+            }
         }
 
         return ( 
@@ -50,12 +78,10 @@ class Table extends Component {
                         }
                     </Select>
                     {show}
-                    <Select name="cari" class="select">
-                        <Option>Jumlah Baris</Option>
-                        <Option>5</Option>
-                        <Option>10</Option>
-                        <Option>15</Option>
-                        <Option>20</Option>
+                    <Select name="cari" class="select" onChange={this.props.onChangeLimit} value={this.props.limit}>
+                        <Option value={3}>3 baris</Option>
+                        <Option value={5}>5 baris</Option>
+                        <Option value={7}>7 baris</Option>
                     </Select>
                 </Div>
                 <Div class="tabel">
@@ -78,14 +104,19 @@ class Table extends Component {
                 </Div>
                 <Div class="halaman">
                     <Div class="pagination">
-                        <a href="/#">&laquo;</a>
-                        <a href="/#">1</a>
-                        <a className="active" href="/#">2</a>
-                        <a href="/#">3</a>
-                        <a href="/#">4</a>
-                        <a href="/#">5</a>
-                        <a href="/#">6</a>
-                        <a href="/#">&raquo;</a>
+                        {
+                            (page > 1) ? 
+                                <React.Fragment>
+                                    {
+                                        (this.state.paging.currPage > 1) ? <Button class="button" value="&laquo;" onClick={() => this.props.setCurrPage(this.state.paging.currPage - 1)} /> : ""
+                                    }
+                                    {pages}
+                                    {
+                                        (this.state.paging.currPage < this.state.paging.page) ? <Button class="button" value="&raquo;" onClick={() => this.props.setCurrPage(this.state.paging.currPage + 1)} /> : ""
+                                    }
+                                </React.Fragment> :
+                                ""
+                        }
                     </Div>
                 </Div>
             </Div>

@@ -21,7 +21,16 @@ class Pengguna extends Component {
             },
             data: [],
             alert: "",
-            search: ""
+            search: "",
+            paging: {
+                startRow: 1,
+                maxRow: 5,
+                page: 0,
+                limit: 7,
+                currPage: 1,
+                offset: 0,
+                amount: 0
+            }
          }
         this.tableHeader = ["Nama Lengkap", "No Telp/HP", "Email", "Nama Pengguna", "Alamat", "Hak Akses", "Aksi"];
         this.searchOption = ["Nama Lengkap", "Nama Pengguna", "No Telp/HP"];
@@ -31,10 +40,10 @@ class Pengguna extends Component {
 
     componentDidMount() {
         document.body.classList.remove("background");
-        this.getAllData();
+        this.countData();
     }
 
-    getAllData = () => {
+    countData = () => {
         const alert = document.getElementById("alert");
 
         fetch('http://localhost:8080/bioskop/pengguna/', {
@@ -47,7 +56,41 @@ class Pengguna extends Component {
         })
         .then(response => response.json())
         .then(json => {
-            this.setState({ data: json })
+            let paging = this.state.paging;
+            paging.amount = json.length;
+
+            this.setState({ 
+                paging: paging
+            });
+        })
+        .then(() => {
+            this.getAllData();
+        })
+        .catch((e) => {
+            this.setState({alert: "Gagal mengambil data! ", e});
+            alert.style.display = "block";
+        });
+    }
+
+    getAllData = () => {
+        const alert = document.getElementById("alert");
+
+        fetch('http://localhost:8080/bioskop/pengguna/limit/' + this.state.paging.limit + '/offset/' + this.state.paging.offset, {
+            method: "get",
+            headers: {
+                 "Content-Type": "application/json; ; charset=utf-8",
+                 "Access-Control-Allow-Headers": "Authorization, Content-Type",
+                 "Access-Control-Allow-Origin": "*"
+            }
+        })
+        .then(response => response.json())
+        .then(json => {
+            this.setState({ 
+                data: json
+            });
+        })
+        .then(() => {
+            this.settingPaging();
         })
         .catch((e) => {
             this.setState({alert: "Gagal mengambil data! ", e});
@@ -66,6 +109,7 @@ class Pengguna extends Component {
 
     onChangeSelect = el => {
         this.valueSelect = el.target.value;
+        this.showTable();
     }
 
     onClickSubmit = () => {
@@ -90,23 +134,38 @@ class Pengguna extends Component {
 
     onChangeSearch = el => {
         const value = el.target.value;
-        this.setState({search: value});
+        this.setState({search: value}, () => this.showTable());
+    }
 
-        if((this.valueSelect === "") || (value === ""))
+    onChangeLimit = event => {
+        let paging = this.state.paging;
+        paging.limit = Number(event.target.value);
+        paging.currPage = 1;
+        paging.offset = 0;
+
+        this.setState({
+            paging
+        });
+
+        this.showTable();
+    }
+
+    showTable = () => {
+        if((this.valueSelect === "") || (this.state.search === ""))
         {
-            this.getAllData();
+            this.countData();
         }
         else if(this.valueSelect === "Nama Lengkap")
         {
-            this.searchByName(value);
+            this.countDataSearchByName(this.state.search);
         }
         else if(this.valueSelect === "Nama Pengguna")
         {
-            this.searchByUsername(value);
+            this.countDataSearchByUsername(this.state.search);
         }
         else if(this.valueSelect === "No Telp/HP")
         {
-            this.searchByTelephone(value);
+            this.countDataSearchByTelephone(this.state.search);
         }
     }
 
@@ -319,7 +378,7 @@ class Pengguna extends Component {
         });
     }
 
-    searchByName = value => {
+    countDataSearchByName = value => {
         const alert = document.getElementById("alert");
         
         if(value === "") 
@@ -337,7 +396,15 @@ class Pengguna extends Component {
         })
         .then(response => response.json())
         .then(json => {
-            this.setState({ data: json })
+            let paging = this.state.paging;
+            paging.amount = json.length;
+
+            this.setState({ 
+                paging: paging
+            });
+        })
+        .then(() => {
+            this.searchByName(value);
         })
         .catch((e) => {
             this.setState({alert: "Gagal mengambil data! ", e});
@@ -345,7 +412,36 @@ class Pengguna extends Component {
         });
     }
 
-    searchByUsername = value => {
+    searchByName = value => {
+        const alert = document.getElementById("alert");
+        
+        if(value === "") 
+        {
+            value = "&nbsp;";
+        }
+
+        fetch('http://localhost:8080/bioskop/pengguna/nama/' + value + '/limit/' + this.state.paging.limit + '/offset/' + this.state.paging.offset, {
+            method: "get",
+            headers: {
+                 "Content-Type": "application/json; ; charset=utf-8",
+                 "Access-Control-Allow-Headers": "Authorization, Content-Type",
+                 "Access-Control-Allow-Origin": "*"
+            }
+        })
+        .then(response => response.json())
+        .then(json => {
+            this.setState({ data: json })
+        })
+        .then(() => {
+            this.settingPaging();
+        })
+        .catch((e) => {
+            this.setState({alert: "Gagal mengambil data! ", e});
+            alert.style.display = "block";
+        });
+    }
+
+    countDataSearchByUsername = value => {
         const alert = document.getElementById("alert");
 
         if(value === "") 
@@ -363,7 +459,15 @@ class Pengguna extends Component {
         })
         .then(response => response.json())
         .then(json => {
-            this.setState({ data: json })
+            let paging = this.state.paging;
+            paging.amount = json.length;
+
+            this.setState({ 
+                paging: paging
+            });
+        })
+        .then(() => {
+            this.searchByUsername(value);
         })
         .catch((e) => {
             this.setState({alert: "Gagal mengambil data! ", e});
@@ -371,7 +475,36 @@ class Pengguna extends Component {
         });
     }
 
-    searchByTelephone = value => {
+    searchByUsername = value => {
+        const alert = document.getElementById("alert");
+
+        if(value === "") 
+        {
+            value = "&nbsp;";
+        }
+
+        fetch('http://localhost:8080/bioskop/pengguna/username/' + value + '/limit/' + this.state.paging.limit + '/offset/' + this.state.paging.offset, {
+            method: "get",
+            headers: {
+                 "Content-Type": "application/json; ; charset=utf-8",
+                 "Access-Control-Allow-Headers": "Authorization, Content-Type",
+                 "Access-Control-Allow-Origin": "*"
+            }
+        })
+        .then(response => response.json())
+        .then(json => {
+            this.setState({ data: json })
+        })
+        .then(() => {
+            this.settingPaging();
+        })
+        .catch((e) => {
+            this.setState({alert: "Gagal mengambil data! ", e});
+            alert.style.display = "block";
+        });
+    }
+
+    countDataSearchByTelephone = value => {
         const alert = document.getElementById("alert");
 
         if(value === "") 
@@ -389,12 +522,93 @@ class Pengguna extends Component {
         })
         .then(response => response.json())
         .then(json => {
-            this.setState({ data: json })
+            let paging = this.state.paging;
+            paging.amount = json.length;
+
+            this.setState({ 
+                paging: paging
+            });
+        })
+        .then(() => {
+            this.searchByTelephone(value);
         })
         .catch((e) => {
             this.setState({alert: "Gagal mengambil data! ", e});
             alert.style.display = "block";
         });
+    }
+
+    searchByTelephone = value => {
+        const alert = document.getElementById("alert");
+
+        if(value === "") 
+        {
+            value = "&nbsp;";
+        }
+
+        fetch('http://localhost:8080/bioskop/pengguna/telepon/' + value + '/limit/' + this.state.paging.limit + '/offset/' + this.state.paging.offset, {
+            method: "get",
+            headers: {
+                 "Content-Type": "application/json; ; charset=utf-8",
+                 "Access-Control-Allow-Headers": "Authorization, Content-Type",
+                 "Access-Control-Allow-Origin": "*"
+            }
+        })
+        .then(response => response.json())
+        .then(json => {
+            this.setState({ data: json })
+        })
+        .then(() => {
+            this.settingPaging();
+        })
+        .catch((e) => {
+            this.setState({alert: "Gagal mengambil data! ", e});
+            alert.style.display = "block";
+        });
+    }
+
+    settingPaging = () => {
+        let start, deff, paging, temp;
+        paging = this.state.paging;
+        start = 1;
+        deff = Math.floor(paging.maxRow/2);
+
+        if((paging.currPage - deff) <= 2)
+        {
+            start = 1;
+        }
+        else
+        {
+            temp = paging.currPage - deff;
+
+            if((temp + (paging.maxRow - 1)) > paging.page)
+            {
+                start = paging.page - (paging.maxRow - 1);
+            }
+            else
+            {
+                start = temp;
+            }
+        }
+
+        paging.page = Math.ceil(paging.amount/paging.limit);
+        paging.startRow = start;
+
+        this.setState({
+            paging
+        });
+    }
+
+    setCurrPage = currClick => {
+        let paging = this.state.paging;
+        paging.currPage = currClick;
+        paging.offset = (currClick * paging.limit) - paging.limit;
+
+        this.setState({
+            paging
+        }, () => this.settingPaging());
+
+        this.showTable();
     }
     
     render() { 
@@ -408,7 +622,7 @@ class Pengguna extends Component {
         {
             return <Redirect to="/customer" />
         }
-        
+
         return ( 
             <React.Fragment>
                 <Navigation />
@@ -429,7 +643,9 @@ class Pengguna extends Component {
                         <Button id="submit" name="submit" class="button-simpan" value={this.valueSubmit} onClick={this.onClickSubmit} />
                     </Div>
                 </Div>
-                <Table tableHeader={this.tableHeader} searchOption={this.searchOption} searchText={this.state.search} onChangeSelect={this.onChangeSelect} onChangeSearch={this.onChangeSearch}>
+                <Table tableHeader={this.tableHeader} searchOption={this.searchOption} searchText={this.state.search} onChangeSelect={this.onChangeSelect}
+                    onChangeSearch={this.onChangeSearch} paging={this.state.paging} onChangeLimit={this.onChangeLimit} limit={this.state.paging.limit} 
+                    setCurrPage={this.setCurrPage}>
                     {
                         this.state.data.map((value, index) => {
                             return (

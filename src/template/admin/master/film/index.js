@@ -38,7 +38,16 @@ class Film extends Component {
             data: [],
             alert: "",
             image: "",
-            search: ""
+            search: "",
+            paging: {
+                startRow: 1,
+                maxRow: 5,
+                page: 0,
+                limit: 7,
+                currPage: 1,
+                offset: 0,
+                amount: 0
+            }
          }
         this.tableHeader = ["ID", "Judul", "Peringkat Sensor", "Bahasa", "Durasi", "Aksi"];
         this.searchOption = ["ID", "Judul"];
@@ -48,10 +57,10 @@ class Film extends Component {
 
     componentDidMount() {
         document.body.classList.remove("background");
-        this.getAllData();
+        this.countData();
     }
 
-    getAllData = () => {
+    countData = () => {
         const alert = document.getElementById("alert");
 
         fetch('http://localhost:8080/bioskop/film/', {
@@ -64,7 +73,39 @@ class Film extends Component {
         })
         .then(response => response.json())
         .then(json => {
+            let paging = this.state.paging;
+            paging.amount = json.length;
+
+            this.setState({ 
+                paging: paging
+            });
+        })
+        .then(() => {
+            this.getAllData();
+        })
+        .catch((e) => {
+            this.setState({alert: "Gagal mengambil data! ", e});
+            alert.style.display = "block";
+        });
+    }
+
+    getAllData = () => {
+        const alert = document.getElementById("alert");
+
+        fetch('http://localhost:8080/bioskop/film/limit/' + this.state.paging.limit + '/offset/' + this.state.paging.offset, {
+            method: "get",
+            headers: {
+                 "Content-Type": "application/json; ; charset=utf-8",
+                 "Access-Control-Allow-Headers": "Authorization, Content-Type",
+                 "Access-Control-Allow-Origin": "*"
+            }
+        })
+        .then(response => response.json())
+        .then(json => {
             this.setState({ data: json })
+        })
+        .then(() => {
+            this.settingPaging();
         })
         .catch((e) => {
             this.setState({alert: "Gagal mengambil data! ", e});
@@ -83,24 +124,25 @@ class Film extends Component {
 
     onChangeSelect = el => {
         this.valueSelect = el.target.value;
+        this.showTable();
     }
 
     onChangeSearch = el => {
         const value = el.target.value;
-        this.setState({search: value});
+        this.setState({search: value}, () => this.showTable());
+    }
 
-        if((this.valueSelect === "") || (value === ""))
-        {
-            this.getAllData();
-        }
-        else if(this.valueSelect === "ID")
-        {
-            this.searchById(value);
-        }
-        else if(this.valueSelect === "Judul")
-        {
-            this.searchByTitle(value);
-        }
+    onChangeLimit = event => {
+        let paging = this.state.paging;
+        paging.limit = Number(event.target.value);
+        paging.currPage = 1;
+        paging.offset = 0;
+
+        this.setState({
+            paging
+        });
+
+        this.showTable();
     }
 
     onClickSubmit = () => {
@@ -207,7 +249,22 @@ class Film extends Component {
 
         this.checkValue(event);
         this.setState({film});
-      }
+    }
+
+    showTable = () => {
+        if((this.valueSelect === "") || (this.state.search === ""))
+        {
+            this.countData();
+        }
+        else if(this.valueSelect === "ID")
+        {
+            this.countDataSearchById(this.state.search);
+        }
+        else if(this.valueSelect === "Judul")
+        {
+            this.countDataSearchByTitle(this.state.search);
+        }
+    }
 
     validation = () => {
         const alert = document.getElementById("alert");
@@ -356,7 +413,7 @@ class Film extends Component {
         }
     }
 
-    searchById = value => {
+    countDataSearchById = value => {
         const alert = document.getElementById("alert");
 
         if(value === "") 
@@ -374,7 +431,15 @@ class Film extends Component {
         })
         .then(response => response.json())
         .then(json => {
-            this.setState({ data: json })
+            let paging = this.state.paging;
+            paging.amount = json.length;
+
+            this.setState({ 
+                paging: paging
+            });
+        })
+        .then(() => {
+            this.searchById(value);
         })
         .catch((e) => {
             this.setState({alert: "Gagal mengambil data! ", e});
@@ -382,7 +447,36 @@ class Film extends Component {
         });
     }
 
-    searchByTitle = value => {
+    searchById = value => {
+        const alert = document.getElementById("alert");
+
+        if(value === "") 
+        {
+            value = "&nbsp;";
+        }
+
+        fetch('http://localhost:8080/bioskop/film/id/' + value + '/limit/' + this.state.paging.limit + '/offset/' + this.state.paging.offset, {
+            method: "get",
+            headers: {
+                 "Content-Type": "application/json; ; charset=utf-8",
+                 "Access-Control-Allow-Headers": "Authorization, Content-Type",
+                 "Access-Control-Allow-Origin": "*"
+            }
+        })
+        .then(response => response.json())
+        .then(json => {
+            this.setState({ data: json })
+        })
+        .then(() => {
+            this.settingPaging();
+        })
+        .catch((e) => {
+            this.setState({alert: "Gagal mengambil data! ", e});
+            alert.style.display = "block";
+        });
+    }
+
+    countDataSearchByTitle = value => {
         const alert = document.getElementById("alert");
 
         if(value === "") 
@@ -400,7 +494,44 @@ class Film extends Component {
         })
         .then(response => response.json())
         .then(json => {
+            let paging = this.state.paging;
+            paging.amount = json.length;
+
+            this.setState({ 
+                paging: paging
+            });
+        })
+        .then(() => {
+            this.searchByTitle(value);
+        })
+        .catch((e) => {
+            this.setState({alert: "Gagal mengambil data! ", e});
+            alert.style.display = "block";
+        });
+    }
+
+    searchByTitle = value => {
+        const alert = document.getElementById("alert");
+
+        if(value === "") 
+        {
+            value = "&nbsp;";
+        }
+
+        fetch('http://localhost:8080/bioskop/film/judul/' + value + '/limit/' + this.state.paging.limit + '/offset/' + this.state.paging.offset, {
+            method: "get",
+            headers: {
+                 "Content-Type": "application/json; ; charset=utf-8",
+                 "Access-Control-Allow-Headers": "Authorization, Content-Type",
+                 "Access-Control-Allow-Origin": "*"
+            }
+        })
+        .then(response => response.json())
+        .then(json => {
             this.setState({ data: json })
+        })
+        .then(() => {
+            this.settingPaging();
         })
         .catch((e) => {
             this.setState({alert: "Gagal mengambil data! ", e});
@@ -489,6 +620,50 @@ class Film extends Component {
         });
 
         return readGenre;
+    }
+
+    settingPaging = () => {
+        let start, deff, paging, temp;
+        paging = this.state.paging;
+        start = 1;
+        deff = Math.floor(paging.maxRow/2);
+
+        if((paging.currPage - deff) <= 2)
+        {
+            start = 1;
+        }
+        else
+        {
+            temp = paging.currPage - deff;
+
+            if((temp + (paging.maxRow - 1)) > paging.page)
+            {
+                start = paging.page - (paging.maxRow - 1);
+            }
+            else
+            {
+                start = temp;
+            }
+        }
+
+        paging.page = Math.ceil(paging.amount/paging.limit);
+        paging.startRow = start;
+
+        this.setState({
+            paging
+        });
+    }
+
+    setCurrPage = currClick => {
+        let paging = this.state.paging;
+        paging.currPage = currClick;
+        paging.offset = (currClick * paging.limit) - paging.limit;
+
+        this.setState({
+            paging
+        }, () => this.settingPaging());
+
+        this.showTable();
     }
     
     render() { 
@@ -592,7 +767,9 @@ class Film extends Component {
                         <Button name="tombol" class="button-simpan" value={this.valueSubmit} onClick={this.onClickSubmit} />
                     </Div>
                 </Div>
-                <Table tableHeader={this.tableHeader} searchOption={this.searchOption} searchText={this.state.search} onChangeSelect={this.onChangeSelect} onChangeSearch={this.onChangeSearch}>
+                <Table tableHeader={this.tableHeader} searchOption={this.searchOption} searchText={this.state.search} onChangeSelect={this.onChangeSelect}
+                    onChangeSearch={this.onChangeSearch} paging={this.state.paging} onChangeLimit={this.onChangeLimit} limit={this.state.paging.limit} 
+                    setCurrPage={this.setCurrPage}>
                     {
                         this.state.data.map((value, index) => {
                             let sensor;

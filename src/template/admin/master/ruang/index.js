@@ -18,7 +18,16 @@ class Ruang extends Component {
             },
             data: [],
             alert: "",
-            search: ""
+            search: "",
+            paging: {
+                startRow: 1,
+                maxRow: 5,
+                page: 0,
+                limit: 7,
+                currPage: 1,
+                offset: 0,
+                amount: 0
+            }
          }
         this.tableHeader = ["ID", "Nama Ruang", "Jenis Ruang", "Harga", "Aksi"];
         this.searchOption = ["ID", "Nama Ruang", "Harga"];
@@ -28,10 +37,10 @@ class Ruang extends Component {
 
     componentDidMount() {
         document.body.classList.remove("background");
-        this.getAllData();
+        this.countData();
     }
 
-    getAllData = () => {
+    countData = () => {
         const alert = document.getElementById("alert");
 
         fetch('http://localhost:8080/bioskop/ruang/', {
@@ -44,7 +53,39 @@ class Ruang extends Component {
         })
         .then(response => response.json())
         .then(json => {
+            let paging = this.state.paging;
+            paging.amount = json.length;
+
+            this.setState({ 
+                paging: paging
+            });
+        })
+        .then(() => {
+            this.getAllData();
+        })
+        .catch((e) => {
+            this.setState({alert: "Gagal mengambil data! ", e});
+            alert.style.display = "block";
+        });
+    }
+
+    getAllData = () => {
+        const alert = document.getElementById("alert");
+
+        fetch('http://localhost:8080/bioskop/ruang/limit/' + this.state.paging.limit + '/offset/' + this.state.paging.offset, {
+            method: "get",
+            headers: {
+                 "Content-Type": "application/json; ; charset=utf-8",
+                 "Access-Control-Allow-Headers": "Authorization, Content-Type",
+                 "Access-Control-Allow-Origin": "*"
+            }
+        })
+        .then(response => response.json())
+        .then(json => {
             this.setState({ data: json })
+        })
+        .then(() => {
+            this.settingPaging();
         })
         .catch((e) => {
             this.setState({alert: "Gagal mengambil data! ", e});
@@ -63,28 +104,25 @@ class Ruang extends Component {
 
     onChangeSelect = el => {
         this.valueSelect = el.target.value;
+        this.showTable();
     }
 
     onChangeSearch = el => {
         const value = el.target.value;
-        this.setState({search: value});
+        this.setState({search: value}, () => this.showTable());
+    }
 
-        if((this.valueSelect === "") || (this.state.search === ""))
-        {
-            this.getAllData();
-        }
-        else if(this.valueSelect === "ID")
-        {
-            this.searchById(this.state.search);
-        }
-        else if(this.valueSelect === "Nama Ruang")
-        {
-            this.searchByName(this.state.search);
-        }
-        else if(this.valueSelect === "Harga")
-        {
-            this.searchByPrize(this.state.search);
-        }
+    onChangeLimit = event => {
+        let paging = this.state.paging;
+        paging.limit = Number(event.target.value);
+        paging.currPage = 1;
+        paging.offset = 0;
+
+        this.setState({
+            paging
+        });
+
+        this.showTable();
     }
 
     onClickSubmit = () => {
@@ -105,6 +143,25 @@ class Ruang extends Component {
         this.setState({
             ruang: newRoom
         });
+    }
+
+    showTable = () => {
+        if((this.valueSelect === "") || (this.state.search === ""))
+        {
+            this.countData();
+        }
+        else if(this.valueSelect === "ID")
+        {
+            this.countDataSearchById(this.state.search);
+        }
+        else if(this.valueSelect === "Nama Ruang")
+        {
+            this.countDataSearchByName(this.state.search);
+        }
+        else if(this.valueSelect === "Harga")
+        {
+            this.countDataSearchByPrize(this.state.search);
+        }
     }
 
     validation = () => {
@@ -228,7 +285,7 @@ class Ruang extends Component {
         }
     }
 
-    searchById = value => {
+    countDataSearchById = value => {
         const alert = document.getElementById("alert");
 
         if(value === "") 
@@ -246,7 +303,15 @@ class Ruang extends Component {
         })
         .then(response => response.json())
         .then(json => {
-            this.setState({ data: json })
+            let paging = this.state.paging;
+            paging.amount = json.length;
+
+            this.setState({ 
+                paging: paging
+            });
+        })
+        .then(() => {
+            this.searchById(value);
         })
         .catch((e) => {
             this.setState({alert: "Gagal mengambil data! ", e});
@@ -254,7 +319,36 @@ class Ruang extends Component {
         });
     }
 
-    searchByName = value => {
+    searchById = value => {
+        const alert = document.getElementById("alert");
+
+        if(value === "") 
+        {
+            value = "&nbsp;";
+        }
+
+        fetch('http://localhost:8080/bioskop/ruang/id/' + value + '/limit/' + this.state.paging.limit + '/offset/' + this.state.paging.offset, {
+            method: "get",
+            headers: {
+                 "Content-Type": "application/json; ; charset=utf-8",
+                 "Access-Control-Allow-Headers": "Authorization, Content-Type",
+                 "Access-Control-Allow-Origin": "*"
+            }
+        })
+        .then(response => response.json())
+        .then(json => {
+            this.setState({ data: json })
+        })
+        .then(() => {
+            this.settingPaging();
+        })
+        .catch((e) => {
+            this.setState({alert: "Gagal mengambil data! ", e});
+            alert.style.display = "block";
+        });
+    }
+
+    countDataSearchByName = value => {
         const alert = document.getElementById("alert");
 
         if(value === "") 
@@ -272,7 +366,15 @@ class Ruang extends Component {
         })
         .then(response => response.json())
         .then(json => {
-            this.setState({ data: json })
+            let paging = this.state.paging;
+            paging.amount = json.length;
+
+            this.setState({ 
+                paging: paging
+            });
+        })
+        .then(() => {
+            this.searchByName(value);
         })
         .catch((e) => {
             this.setState({alert: "Gagal mengambil data! ", e});
@@ -280,7 +382,36 @@ class Ruang extends Component {
         });
     }
 
-    searchByPrize = value => {
+    searchByName = value => {
+        const alert = document.getElementById("alert");
+
+        if(value === "") 
+        {
+            value = "&nbsp;";
+        }
+
+        fetch('http://localhost:8080/bioskop/ruang/nama/' + value + '/limit/' + this.state.paging.limit + '/offset/' + this.state.paging.offset, {
+            method: "get",
+            headers: {
+                 "Content-Type": "application/json; ; charset=utf-8",
+                 "Access-Control-Allow-Headers": "Authorization, Content-Type",
+                 "Access-Control-Allow-Origin": "*"
+            }
+        })
+        .then(response => response.json())
+        .then(json => {
+            this.setState({ data: json })
+        })
+        .then(() => {
+            this.settingPaging();
+        })
+        .catch((e) => {
+            this.setState({alert: "Gagal mengambil data! ", e});
+            alert.style.display = "block";
+        });
+    }
+
+    countDataSearchByPrize = value => {
         const alert = document.getElementById("alert");
 
         if(value === "") 
@@ -298,7 +429,44 @@ class Ruang extends Component {
         })
         .then(response => response.json())
         .then(json => {
+            let paging = this.state.paging;
+            paging.amount = json.length;
+
+            this.setState({ 
+                paging: paging
+            });
+        })
+        .then(() => {
+            this.searchByPrize(value);
+        })
+        .catch((e) => {
+            this.setState({alert: "Gagal mengambil data! ", e});
+            alert.style.display = "block";
+        });
+    }
+
+    searchByPrize = value => {
+        const alert = document.getElementById("alert");
+
+        if(value === "") 
+        {
+            value = 0;
+        }
+
+        fetch('http://localhost:8080/bioskop/ruang/harga/' + value + '/limit/' + this.state.paging.limit + '/offset/' + this.state.paging.offset, {
+            method: "get",
+            headers: {
+                 "Content-Type": "application/json; ; charset=utf-8",
+                 "Access-Control-Allow-Headers": "Authorization, Content-Type",
+                 "Access-Control-Allow-Origin": "*"
+            }
+        })
+        .then(response => response.json())
+        .then(json => {
             this.setState({ data: json })
+        })
+        .then(() => {
+            this.settingPaging();
         })
         .catch((e) => {
             this.setState({alert: "Gagal mengambil data! ", e});
@@ -319,6 +487,50 @@ class Ruang extends Component {
         this.setState({
             ruang: newRoom
         });
+    }
+
+    settingPaging = () => {
+        let start, deff, paging, temp;
+        paging = this.state.paging;
+        start = 1;
+        deff = Math.floor(paging.maxRow/2);
+
+        if((paging.currPage - deff) <= 2)
+        {
+            start = 1;
+        }
+        else
+        {
+            temp = paging.currPage - deff;
+
+            if((temp + (paging.maxRow - 1)) > paging.page)
+            {
+                start = paging.page - (paging.maxRow - 1);
+            }
+            else
+            {
+                start = temp;
+            }
+        }
+
+        paging.page = Math.ceil(paging.amount/paging.limit);
+        paging.startRow = start;
+
+        this.setState({
+            paging
+        });
+    }
+
+    setCurrPage = currClick => {
+        let paging = this.state.paging;
+        paging.currPage = currClick;
+        paging.offset = (currClick * paging.limit) - paging.limit;
+
+        this.setState({
+            paging
+        }, () => this.settingPaging());
+
+        this.showTable();
     }
     
     render() { 
@@ -355,7 +567,9 @@ class Ruang extends Component {
                         <Button name="tombol" class="button-simpan" value={this.valueSubmit} onClick={this.onClickSubmit} />
                     </Div>
                 </Div>
-                <Table tableHeader={this.tableHeader} searchOption={this.searchOption} searchText={this.state.search} onChangeSelect={this.onChangeSelect} onChangeSearch={this.onChangeSearch}>
+                <Table tableHeader={this.tableHeader} searchOption={this.searchOption} searchText={this.state.search} onChangeSelect={this.onChangeSelect}
+                    onChangeSearch={this.onChangeSearch} paging={this.state.paging} onChangeLimit={this.onChangeLimit} limit={this.state.paging.limit} 
+                    setCurrPage={this.setCurrPage}>
                     {
                         this.state.data.map((value, index) => {
                             return (
