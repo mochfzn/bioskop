@@ -1,12 +1,13 @@
 package com.nexsoft.bioskop.model;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class Pembelian {
     private String id;
     private short jumlahTiket;
-    private float total;
-    private short tipe;
+    private int total;
+    private LocalDate tanggal;
     private Jadwal jadwal;
     private Pengguna pengguna;
     private List<TempatDuduk> tempatDuduk;
@@ -14,11 +15,11 @@ public class Pembelian {
     public Pembelian() {
     }
 
-    public Pembelian(String id, short jumlahTiket, float total, short tipe) {
+    public Pembelian(String id, short jumlahTiket, int total, LocalDate tanggal) {
         this.id = id;
         this.jumlahTiket = jumlahTiket;
         this.total = total;
-        this.tipe = tipe;
+        this.tanggal = tanggal;
     }
 
     public String getId() {
@@ -41,16 +42,16 @@ public class Pembelian {
         return total;
     }
 
-    public void setTotal(float total) {
+    public void setTotal(int total) {
         this.total = total;
     }
 
-    public short getTipe() {
-        return tipe;
+    public LocalDate getTanggal() {
+        return tanggal;
     }
 
-    public void setTipe(short tipe) {
-        this.tipe = tipe;
+    public void setTanggal(LocalDate tanggal) {
+        this.tanggal = tanggal;
     }
 
     public Jadwal getJadwal() {

@@ -52,13 +52,28 @@ public class FilmServiceImpl implements FilmService {
     }
 
     @Override
+    public List<Film> findAll(int limit, int offset) {
+        return filmRepository.findAll(limit, offset);
+    }
+
+    @Override
     public List<Film> searchByTitle(String title) {
         return filmRepository.findByTitle(title);
     }
 
     @Override
+    public List<Film> searchByTitle(String title, int limit, int offset) {
+        return filmRepository.findByTitle(title, limit, offset);
+    }
+
+    @Override
     public List<Film> searchById(String id) {
         return filmRepository.findById(id);
+    }
+
+    @Override
+    public List<Film> searchById(String id, int limit, int offset) {
+        return filmRepository.findById(id, limit, offset);
     }
 
     @Override

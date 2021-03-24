@@ -102,8 +102,18 @@ public class PenggunaServiceImpl implements PenggunaService {
     }
 
     @Override
+    public List<Pengguna> findAll(int limit, int offset) {
+        return penggunaRepository.findAll(limit, offset);
+    }
+
+    @Override
     public List<Pengguna> searchByName(String name) {
         return penggunaRepository.findByName(name);
+    }
+
+    @Override
+    public List<Pengguna> searchByName(String name, int limit, int offset) {
+        return penggunaRepository.findByName(name, limit, offset);
     }
 
     @Override
@@ -112,8 +122,18 @@ public class PenggunaServiceImpl implements PenggunaService {
     }
 
     @Override
+    public List<Pengguna> searchByTelephone(String telephone, int limit, int offset) {
+        return penggunaRepository.findByTelephone(telephone, limit, offset);
+    }
+
+    @Override
     public List<Pengguna> searchByUsername(String username) {
         return penggunaRepository.findByUsername(username);
+    }
+
+    @Override
+    public List<Pengguna> searchByUsername(String username, int limit, int offset) {
+        return penggunaRepository.findByUsername(username, limit, offset);
     }
 
     @Override

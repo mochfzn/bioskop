@@ -41,6 +41,37 @@ public class FilmRepositoryImpl implements FilmRepository {
     }
 
     @Override
+    public List<Film> findAll(int limit, int offset) {
+        List<Film> filmList;
+
+        try {
+            filmList = this.jdbcTemplate.query("SELECT * FROM film LIMIT ? OFFSET ?",
+                    preparedStatement -> {
+                        preparedStatement.setInt(1, limit);
+                        preparedStatement.setInt(2, offset);
+                    },
+                    (rs, rowNum) ->
+                            new Film(
+                                    rs.getString("id"),
+                                    rs.getString("judul"),
+                                    rs.getString("produser"),
+                                    rs.getString("direktur"),
+                                    rs.getShort("sensor"),
+                                    rs.getString("bahasa"),
+                                    rs.getString("judul_tambahan"),
+                                    rs.getString("durasi"),
+                                    rs.getString("genre"),
+                                    rs.getString("deskripsi")
+                            )
+            );
+        } catch (IndexOutOfBoundsException e) {
+            filmList = null;
+        }
+
+        return filmList;
+    }
+
+    @Override
     public List<Film> findByTitle(String title) {
         List<Film> filmList;
 
@@ -69,12 +100,76 @@ public class FilmRepositoryImpl implements FilmRepository {
     }
 
     @Override
+    public List<Film> findByTitle(String title, int limit, int offset) {
+        List<Film> filmList;
+
+        try {
+            filmList = this.jdbcTemplate.query("SELECT * FROM film WHERE judul LIKE ? LIMIT ? OFFSET ?",
+                    preparedStatement -> {
+                        preparedStatement.setString(1, "%" + title + "%");
+                        preparedStatement.setInt(2, limit);
+                        preparedStatement.setInt(3, offset);
+                    },
+                    (rs, rowNum) ->
+                            new Film(
+                                    rs.getString("id"),
+                                    rs.getString("judul"),
+                                    rs.getString("produser"),
+                                    rs.getString("direktur"),
+                                    rs.getShort("sensor"),
+                                    rs.getString("bahasa"),
+                                    rs.getString("judul_tambahan"),
+                                    rs.getString("durasi"),
+                                    rs.getString("genre"),
+                                    rs.getString("deskripsi")
+                            )
+            );
+        } catch (IndexOutOfBoundsException e) {
+            filmList = null;
+        }
+
+        return filmList;
+    }
+
+    @Override
     public List<Film> findById(String id) {
         List<Film> filmList;
 
         try {
             filmList = this.jdbcTemplate.query("SELECT * FROM film WHERE id LIKE ?",
                     preparedStatement -> preparedStatement.setString(1, "%" + id + "%"),
+                    (rs, rowNum) ->
+                            new Film(
+                                    rs.getString("id"),
+                                    rs.getString("judul"),
+                                    rs.getString("produser"),
+                                    rs.getString("direktur"),
+                                    rs.getShort("sensor"),
+                                    rs.getString("bahasa"),
+                                    rs.getString("judul_tambahan"),
+                                    rs.getString("durasi"),
+                                    rs.getString("genre"),
+                                    rs.getString("deskripsi")
+                            )
+            );
+        } catch (IndexOutOfBoundsException e) {
+            filmList = null;
+        }
+
+        return filmList;
+    }
+
+    @Override
+    public List<Film> findById(String id, int limit, int offset) {
+        List<Film> filmList;
+
+        try {
+            filmList = this.jdbcTemplate.query("SELECT * FROM film WHERE id LIKE ? LIMIT ? OFFSET ?",
+                    preparedStatement -> {
+                        preparedStatement.setString(1, "%" + id + "%");
+                        preparedStatement.setInt(2, limit);
+                        preparedStatement.setInt(3, offset);
+                    },
                     (rs, rowNum) ->
                             new Film(
                                     rs.getString("id"),

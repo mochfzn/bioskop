@@ -57,13 +57,28 @@ public class RuangServiceImpl implements RuangService {
     }
 
     @Override
+    public List<Ruang> findAll(int limit, int offset) {
+        return ruangRepository.findAll(limit, offset);
+    }
+
+    @Override
     public List<Ruang> searchByName(String name) {
         return ruangRepository.findByName(name);
     }
 
     @Override
+    public List<Ruang> searchByName(String name, int limit, int offset) {
+        return ruangRepository.findByName(name, limit, offset);
+    }
+
+    @Override
     public List<Ruang> searchByPrice(int price) {
         return ruangRepository.findByPrice(price);
+    }
+
+    @Override
+    public List<Ruang> searchByPrice(int price, int limit, int offset) {
+        return ruangRepository.findByPrice(price, limit, offset);
     }
 
     @Override
@@ -74,6 +89,11 @@ public class RuangServiceImpl implements RuangService {
     @Override
     public List<Ruang> searchById(String id) {
         return ruangRepository.findById(id);
+    }
+
+    @Override
+    public List<Ruang> searchById(String id, int limit, int offset) {
+        return ruangRepository.findById(id, limit, offset);
     }
 
     @Override

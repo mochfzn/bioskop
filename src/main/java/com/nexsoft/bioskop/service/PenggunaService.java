@@ -13,9 +13,13 @@ public interface PenggunaService {
     Pengguna update(Pengguna pengguna);
     Pengguna findById(String id);
     List<Pengguna> findAll();
+    List<Pengguna> findAll(int limit, int offset);
     List<Pengguna> searchByName(String name);
+    List<Pengguna> searchByName(String name, int limit, int offset);
     List<Pengguna> searchByTelephone(String telephone);
+    List<Pengguna> searchByTelephone(String telephone, int limit, int offset);
     List<Pengguna> searchByUsername(String username);
+    List<Pengguna> searchByUsername(String username, int limit, int offset);
     String validation(Pengguna pengguna);
     String validationPassword(String password);
 }

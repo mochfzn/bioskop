@@ -9,8 +9,11 @@ public interface FilmService {
     Film update(Film film);
     Film getById(String id);
     List<Film> findAll();
+    List<Film> findAll(int limit, int offset);
     List<Film> searchByTitle(String title);
+    List<Film> searchByTitle(String title, int limit, int offset);
     List<Film> searchById(String id);
+    List<Film> searchById(String id, int limit, int offset);
     List<Film> getFilmIsPlaying();
     boolean isExist(Film film);
     String validation(Film film);

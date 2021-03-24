@@ -32,6 +32,14 @@ public class JadwalController {
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
+    @GetMapping("/jadwal/limit/{limit}/offset/{offset}")
+    public ResponseEntity<List<Jadwal>> getAll(@PathVariable int limit, @PathVariable int offset)
+    {
+        List<Jadwal> list = jadwalService.findAll(limit, offset);
+
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
     @PostMapping("/jadwal/")
     public ResponseEntity<?> create(@RequestBody Jadwal jadwal)
     {
@@ -71,6 +79,15 @@ public class JadwalController {
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
+    @GetMapping("/jadwal/tanggal/{tanggal}/limit/{limit}/offset/{offset}")
+    public ResponseEntity<?> searchByDate(@PathVariable @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate tanggal, @PathVariable int limit, @PathVariable int offset)
+    {
+        List<Jadwal> list;
+        list = jadwalService.searchByDate(tanggal);
+
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
     @GetMapping("/jadwal/ruang/{ruang}")
     public ResponseEntity<?> searchByRoom(@PathVariable String ruang)
     {
@@ -80,11 +97,29 @@ public class JadwalController {
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
+    @GetMapping("/jadwal/ruang/{ruang}/limit/{limit}/offset/{offset}")
+    public ResponseEntity<?> searchByRoom(@PathVariable String ruang, @PathVariable int limit, @PathVariable int offset)
+    {
+        List<Jadwal> list;
+        list = jadwalService.searchByRoom(ruang, limit, offset);
+
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
     @GetMapping("/jadwal/film/{judul}")
     public ResponseEntity<?> searchByFilm(@PathVariable String judul)
     {
         List<Jadwal> list;
         list = jadwalService.searchByFilm(judul);
+
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
+    @GetMapping("/jadwal/film/{judul}/limit/{limit}/offset/{offset}")
+    public ResponseEntity<?> searchByFilm(@PathVariable String judul, @PathVariable int limit, @PathVariable int offset)
+    {
+        List<Jadwal> list;
+        list = jadwalService.searchByFilm(judul, limit, offset);
 
         return new ResponseEntity<>(list, HttpStatus.OK);
     }

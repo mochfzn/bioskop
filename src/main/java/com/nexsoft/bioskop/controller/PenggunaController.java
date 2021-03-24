@@ -88,6 +88,19 @@ public class PenggunaController {
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
+    @GetMapping("/pengguna/limit/{limit}/offset/{offset}")
+    public ResponseEntity<?> getAll(@PathVariable int limit, @PathVariable int offset)
+    {
+        List<Pengguna> list = penggunaService.findAll(limit, offset);
+
+        if(list.isEmpty())
+        {
+            return new ResponseEntity<>(list, HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
     @PostMapping("/pengguna/save-password/")
     public ResponseEntity<?> savePassword(@RequestBody Pengguna pengguna)
     {
@@ -141,7 +154,7 @@ public class PenggunaController {
         }
         catch (Exception e)
         {
-            return new ResponseEntity<>(new CustomErrorType(e.getCause().getMessage()), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new CustomErrorType(e.getCause().getMessage()), HttpStatus.NOT_ACCEPTABLE);
         }
     }
 
@@ -150,6 +163,15 @@ public class PenggunaController {
     {
         List<Pengguna> list;
         list = penggunaService.searchByName(nama);
+
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
+    @GetMapping("/pengguna/nama/{nama}/limit/{limit}/offset/{offset}")
+    public ResponseEntity<?> searchByName(@PathVariable String nama, @PathVariable int limit, @PathVariable int offset)
+    {
+        List<Pengguna> list;
+        list = penggunaService.searchByName(nama, limit, offset);
 
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
@@ -163,6 +185,15 @@ public class PenggunaController {
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
+    @GetMapping("/pengguna/username/{username}/limit/{limit}/offset/{offset}")
+    public ResponseEntity<?> searchByUsername(@PathVariable String username, @PathVariable int limit, @PathVariable int offset)
+    {
+        List<Pengguna> list;
+        list = penggunaService.searchByUsername(username, limit, offset);
+
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
     @GetMapping("/pengguna/telepon/{telepon}")
     public ResponseEntity<?> searchByTelephone(@PathVariable String telepon)
     {
@@ -170,5 +201,27 @@ public class PenggunaController {
         list = penggunaService.searchByTelephone(telepon);
 
         return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
+    @GetMapping("/pengguna/telepon/{telepon}/limit/{limit}/offset/{offset}")
+    public ResponseEntity<?> searchByTelephone(@PathVariable String telepon, @PathVariable int limit, @PathVariable int offset)
+    {
+        List<Pengguna> list;
+        list = penggunaService.searchByTelephone(telepon, limit, offset);
+
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
+    @GetMapping("/pengguna/id/{id}")
+    public ResponseEntity<?> getById(@PathVariable String id)
+    {
+        Pengguna pengguna = penggunaService.findById(id);
+
+        if(pengguna == null)
+        {
+            return new ResponseEntity<>(new CustomErrorType("Pengguna dengan id " + id + " tidak ditemukan!."), HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(pengguna, HttpStatus.OK);
     }
 }

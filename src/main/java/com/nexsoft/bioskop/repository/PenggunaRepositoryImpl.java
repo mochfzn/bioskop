@@ -38,12 +38,69 @@ public class PenggunaRepositoryImpl implements PenggunaRepository {
     }
 
     @Override
+    public List<Pengguna> findAll(int limit, int offset) {
+        List<Pengguna> penggunaList;
+
+        try {
+            penggunaList = this.jdbcTemplate.query("SELECT * FROM pengguna ORDER BY hak_akses, nama LIMIT ? OFFSET ?",
+                    preparedStatement -> {
+                        preparedStatement.setInt(1, limit);
+                        preparedStatement.setInt(2, offset);
+                    },
+                    (rs, rowNum) ->
+                            new Pengguna(
+                                    rs.getString("id"),
+                                    rs.getString("nama"),
+                                    rs.getString("telepon"),
+                                    rs.getString("email"),
+                                    rs.getString("username"),
+                                    rs.getShort("hak_akses"),
+                                    rs.getString("alamat")
+                            )
+            );
+        } catch (IndexOutOfBoundsException e) {
+            penggunaList = null;
+        }
+
+        return penggunaList;
+    }
+
+    @Override
     public List<Pengguna> findByName(String name) {
         List<Pengguna> penggunaList;
 
         try {
             penggunaList = this.jdbcTemplate.query("SELECT * FROM pengguna WHERE nama LIKE ? ORDER BY hak_akses",
                     preparedStatement -> preparedStatement.setString(1, "%" + name + "%"),
+                    (rs, rowNum) ->
+                            new Pengguna(
+                                    rs.getString("id"),
+                                    rs.getString("nama"),
+                                    rs.getString("telepon"),
+                                    rs.getString("email"),
+                                    rs.getString("username"),
+                                    rs.getShort("hak_akses"),
+                                    rs.getString("alamat")
+                            )
+            );
+        } catch (IndexOutOfBoundsException e) {
+            penggunaList = null;
+        }
+
+        return penggunaList;
+    }
+
+    @Override
+    public List<Pengguna> findByName(String name, int limit, int offset) {
+        List<Pengguna> penggunaList;
+
+        try {
+            penggunaList = this.jdbcTemplate.query("SELECT * FROM pengguna WHERE nama LIKE ? ORDER BY hak_akses LIMIT ? OFFSET ?",
+                    preparedStatement -> {
+                        preparedStatement.setString(1, "%" + name + "%");
+                        preparedStatement.setInt(2, limit);
+                        preparedStatement.setInt(3, offset);
+                    },
                     (rs, rowNum) ->
                             new Pengguna(
                                     rs.getString("id"),
@@ -88,12 +145,70 @@ public class PenggunaRepositoryImpl implements PenggunaRepository {
     }
 
     @Override
+    public List<Pengguna> findByTelephone(String telephone, int limit, int offset) {
+        List<Pengguna> penggunaList;
+
+        try {
+            penggunaList = this.jdbcTemplate.query("SELECT * FROM pengguna WHERE telepon LIKE ? ORDER BY hak_akses LIMIT ? OFFSET ?",
+                    preparedStatement -> {
+                        preparedStatement.setString(1, "%" + telephone + "%");
+                        preparedStatement.setInt(2, limit);
+                        preparedStatement.setInt(3, offset);
+                    },
+                    (rs, rowNum) ->
+                            new Pengguna(
+                                    rs.getString("id"),
+                                    rs.getString("nama"),
+                                    rs.getString("telepon"),
+                                    rs.getString("email"),
+                                    rs.getString("username"),
+                                    rs.getShort("hak_akses"),
+                                    rs.getString("alamat")
+                            )
+            );
+        } catch (IndexOutOfBoundsException e) {
+            penggunaList = null;
+        }
+
+        return penggunaList;
+    }
+
+    @Override
     public List<Pengguna> findByUsername(String username) {
         List<Pengguna> penggunaList;
 
         try {
             penggunaList = this.jdbcTemplate.query("SELECT * FROM pengguna WHERE username LIKE ? ORDER BY hak_akses",
                     preparedStatement -> preparedStatement.setString(1, "%" + username + "%"),
+                    (rs, rowNum) ->
+                            new Pengguna(
+                                    rs.getString("id"),
+                                    rs.getString("nama"),
+                                    rs.getString("telepon"),
+                                    rs.getString("email"),
+                                    rs.getString("username"),
+                                    rs.getShort("hak_akses"),
+                                    rs.getString("alamat")
+                            )
+            );
+        } catch (IndexOutOfBoundsException e) {
+            penggunaList = null;
+        }
+
+        return penggunaList;
+    }
+
+    @Override
+    public List<Pengguna> findByUsername(String username, int limit, int offset) {
+        List<Pengguna> penggunaList;
+
+        try {
+            penggunaList = this.jdbcTemplate.query("SELECT * FROM pengguna WHERE username LIKE ? ORDER BY hak_akses LIMIT ? OFFSET ?",
+                    preparedStatement -> {
+                        preparedStatement.setString(1, "%" + username + "%");
+                        preparedStatement.setInt(2, limit);
+                        preparedStatement.setInt(3, offset);
+                    },
                     (rs, rowNum) ->
                             new Pengguna(
                                     rs.getString("id"),

@@ -34,6 +34,31 @@ public class RuangRepositoryImpl implements RuangRepository {
     }
 
     @Override
+    public List<Ruang> findAll(int limit, int offset) {
+        List<Ruang> ruangList;
+
+        try {
+            ruangList = this.jdbcTemplate.query("SELECT * FROM ruang ORDER BY nama LIMIT ? OFFSET ?",
+                    preparedStatement -> {
+                        preparedStatement.setInt(1, limit);
+                        preparedStatement.setInt(2, offset);
+                    },
+                    (rs, rowNum) ->
+                            new Ruang(
+                                    rs.getString("id"),
+                                    rs.getString("nama"),
+                                    rs.getInt("jenis"),
+                                    rs.getInt("harga")
+                            )
+            );
+        } catch (IndexOutOfBoundsException e) {
+            ruangList = null;
+        }
+
+        return ruangList;
+    }
+
+    @Override
     public List<Ruang> findByName(String name) {
         List<Ruang> ruangList;
 
@@ -56,12 +81,64 @@ public class RuangRepositoryImpl implements RuangRepository {
     }
 
     @Override
+    public List<Ruang> findByName(String name, int limit, int offset) {
+        List<Ruang> ruangList;
+
+        try {
+            ruangList = this.jdbcTemplate.query("SELECT * FROM ruang WHERE nama LIKE ? LIMIT ? OFFSET ?",
+                    preparedStatement -> {
+                        preparedStatement.setString(1, "%" + name + "%");
+                        preparedStatement.setInt(2, limit);
+                        preparedStatement.setInt(3, offset);
+                    },
+                    (rs, rowNum) ->
+                            new Ruang(
+                                    rs.getString("id"),
+                                    rs.getString("nama"),
+                                    rs.getInt("jenis"),
+                                    rs.getInt("harga")
+                            )
+            );
+        } catch (IndexOutOfBoundsException e) {
+            ruangList = null;
+        }
+
+        return ruangList;
+    }
+
+    @Override
     public List<Ruang> findByPrice(int price) {
         List<Ruang> ruangList;
 
         try {
             ruangList = this.jdbcTemplate.query("SELECT * FROM ruang WHERE harga LIKE ?",
                     preparedStatement -> preparedStatement.setString(1, "%" + price + "%"),
+                    (rs, rowNum) ->
+                            new Ruang(
+                                    rs.getString("id"),
+                                    rs.getString("nama"),
+                                    rs.getInt("jenis"),
+                                    rs.getInt("harga")
+                            )
+            );
+        } catch (IndexOutOfBoundsException e) {
+            ruangList = null;
+        }
+
+        return ruangList;
+    }
+
+    @Override
+    public List<Ruang> findByPrice(int price, int limit, int offset) {
+        List<Ruang> ruangList;
+
+        try {
+            ruangList = this.jdbcTemplate.query("SELECT * FROM ruang WHERE harga LIKE ? LIMIT ? OFFSET ?",
+                    preparedStatement -> {
+                        preparedStatement.setString(1, "%" + price + "%");
+                        preparedStatement.setInt(2, limit);
+                        preparedStatement.setInt(3, offset);
+                    },
                     (rs, rowNum) ->
                             new Ruang(
                                     rs.getString("id"),
@@ -106,6 +183,32 @@ public class RuangRepositoryImpl implements RuangRepository {
         try {
             ruangList = this.jdbcTemplate.query("SELECT * FROM ruang WHERE id LIKE ?",
                     preparedStatement -> preparedStatement.setString(1, "%" + id + "%"),
+                    (rs, rowNum) ->
+                            new Ruang(
+                                    rs.getString("id"),
+                                    rs.getString("nama"),
+                                    rs.getInt("jenis"),
+                                    rs.getInt("harga")
+                            )
+            );
+        } catch (IndexOutOfBoundsException e) {
+            ruangList = null;
+        }
+
+        return ruangList;
+    }
+
+    @Override
+    public List<Ruang> findById(String id, int limit, int offset) {
+        List<Ruang> ruangList;
+
+        try {
+            ruangList = this.jdbcTemplate.query("SELECT * FROM ruang WHERE id LIKE ? LIMIT ? OFFSET ?",
+                    preparedStatement -> {
+                        preparedStatement.setString(1, "%" + id + "%");
+                        preparedStatement.setInt(2, limit);
+                        preparedStatement.setInt(3, offset);
+                    },
                     (rs, rowNum) ->
                             new Ruang(
                                     rs.getString("id"),

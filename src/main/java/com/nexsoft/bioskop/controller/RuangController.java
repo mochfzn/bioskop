@@ -34,6 +34,19 @@ public class RuangController {
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
+    @GetMapping("/ruang/limit/{limit}/offset/{offset}")
+    public ResponseEntity<?> getAll(@PathVariable int limit, @PathVariable int offset)
+    {
+        List<Ruang> list = ruangService.findAll(limit, offset);
+
+        if(list.isEmpty())
+        {
+            return new ResponseEntity<>(list, HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
     @PostMapping("/ruang/")
     public ResponseEntity<?> create(@RequestBody Ruang ruang)
     {
@@ -98,6 +111,15 @@ public class RuangController {
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
+    @GetMapping("/ruang/id/{id}/limit/{limit}/offset/{offset}")
+    public ResponseEntity<?> searchById(@PathVariable String id, @PathVariable int limit, @PathVariable int offset)
+    {
+        List<Ruang> list;
+        list = ruangService.searchById(id, limit, offset);
+
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
     @GetMapping("/ruang/nama/{nama}")
     public ResponseEntity<?> searchByName(@PathVariable String nama)
     {
@@ -107,11 +129,29 @@ public class RuangController {
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
+    @GetMapping("/ruang/nama/{nama}/limit/{limit}/offset/{offset}")
+    public ResponseEntity<?> searchByName(@PathVariable String nama, @PathVariable int limit, @PathVariable int offset)
+    {
+        List<Ruang> list;
+        list = ruangService.searchByName(nama, limit, offset);
+
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
     @GetMapping("/ruang/harga/{harga}")
     public ResponseEntity<?> searchByPrice(@PathVariable int harga)
     {
         List<Ruang> list;
         list = ruangService.searchByPrice(harga);
+
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
+    @GetMapping("/ruang/harga/{harga}/limit/{limit}/offset/{offset}")
+    public ResponseEntity<?> searchByPrice(@PathVariable int harga, @PathVariable int limit, @PathVariable int offset)
+    {
+        List<Ruang> list;
+        list = ruangService.searchByPrice(harga, limit, offset);
 
         return new ResponseEntity<>(list, HttpStatus.OK);
     }

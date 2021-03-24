@@ -34,6 +34,19 @@ public class FilmController {
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
+    @GetMapping("/film/limit/{limit}/offset/{offset}")
+    public ResponseEntity<List<Film>> getAll(@PathVariable int limit, @PathVariable int offset)
+    {
+        List<Film> list = filmService.findAll(limit, offset);
+
+        if(list == null)
+        {
+            return new ResponseEntity<>(list, HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
     @PostMapping("/film/")
     public ResponseEntity<?> create(@RequestBody Film film)
     {
@@ -92,11 +105,29 @@ public class FilmController {
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
+    @GetMapping("/film/id/{id}/limit/{limit}/offset/{offset}")
+    public ResponseEntity<?> searchById(@PathVariable String id, @PathVariable int limit, @PathVariable int offset)
+    {
+        List<Film> list;
+        list = filmService.searchById(id, limit, offset);
+
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
     @GetMapping("/film/judul/{judul}")
     public ResponseEntity<?> searchByTitle(@PathVariable String judul)
     {
         List<Film> list;
         list = filmService.searchByTitle(judul);
+
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
+    @GetMapping("/film/judul/{judul}/limit/{limit}/offset/{offset}")
+    public ResponseEntity<?> searchByTitle(@PathVariable String judul, @PathVariable int limit, @PathVariable int offset)
+    {
+        List<Film> list;
+        list = filmService.searchByTitle(judul, limit, offset);
 
         return new ResponseEntity<>(list, HttpStatus.OK);
     }

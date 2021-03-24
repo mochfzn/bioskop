@@ -33,8 +33,18 @@ public class JadwalServiceImpl implements JadwalService {
     }
 
     @Override
+    public List<Jadwal> findAll(int limit, int offset) {
+        return jadwalRepository.findAll(limit, offset);
+    }
+
+    @Override
     public List<Jadwal> searchByDate(LocalDate tanggal) {
         return jadwalRepository.findByTanggal(tanggal);
+    }
+
+    @Override
+    public List<Jadwal> searchByDate(LocalDate tanggal, int limit, int offset) {
+        return jadwalRepository.findByTanggal(tanggal, limit, offset);
     }
 
     @Override
@@ -43,8 +53,18 @@ public class JadwalServiceImpl implements JadwalService {
     }
 
     @Override
+    public List<Jadwal> searchByRoom(String ruang, int limit, int offset) {
+        return jadwalRepository.findByRuang(ruang, limit, offset);
+    }
+
+    @Override
     public List<Jadwal> searchByFilm(String title) {
         return jadwalRepository.findByFilm(title);
+    }
+
+    @Override
+    public List<Jadwal> searchByFilm(String title, int limit, int offset) {
+        return jadwalRepository.findByFilm(title, limit, offset);
     }
 
     @Override

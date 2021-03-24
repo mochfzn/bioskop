@@ -3,7 +3,14 @@ package com.nexsoft.bioskop.model;
 public class TempatDuduk {
     private String id;
     private String posisi;
-    private Pembelian pembelian;
+
+    public TempatDuduk() {
+    }
+
+    public TempatDuduk(String id, String posisi) {
+        this.id = id;
+        this.posisi = posisi;
+    }
 
     public String getId() {
         return id;
@@ -19,13 +26,5 @@ public class TempatDuduk {
 
     public void setPosisi(String posisi) {
         this.posisi = posisi;
-    }
-
-    public Pembelian getPembelian() {
-        return pembelian;
-    }
-
-    public void setPembelian(Pembelian pembelian) {
-        this.pembelian = pembelian;
     }
 }
