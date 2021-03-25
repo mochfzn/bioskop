@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import {Alert, Div, Button, Label} from '../../../component';
+import {Alert, Div, Button, Label, Password as InputPassword} from '../../../component';
 import './style.css';
 
 class Password extends Component {
@@ -142,7 +142,9 @@ class Password extends Component {
                     <span>Kata Sandi</span>
                     <i className="fa fa-user-circle"></i>
                     <Label>{this.props.user.username}</Label>
-                    <input type="password" id="password" name="password" className="input" placeholder="Kata Sandi" value={password} onChange={el => this.onChange(el)} />
+                    {/* <input type="password" id="password" name="password" className="input" placeholder="Kata Sandi" value={password} onChange={el => this.onChange(el)} />
+                    <span id="visible-password" className="fas fa-eye"></span> */}
+                    <InputPassword id="password" name="password" class="input" placeholder="Kata Sandi" value={password} onChange={el => this.onChange(el)} />
                     <Button class="button" value="Masuk" onClick={this.doLogin} />
                     <Button class="button" value="Kembali" onClick={this.back} />
                 </Div>

@@ -9,6 +9,12 @@ class Alert extends Component {
         this.state = {  }
     }
 
+    componentDidUpdate() {
+        setTimeout(() => {
+            this.close();
+        }, 3000);
+    }
+
     close = () => {
         const alert = document.getElementById("alert");
         alert.style.display = "none";

@@ -1,0 +1,18 @@
+.login-password .visible-eye {
+    position: relative;
+    top: -28px;
+    left: 130px;
+    font-size: 20px !important;
+    color: rgb(130, 130, 130);
+    display: inline !important;
+}
+
+.ubah-kata-sandi .visible-eye {
+    position: relative;
+    bottom: 47px;
+    left: 418px;
+    font-size: 18px;
+    color: rgb(130, 130, 130);
+    display: inline;
+}
+

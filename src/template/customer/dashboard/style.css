@@ -1,13 +1,43 @@
-.container > .pelanggan > .movie {
+.container > .pelanggan > .tanggal {
+    width: 1100px;
+    margin-top: 20px;
+    float: left;
+}
+
+.container > .pelanggan > .tanggal > .input {
+    width: 186px;
+    height: 26px;
+    border: 2px solid #99B7B8;
+    border-radius: 6px;
+    background-color: #D9E4E7;
+    margin: 0 10px;
+    padding: 0 0 0 10px;
+    float: left;
+}
+
+.container > .pelanggan > .tanggal > .button{
+    border: 2px solid #165076;
+    background-color: #0A7EA2;
+    color: #F7F6F3;
+    border-radius: 5px;
+    padding: 5px 5px;
+    cursor: pointer;
+    float: left;
+}
+
+.container > .pelanggan > .content {
+    float: left;
+}
+
+.container > .pelanggan > .content > .movie {
     position: relative;
     width: 200px;
     height: 300px;
     margin: 30px 37.5px 0;
     float: left;
-    z-index: -1;
 }
 
-.container > .pelanggan > .movie .image {
+.container > .pelanggan > .content > .movie .image {
     opacity: 1;
     display: block;
     width: 100%;
@@ -18,7 +48,7 @@
     backface-visibility: hidden;
 }
 
-.container > .pelanggan > .movie .middle {
+.container > .pelanggan > .content .movie .middle {
     transition: .5s ease;
     opacity: 0;
     position: absolute;
@@ -27,15 +57,15 @@
     transform: translate(-50%, -50%);
 }
 
-.container > .pelanggan > .movie:hover .image {
+.container > .pelanggan > .content .movie:hover .image {
     opacity: 0.3;
 }
 
-.container > .pelanggan > .movie:hover .middle {
+.container > .pelanggan > .content .movie:hover .middle {
     opacity: 1;
 }
 
-.container > .pelanggan > .movie > .middle > .button {
+.container > .pelanggan > .content .movie > .middle > .button {
     width: 150px;
     height: 35px;
     color: #1C7664;

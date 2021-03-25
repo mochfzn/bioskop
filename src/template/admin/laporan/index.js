@@ -53,7 +53,16 @@ class Laporan extends Component {
             },
             alert: "",
             search: "",
-            showButtonSearch: false
+            showButtonSearch: false,
+            paging: {
+                startRow: 1,
+                maxRow: 5,
+                page: 0,
+                limit: 7,
+                currPage: 1,
+                offset: 0,
+                amount: 0
+            }
          }
         this.tableHeader = ["ID Tiket", "Pembeli", "Film", "Tanggal", "Aksi"];
         this.searchOption = ["ID Tiket","Pembeli", "Film", "Tanggal"];
@@ -61,10 +70,10 @@ class Laporan extends Component {
 
     componentDidMount() {
         document.body.classList.remove("background");
-        this.getAllTransaction();
+        this.countData();
     }
 
-    getAllTransaction = () => {
+    countData = () => {
         const alert = document.getElementById("alert");
 
         fetch('http://localhost:8080/bioskop/pembelian/', {
@@ -77,7 +86,39 @@ class Laporan extends Component {
         })
         .then(response => response.json())
         .then(json => {
+            let paging = this.state.paging;
+            paging.amount = json.length;
+
+            this.setState({ 
+                paging: paging
+            });
+        })
+        .then(() => {
+            this.getAllTransaction();
+        })
+        .catch((e) => {
+            this.setState({alert: "Gagal mengambil data! ", e});
+            alert.style.display = "block";
+        });
+    }
+
+    getAllTransaction = () => {
+        const alert = document.getElementById("alert");
+
+        fetch('http://localhost:8080/bioskop/pembelian/limit/' + this.state.paging.limit + '/offset/' + this.state.paging.offset, {
+            method: "get",
+            headers: {
+                 "Content-Type": "application/json; ; charset=utf-8",
+                 "Access-Control-Allow-Headers": "Authorization, Content-Type",
+                 "Access-Control-Allow-Origin": "*"
+            }
+        })
+        .then(response => response.json())
+        .then(json => {
             this.setState({ data: json })
+        })
+        .then(() => {
+            this.settingPaging();
         })
         .catch((e) => {
             this.setState({alert: "Gagal mengambil data! ", e});
@@ -101,30 +142,26 @@ class Laporan extends Component {
             this.setState({
                 showButtonSearch: false,
                 search: ""
-            });
+            }, () => this.showTable());
         }
     }
 
     onChangeSearch = el => {
         const value = el.target.value;
-        this.setState({search: value});
+        this.setState({search: value}, () => this.showTable());
+    }
 
-        if(value === "")
-        {
-            this.getAllTransaction();
-        }
-        else if(this.valueSelect === "ID Tiket")
-        {
-            this.searchById(value);
-        }
-        else if(this.valueSelect === "Pembeli")
-        {
-            this.searchByCustomer(value);
-        }
-        else if(this.valueSelect === "Film")
-        {
-            this.searchByFilm(value);
-        }
+    onChangeLimit = event => {
+        let paging = this.state.paging;
+        paging.limit = Number(event.target.value);
+        paging.currPage = 1;
+        paging.offset = 0;
+
+        this.setState({
+            paging
+        });
+
+        this.showTable();
     }
 
     onClickDetail = object => {
@@ -177,12 +214,83 @@ class Laporan extends Component {
         })
         .then(response => response.json())
         .then(json => {
-            this.setState({ data: json })
+            let paging = this.state.paging;
+            paging.amount = json.length;
+
+            this.setState({ 
+                paging: paging
+            });
+        })
+        .then(() => {
+            this.searchByDate();
         })
         .catch((e) => {
             this.setState({alert: "Gagal mengambil data! ", e});
             alert.style.display = "block";
         });
+    }
+
+    searchByDate = () => {
+        const alert = document.getElementById("alert");
+        let dateSearch;
+
+        if(this.state.search === "") 
+        {
+            dateSearch = "&nbsp;";
+        }
+        else
+        {
+            let date = new Date(this.state.search);
+            let hari = date.getDate();
+            let bulan = date.getMonth() + 1;
+            let tahun = date.getFullYear();
+
+            if(bulan < 10)
+                bulan = '0' + bulan.toString();
+            if(hari < 10)
+                hari = '0' + hari.toString();
+
+            dateSearch = hari + "-" + bulan + "-" + tahun;
+        }
+
+        fetch('http://localhost:8080/bioskop/pembelian/tanggal/' + dateSearch + '/limit/' + this.state.paging.limit + '/offset/' + this.state.paging.offset, {
+            method: "get",
+            headers: {
+                 "Content-Type": "application/json; ; charset=utf-8",
+                 "Access-Control-Allow-Headers": "Authorization, Content-Type",
+                 "Access-Control-Allow-Origin": "*"
+            }
+        })
+        .then(response => response.json())
+        .then(json => {
+            this.setState({ data: json })
+        })
+        .then(() => {
+            this.settingPaging();
+        })
+        .catch((e) => {
+            this.setState({alert: "Gagal mengambil data! ", e});
+            alert.style.display = "block";
+        });
+    }
+
+    showTable = () => {
+        if(this.state.search === "")
+        {
+            this.countData();
+        }
+        else if(this.valueSelect === "ID Tiket")
+        {
+            this.countDataSearchById(this.state.search);
+        }
+        else if(this.valueSelect === "Pembeli")
+        {
+            this.countDataSearchByCustomer(this.state.search);
+        }
+        else if(this.valueSelect === "Film")
+        {
+            this.countDataSearchByFilm(this.state.search);
+        }
     }
 
     getImage = judul => {
@@ -195,7 +303,7 @@ class Laporan extends Component {
         return imageObject.image;
     }
 
-    searchById = value => {
+    countDataSearchById = value => {
         const alert = document.getElementById("alert");
 
         if(value === "") 
@@ -213,7 +321,15 @@ class Laporan extends Component {
         })
         .then(response => response.json())
         .then(json => {
-            this.setState({ data: json })
+            let paging = this.state.paging;
+            paging.amount = json.length;
+
+            this.setState({ 
+                paging: paging
+            });
+        })
+        .then(() => {
+            this.searchById(value);
         })
         .catch((e) => {
             this.setState({alert: "Gagal mengambil data! ", e});
@@ -221,7 +337,36 @@ class Laporan extends Component {
         });
     }
 
-    searchByCustomer = value => {
+    searchById = value => {
+        const alert = document.getElementById("alert");
+
+        if(value === "") 
+        {
+            value = "&nbsp;";
+        }
+
+        fetch('http://localhost:8080/bioskop/pembelian/id/' + value + '/limit/' + this.state.paging.limit + '/offset/' + this.state.paging.offset, {
+            method: "get",
+            headers: {
+                 "Content-Type": "application/json; ; charset=utf-8",
+                 "Access-Control-Allow-Headers": "Authorization, Content-Type",
+                 "Access-Control-Allow-Origin": "*"
+            }
+        })
+        .then(response => response.json())
+        .then(json => {
+            this.setState({ data: json })
+        })
+        .then(() => {
+            this.settingPaging();
+        })
+        .catch((e) => {
+            this.setState({alert: "Gagal mengambil data! ", e});
+            alert.style.display = "block";
+        });
+    }
+
+    countDataSearchByCustomer = value => {
         const alert = document.getElementById("alert");
 
         if(value === "") 
@@ -239,7 +384,78 @@ class Laporan extends Component {
         })
         .then(response => response.json())
         .then(json => {
+            let paging = this.state.paging;
+            paging.amount = json.length;
+
+            this.setState({ 
+                paging: paging
+            });
+        })
+        .then(() => {
+            this.searchByCustomer(value);
+        })
+        .catch((e) => {
+            this.setState({alert: "Gagal mengambil data! ", e});
+            alert.style.display = "block";
+        });
+    }
+
+    searchByCustomer = value => {
+        const alert = document.getElementById("alert");
+
+        if(value === "") 
+        {
+            value = "&nbsp;";
+        }
+
+        fetch('http://localhost:8080/bioskop/pembelian/pembeli/' + value + '/limit/' + this.state.paging.limit + '/offset/' + this.state.paging.offset, {
+            method: "get",
+            headers: {
+                 "Content-Type": "application/json; ; charset=utf-8",
+                 "Access-Control-Allow-Headers": "Authorization, Content-Type",
+                 "Access-Control-Allow-Origin": "*"
+            }
+        })
+        .then(response => response.json())
+        .then(json => {
             this.setState({ data: json })
+        })
+        .then(() => {
+            this.settingPaging();
+        })
+        .catch((e) => {
+            this.setState({alert: "Gagal mengambil data! ", e});
+            alert.style.display = "block";
+        });
+    }
+
+    countDataSearchByFilm = value => {
+        const alert = document.getElementById("alert");
+
+        if(value === "") 
+        {
+            value = "&nbsp;";
+        }
+
+        fetch('http://localhost:8080/bioskop/pembelian/film/' + value, {
+            method: "get",
+            headers: {
+                 "Content-Type": "application/json; ; charset=utf-8",
+                 "Access-Control-Allow-Headers": "Authorization, Content-Type",
+                 "Access-Control-Allow-Origin": "*"
+            }
+        })
+        .then(response => response.json())
+        .then(json => {
+            let paging = this.state.paging;
+            paging.amount = json.length;
+
+            this.setState({ 
+                paging: paging
+            });
+        })
+        .then(() => {
+            this.searchByFilm(value);
         })
         .catch((e) => {
             this.setState({alert: "Gagal mengambil data! ", e});
@@ -267,10 +483,57 @@ class Laporan extends Component {
         .then(json => {
             this.setState({ data: json })
         })
+        .then(() => {
+            this.settingPaging();
+        })
         .catch((e) => {
             this.setState({alert: "Gagal mengambil data! ", e});
             alert.style.display = "block";
         });
+    }
+
+    settingPaging = () => {
+        let start, deff, paging, temp;
+        paging = this.state.paging;
+        start = 1;
+        deff = Math.floor(paging.maxRow/2);
+
+        if((paging.currPage - deff) <= 2)
+        {
+            start = 1;
+        }
+        else
+        {
+            temp = paging.currPage - deff;
+
+            if((temp + (paging.maxRow - 1)) > paging.page)
+            {
+                start = paging.page - (paging.maxRow - 1);
+            }
+            else
+            {
+                start = temp;
+            }
+        }
+
+        paging.page = Math.ceil(paging.amount/paging.limit);
+        paging.startRow = start;
+
+        this.setState({
+            paging
+        });
+    }
+
+    setCurrPage = currClick => {
+        let paging = this.state.paging;
+        paging.currPage = currClick;
+        paging.offset = (currClick * paging.limit) - paging.limit;
+
+        this.setState({
+            paging
+        }, () => this.settingPaging());
+
+        this.showTable();
     }
     
     render() { 
@@ -288,7 +551,8 @@ class Laporan extends Component {
                 <Navigation />
                 <Alert>{this.state.alert}</Alert>
                 <Table tableHeader={this.tableHeader} searchOption={this.searchOption} searchText={this.state.search} onChangeSelect={this.onChangeSelect}
-                 onChangeSearch={this.onChangeSearch} showButton={this.state.showButtonSearch} onClickSearch={this.onClickSearch}>
+                 onChangeSearch={this.onChangeSearch} showButton={this.state.showButtonSearch} onClickSearch={this.onClickSearch} paging={this.state.paging} 
+                 onChangeLimit={this.onChangeLimit} limit={this.state.paging.limit} setCurrPage={this.setCurrPage}>
                     {
                         this.state.data.map((value, index) => {
                             return (

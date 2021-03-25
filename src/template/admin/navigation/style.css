@@ -1,8 +1,13 @@
 .container > .navigation {
     width: 970px;
     height: 34px;
-    padding-top: 20px;
-    margin: 0 auto;
+    padding: 20px 65px 10px;
+    /* margin: 0 auto; */
+    position: sticky;
+    top: -13px;
+    background-color: #537D7F;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
 }
 
 .container > .navigation > img {

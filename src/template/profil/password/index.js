@@ -3,7 +3,7 @@ import  { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import './style.css';
-import Alert from '../../../component/alert';
+import { Alert, Password as InputPassword } from '../../../component';
 import AdminNavigation from '../../admin/navigation';
 import CustomerNavigation from '../../customer/navigation';
 
@@ -222,15 +222,19 @@ class Password extends Component {
                     <div class="judul">Ubah Kata Sandi</div>
                     <div class="row">
                         <label>Kata Sandi Lama :</label>
-                        <input type="password" name="kata-sandi-lama" class="input" value={old} placeholder="Kata Sandi Lama" onChange={el => this.onChange(el, "old")} />
+                        {/* <input type="password" name="kata-sandi-lama" class="input" value={old} placeholder="Kata Sandi Lama" onChange={el => this.onChange(el, "old")} /> */}
+                        {/* <span className="fas fa-eye" style={{position: "relative", left: "200px", bottom: "60px"}}></span> */}
+                        <InputPassword id="kata-sandi-lama" name="kata-sandi-lama" class="input" value={old} placeholder="Kata Sandi Lama" onChange={el => this.onChange(el, "old")} />
                     </div>
                     <div class="row">
                         <label>Kata Sandi Baru :</label>
-                        <input type="password" name="kata-sandi-baru" class="input" value={fresh} placeholder="Kata Sandi Baru" onChange={el => this.onChange(el, "fresh")} />
+                        {/* <input type="password" name="kata-sandi-baru" class="input" value={fresh} placeholder="Kata Sandi Baru" onChange={el => this.onChange(el, "fresh")} /> */}
+                        <InputPassword id="kata-sandi-baru" name="kata-sandi-baru" class="input" value={fresh} placeholder="Kata Sandi Baru" onChange={el => this.onChange(el, "fresh")} />
                     </div>
                     <div class="row">
                         <label>Ulang Kata Sandi :</label>
-                        <input type="password" name="ulang-kata-sandi" class="input" value={repeat} placeholder="Ulang Kata Sandi"  onChange={el => this.onChange(el, "repeat")} />
+                        {/* <input type="password" name="ulang-kata-sandi" class="input" value={repeat} placeholder="Ulang Kata Sandi"  onChange={el => this.onChange(el, "repeat")} /> */}
+                        <InputPassword id="ulang-kata-sandi" name="ulang-kata-sandi" class="input" value={repeat} placeholder="Ulang Kata Sandi"  onChange={el => this.onChange(el, "repeat")} />
                     </div>
                     <div class="tombol">
                         <input type="button" class="button" value="Ubah Kata Sandi" onClick={this.onClickSubmit} />
