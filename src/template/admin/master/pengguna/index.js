@@ -629,7 +629,7 @@ class Pengguna extends Component {
                 <Alert>{this.state.alert}</Alert>
                 <Div class="pengguna">
                     <Div class="judul">
-                        Master Jadwal
+                        Master Pengguna
                     </Div>
                     <Div class="form">
                         <Text id="nama" name="nama" class="input" placeholder="Nama Lengkap" value={nama} onChange={el => this.onChangeText(el, "nama")} />

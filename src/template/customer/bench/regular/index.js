@@ -47,60 +47,71 @@ class Regular extends Component {
                 {
                     button.classList.add("merah");
                     button.classList.add("blocked");
+                    button.removeEventListener("click", this.onClickSeatChosen);
                 }
             })
         }
     }
 
     onClickSeatChosen = event => {
+        // console.log("CLICKED : "+ event.target.value);
+        // console.log(this.props.benchChoice.find(event.target.value))
         let pesan;
         let amount;
+        let cek;
+        
+        cek = this.props.benchChoice.findIndex(e => {
+            return e===event.target.value
+        });
 
-        if(event.target.classList.contains("biru"))
+        if(cek === -1)
         {
-            event.target.classList.remove("biru");
-            this.removeNotAllowedButton();
-
-            amount = Number(this.state.seatAmount);
-            amount = amount + 1;
-
-            if(amount !== Number(this.props.seatAmount))
+            if(event.target.classList.contains("biru"))
             {
-                pesan = "Pilih " + amount + " bangku lagi.";
-            }
-            else if(amount === Number(this.props.seatAmount))
-            {
-                pesan = "Pilih " + amount + " bangku.";
-            }
-
-            this.setState({
-                seatAmount: amount,
-                pesan: pesan
-            });
-        }
-        else
-        {
-            if( this.state.seatAmount !== 0)
-            {
-                event.target.classList.add("biru");
+                event.target.classList.remove("biru");
+                this.removeNotAllowedButton();
 
                 amount = Number(this.state.seatAmount);
-                amount = amount - 1;
-    
-                if(amount !== 0)
+                amount = amount + 1;
+
+                if(amount !== Number(this.props.seatAmount))
                 {
                     pesan = "Pilih " + amount + " bangku lagi.";
                 }
-                else
+                else if(amount === Number(this.props.seatAmount))
                 {
-                    pesan = "";
-                    this.addNotAllowedButton();
+                    pesan = "Pilih " + amount + " bangku.";
                 }
-    
+
                 this.setState({
                     seatAmount: amount,
                     pesan: pesan
                 });
+            }
+            else
+            {
+                if( this.state.seatAmount !== 0)
+                {
+                    event.target.classList.add("biru");
+
+                    amount = Number(this.state.seatAmount);
+                    amount = amount - 1;
+        
+                    if(amount !== 0)
+                    {
+                        pesan = "Pilih " + amount + " bangku lagi.";
+                    }
+                    else
+                    {
+                        pesan = "";
+                        this.addNotAllowedButton();
+                    }
+        
+                    this.setState({
+                        seatAmount: amount,
+                        pesan: pesan
+                    });
+                }
             }
         }
     }
@@ -141,7 +152,8 @@ class Regular extends Component {
 
         for(let button of buttons)
         {
-            button.classList.remove("blocked");
+            if(!button.classList.contains("merah"))
+                button.classList.remove("blocked");
         }
     }
 
@@ -304,7 +316,7 @@ class Regular extends Component {
                         <Div class="layar">Layar</Div>
                         <Div class="keterangan">
                             <Div class="legend">
-                                <Div class="kotak-abu"></Div><span>Tidak tersedia</span>
+                                {/* <Div class="kotak-abu"></Div><span>Tidak tersedia</span> */}
                                 <Div class="kotak-merah"></Div><span>Sudah dipesan</span>
                                 <Div class="kotak-hijau"></Div><span>Tersedia</span>
                                 <Div class="kotak-biru"></Div><span>dipilih</span>

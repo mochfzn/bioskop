@@ -18,6 +18,7 @@ import bigfootFamily from './bigfoot-family.jpg';
 import alienXmas from './alien-xmas.jpg';
 import overTheMoon from './over-the-moon.jpg';
 import aWhiskerAway from './a-whisker-away.jpg';
+import notFound from './not-found.png';
 
 let Gambar = [
     {title: "Tom and Jerry The Movie", image: tomAndJerry},
@@ -40,6 +41,7 @@ let Gambar = [
     {title: "Alien Xmas", image: alienXmas},
     {title: "Over The Moon", image: overTheMoon},
     {title: "A Whisker Away", image: aWhiskerAway},
+    {title: "Not Found", image: notFound}
 ];
 
 export default Gambar;

@@ -3,7 +3,7 @@ import  { Redirect, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import './style.css';
-import Alert from '../../../component/alert';
+import { Div, Label, Text, Alert, Button } from '../../../component';
 import AdminNavigation from '../../admin/navigation';
 import CustomerNavigation from '../../customer/navigation';
 
@@ -211,36 +211,33 @@ class Change extends Component {
             <React.Fragment>
                 {navigation}
                 <Alert>{this.state.alert}</Alert>
-                <div class="ubah-profil">
-                    <div class="judul">Ubah Profil</div>
-                    <div class="row">
-                        <label>Nama Lengkap :</label>
-                        <input type="text" name="nama" value={nama} class="input" placeholder="Nama Lengkap" onChange={this.onChangeUser} />
-                    </div>
-                    <div class="row">
-                        <label>Alamat :</label>
-                        <textarea name="alamat" value={alamat} class="textarea" placeholder="Alamat" onChange={this.onChangeUser}></textarea>
-                    </div>
-                    <div class="row">
-                        <label>No. Telepon/HP :</label>
-                        <input type="text" value={telepon} name="telepon" class="input" placeholder="No. Telepon/HP" disabled="disabled" />
-                    </div>
-                    <div class="row">
-                        <label>Email :</label>
-                        <input type="text" value={email} name="email" class="input" placeholder="Email" onChange={this.onChangeUser} />
-                    </div>
-                    <div class="row">
-                        <label>Nama Pengguna :</label>
-                        <input type="text" value={username} name="username" class="input" placeholder="Nama Pengguna" onChange={this.onChangeUser} />
-                    </div>
-                    <div class="tombol">
-                        {/* <Link to="/profil" className="link" onClick={this.onClickSubmit}>Simpan</Link> */}
-                        <input type="button" class="button" value="Simpan" onClick={this.onClickSubmit} />
+                <Div class="ubah-profil">
+                    <Div class="judul">Ubah Profil</Div>
+                    <Div class="row">
+                        <Label>Nama Lengkap :</Label>
+                        <Text name="nama" value={nama} class="input" placeholder="Nama Lengkap" onChange={this.onChangeUser} />
+                    </Div>
+                    <Div class="row">
+                        <Label>Alamat :</Label>
+                        <textarea name="alamat" value={alamat} className="textarea" placeholder="Alamat" onChange={this.onChangeUser}></textarea>
+                    </Div>
+                    <Div class="row">
+                        <Label>No. Telepon/HP :</Label>
+                        <Text value={telepon} name="telepon" class="input" placeholder="No. Telepon/HP" disabled="disabled" />
+                    </Div>
+                    <Div class="row">
+                        <Label>Email :</Label>
+                        <Text value={email} name="email" class="input" placeholder="Email" onChange={this.onChangeUser} />
+                    </Div>
+                    <Div class="row">
+                        <Label>Nama Pengguna :</Label>
+                        <Text value={username} name="username" class="input" placeholder="Nama Pengguna" onChange={this.onChangeUser} />
+                    </Div>
+                    <Div class="tombol">
+                        <Button class="button" value="Simpan" onClick={this.onClickSubmit} />
                         <Link to="/profil" className="link">Batal</Link>
-                        {/* <input type="button" class="button" value="Simpan" onClick={this.onClickSubmit} /> */}
-                        {/* <input type="button" class="button" value="Batal" onClick={this.toReview} /> */}
-                    </div>
-                </div>
+                    </Div>
+                </Div>
             </React.Fragment>
          );
     }

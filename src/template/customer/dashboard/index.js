@@ -183,6 +183,9 @@ class Dashboard extends Component {
             return value.title === title;
         });
 
+        if(typeof imageObject === 'undefined')
+            return film[film.length - 1].image;
+
         return imageObject.image;
     }
 

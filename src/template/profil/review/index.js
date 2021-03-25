@@ -3,6 +3,7 @@ import  { Redirect, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import './style.css';
+import { Div, Label, Text } from '../../../component';
 import AdminNavigation from '../../admin/navigation';
 import CustomerNavigation from '../../customer/navigation';
 
@@ -70,33 +71,33 @@ class Review extends Component {
         return ( 
             <React.Fragment>
                 {navigation}
-                <div class="lihat-profil">
-                    <div class="judul">Profil</div>
-                    <div class="row">
-                        <label>Nama Lengkap :</label>
-                        <input type="text" name="nama" class="input" value={nama} placeholder="Nama Lengkap" disabled="disabled" />
-                    </div>
-                    <div class="row">
-                        <label>Alamat :</label>
-                        <textarea name="alamat" class="textarea" value={alamat} placeholder="Alamat" disabled="disabled"></textarea>
-                    </div>
-                    <div class="row">
-                        <label>No. Telepon/HP :</label>
-                        <input type="text" name="nama" class="input" value={telepon} placeholder="No. Telepon/HP" disabled="disabled" />
-                    </div>
-                    <div class="row">
-                        <label>Email :</label>
-                        <input type="text" name="nama" class="input" value={email} placeholder="Email" disabled="disabled" />
-                    </div>
-                    <div class="row">
-                        <label>Nama Pengguna :</label>
-                        <input type="text" name="nama" class="input" value={username} placeholder="Nama Pengguna" disabled="disabled" />
-                    </div>
-                    <div class="tombol">
+                <Div class="lihat-profil">
+                    <Div class="judul">Profil</Div>
+                    <Div class="row">
+                        <Label>Nama Lengkap :</Label>
+                        <Text name="nama" class="input" value={nama} placeholder="Nama Lengkap" disabled="disabled" />
+                    </Div>
+                    <Div class="row">
+                        <Label>Alamat :</Label>
+                        <textarea name="alamat" className="textarea" value={alamat} placeholder="Alamat" disabled="disabled"></textarea>
+                    </Div>
+                    <Div class="row">
+                        <Label>No. Telepon/HP :</Label>
+                        <Text name="nama" class="input" value={telepon} placeholder="No. Telepon/HP" disabled="disabled" />
+                    </Div>
+                    <Div class="row">
+                        <Label>Email :</Label>
+                        <Text name="nama" class="input" value={email} placeholder="Email" disabled="disabled" />
+                    </Div>
+                    <Div class="row">
+                        <Label>Nama Pengguna :</Label>
+                        <Text name="nama" class="input" value={username} placeholder="Nama Pengguna" disabled="disabled" />
+                    </Div>
+                    <Div class="tombol">
                         <Link to="/profil/change" className="link">Ubah Profil</Link>
                         <Link to="/profil/password" className="link">Ubah Kata Sandi</Link>
-                    </div>
-                </div>
+                    </Div>
+                </Div>
             </React.Fragment>
          );
     }

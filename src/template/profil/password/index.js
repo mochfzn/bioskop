@@ -3,7 +3,7 @@ import  { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import './style.css';
-import { Alert, Password as InputPassword } from '../../../component';
+import { Alert, Password as InputPassword, Div, Label, Button } from '../../../component';
 import AdminNavigation from '../../admin/navigation';
 import CustomerNavigation from '../../customer/navigation';
 
@@ -218,29 +218,29 @@ class Password extends Component {
             <React.Fragment>
                 {navigation}
                 <Alert>{this.state.alert}</Alert>
-                <div class="ubah-kata-sandi">
-                    <div class="judul">Ubah Kata Sandi</div>
-                    <div class="row">
-                        <label>Kata Sandi Lama :</label>
+                <Div class="ubah-kata-sandi">
+                    <Div class="judul">Ubah Kata Sandi</Div>
+                    <Div class="row">
+                        <Label>Kata Sandi Lama :</Label>
                         {/* <input type="password" name="kata-sandi-lama" class="input" value={old} placeholder="Kata Sandi Lama" onChange={el => this.onChange(el, "old")} /> */}
                         {/* <span className="fas fa-eye" style={{position: "relative", left: "200px", bottom: "60px"}}></span> */}
                         <InputPassword id="kata-sandi-lama" name="kata-sandi-lama" class="input" value={old} placeholder="Kata Sandi Lama" onChange={el => this.onChange(el, "old")} />
-                    </div>
-                    <div class="row">
-                        <label>Kata Sandi Baru :</label>
+                    </Div>
+                    <Div class="row">
+                        <Label>Kata Sandi Baru :</Label>
                         {/* <input type="password" name="kata-sandi-baru" class="input" value={fresh} placeholder="Kata Sandi Baru" onChange={el => this.onChange(el, "fresh")} /> */}
                         <InputPassword id="kata-sandi-baru" name="kata-sandi-baru" class="input" value={fresh} placeholder="Kata Sandi Baru" onChange={el => this.onChange(el, "fresh")} />
-                    </div>
-                    <div class="row">
-                        <label>Ulang Kata Sandi :</label>
+                    </Div>
+                    <Div class="row">
+                        <Label>Ulang Kata Sandi :</Label>
                         {/* <input type="password" name="ulang-kata-sandi" class="input" value={repeat} placeholder="Ulang Kata Sandi"  onChange={el => this.onChange(el, "repeat")} /> */}
                         <InputPassword id="ulang-kata-sandi" name="ulang-kata-sandi" class="input" value={repeat} placeholder="Ulang Kata Sandi"  onChange={el => this.onChange(el, "repeat")} />
-                    </div>
-                    <div class="tombol">
-                        <input type="button" class="button" value="Ubah Kata Sandi" onClick={this.onClickSubmit} />
-                        <input type="button" class="button" value="Batal" onClick={this.toReview} />
-                    </div>
-                </div>
+                    </Div>
+                    <Div class="tombol">
+                        <Button class="button" value="Ubah Kata Sandi" onClick={this.onClickSubmit} />
+                        <Button class="button" value="Batal" onClick={this.toReview} />
+                    </Div>
+                </Div>
             </React.Fragment>
          );
     }

@@ -10,9 +10,14 @@ class Alert extends Component {
     }
 
     componentDidUpdate() {
-        setTimeout(() => {
-            this.close();
-        }, 3000);
+        const alert = document.getElementById("alert");
+
+        if(alert.style.display === "block")
+        {
+            setTimeout(() => {
+                this.close();
+            }, 3000);
+        }
     }
 
     close = () => {

@@ -572,69 +572,71 @@ class Laporan extends Component {
                 </Table>
                 <ModalDetail>
                     <table>
-                        <tr>
-                            <td>Kode Tiket</td>
-                            <td>:</td>
-                            <td>{this.state.modal.id}</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>Judul Film</td>
-                            <td>:</td>
-                            <td>{this.state.modal.jadwal.film.judul}</td>
-                            <td>&nbsp;</td>
-                            <td>Nama</td>
-                            <td>:</td>
-                            <td>{this.state.modal.pengguna.nama}</td>
-                        </tr>
-                        <tr>
-                            <td>Jumlah Tiket</td>
-                            <td>:</td>
-                            <td>{this.state.modal.jumlahTiket + " buah"}</td>
-                            <td>&nbsp;</td>
-                            <td>Telepon</td>
-                            <td>:</td>
-                            <td>{this.state.modal.pengguna.telepon}</td>
-                        </tr>
-                        <tr>
-                            <td>Total</td>
-                            <td>:</td>
-                            <td>{"Rp. " + this.state.modal.total.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".")}</td>
-                            <td>&nbsp;</td>
-                            <td>Email</td>
-                            <td>:</td>
-                            <td>{this.state.modal.pengguna.email}</td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>Tanggal Tayang</td>
-                            <td>:</td>
-                            <td>{this.state.modal.jadwal.tanggal + " " + this.state.modal.jadwal.jam.substring(0,5)}</td>
-                            <td>&nbsp;</td>
-                            <td>Ruang</td>
-                            <td>:</td>
-                            <td>{this.state.modal.jadwal.ruang.nama}</td>
-                        </tr>
-                        <tr>
-                            <td>Tipe</td>
-                            <td>:</td>
-                            <td>{(this.state.modal.jadwal.ruang.jenis === 1) ? "Regular" : "VIP"}</td>
-                            <td>&nbsp;</td>
-                            <td>Harga</td>
-                            <td>:</td>
-                            <td>{"Rp. " + this.state.modal.jadwal.ruang.harga.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".")}</td>
-                        </tr>
+                        <tbody>
+                            <tr>
+                                <td>Kode Tiket</td>
+                                <td>:</td>
+                                <td>{this.state.modal.id}</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>Judul Film</td>
+                                <td>:</td>
+                                <td>{this.state.modal.jadwal.film.judul}</td>
+                                <td>&nbsp;</td>
+                                <td>Nama</td>
+                                <td>:</td>
+                                <td>{this.state.modal.pengguna.nama}</td>
+                            </tr>
+                            <tr>
+                                <td>Jumlah Tiket</td>
+                                <td>:</td>
+                                <td>{this.state.modal.jumlahTiket + " buah"}</td>
+                                <td>&nbsp;</td>
+                                <td>Telepon</td>
+                                <td>:</td>
+                                <td>{this.state.modal.pengguna.telepon}</td>
+                            </tr>
+                            <tr>
+                                <td>Total</td>
+                                <td>:</td>
+                                <td>{"Rp. " + this.state.modal.total.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".")}</td>
+                                <td>&nbsp;</td>
+                                <td>Email</td>
+                                <td>:</td>
+                                <td>{this.state.modal.pengguna.email}</td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>Tanggal Tayang</td>
+                                <td>:</td>
+                                <td>{this.state.modal.jadwal.tanggal + " " + this.state.modal.jadwal.jam.substring(0,5)}</td>
+                                <td>&nbsp;</td>
+                                <td>Ruang</td>
+                                <td>:</td>
+                                <td>{this.state.modal.jadwal.ruang.nama}</td>
+                            </tr>
+                            <tr>
+                                <td>Tipe</td>
+                                <td>:</td>
+                                <td>{(this.state.modal.jadwal.ruang.jenis === 1) ? "Regular" : "VIP"}</td>
+                                <td>&nbsp;</td>
+                                <td>Harga</td>
+                                <td>:</td>
+                                <td>{"Rp. " + this.state.modal.jadwal.ruang.harga.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".")}</td>
+                            </tr>
+                        </tbody>
                     </table>
                 </ModalDetail>
             </React.Fragment>

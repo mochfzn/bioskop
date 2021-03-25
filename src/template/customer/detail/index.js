@@ -100,16 +100,14 @@ class Detail extends Component {
     getImage = title => {
         let imageObject;
 
-        if(typeof title !== 'object')
-        {
-            imageObject = Gambar.find(value => {
-                return value.title === title;
-            });
-    
-            return imageObject.image;
-        }
-        
-        return "";
+        imageObject = Gambar.find(value => {
+            return value.title === title;
+        });
+
+        if(typeof imageObject === 'undefined')
+            return Gambar[Gambar.length - 1].image;
+
+        return imageObject.image;
     }
 
     readSensor = sensor => {

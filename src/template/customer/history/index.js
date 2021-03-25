@@ -558,61 +558,63 @@ class History extends Component {
                         </Div>
                         <hr />
                         <table>
-                            <tr>
-                                <td>
-                                    Tanggal Tayang
-                                </td>
-                                <td>
-                                    :
-                                </td>
-                                <td>
-                                    {this.state.modal.jadwal.tanggal + " " + this.state.modal.jadwal.jam.substring(0,5)}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Jumlah Tiket
-                                </td>
-                                <td>
-                                    :
-                                </td>
-                                <td>
-                                    {this.state.modal.jumlahTiket + " buah"}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Tipe
-                                </td>
-                                <td>
-                                    :
-                                </td>
-                                <td>
-                                    {(this.state.modal.jadwal.ruang.jenis === 1) ? "Regular" : "VIP"}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Harga
-                                </td>
-                                <td>
-                                    :
-                                </td>
-                                <td>
-                                    {"Rp. " + this.state.modal.jadwal.ruang.harga.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".")}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Total
-                                </td>
-                                <td>
-                                    :
-                                </td>
-                                <td>
-                                    {"Rp. " + this.state.modal.total.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".")}
-                                </td>
-                            </tr>
+                            <tbody>
+                                <TableRow>
+                                    <TableData>
+                                        Tanggal Tayang
+                                    </TableData>
+                                    <TableData>
+                                        :
+                                    </TableData>
+                                    <TableData>
+                                        {this.state.modal.jadwal.tanggal + " " + this.state.modal.jadwal.jam.substring(0,5)}
+                                    </TableData>
+                                </TableRow>
+                                <TableRow>
+                                    <TableData>
+                                        Jumlah Tiket
+                                    </TableData>
+                                    <TableData>
+                                        :
+                                    </TableData>
+                                    <TableData>
+                                        {this.state.modal.jumlahTiket + " buah"}
+                                    </TableData>
+                                </TableRow>
+                                <TableRow>
+                                    <TableData>
+                                        Tipe
+                                    </TableData>
+                                    <TableData>
+                                        :
+                                    </TableData>
+                                    <TableData>
+                                        {(this.state.modal.jadwal.ruang.jenis === 1) ? "Regular" : "VIP"}
+                                    </TableData>
+                                </TableRow>
+                                <TableRow>
+                                    <TableData>
+                                        Harga
+                                    </TableData>
+                                    <TableData>
+                                        :
+                                    </TableData>
+                                    <TableData>
+                                        {"Rp. " + this.state.modal.jadwal.ruang.harga.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".")}
+                                    </TableData>
+                                </TableRow>
+                                <TableRow>
+                                    <TableData>
+                                        Total
+                                    </TableData>
+                                    <TableData>
+                                        :
+                                    </TableData>
+                                    <TableData>
+                                        {"Rp. " + this.state.modal.total.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".")}
+                                    </TableData>
+                                </TableRow>
+                            </tbody>
                         </table>
                         {/* <Div class="field">
                             <Label class="judul">Tanggal Tayang :</Label>

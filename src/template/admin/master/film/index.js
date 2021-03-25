@@ -580,6 +580,9 @@ class Film extends Component {
             return value.title === judul;
         });
 
+        if(typeof imageObject === 'undefined')
+            return film[film.length - 1].image;
+
         return imageObject.image;
     }
 
@@ -684,7 +687,7 @@ class Film extends Component {
                 <Alert>{this.state.alert}</Alert>
                 <Div class="film">
                     <Div class="judul">
-                        Master Ruang
+                        Master Film
                     </Div>
                     <Div class="form">
                         <Div class="col-1">
