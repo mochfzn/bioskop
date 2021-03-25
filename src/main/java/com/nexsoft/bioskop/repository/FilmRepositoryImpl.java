@@ -220,6 +220,100 @@ public class FilmRepositoryImpl implements FilmRepository {
     }
 
     @Override
+    public List<Film> getFilmIsPlaying(int limit, int offset) {
+        List<Film> filmList;
+
+        try {
+            filmList = this.jdbcTemplate.query("SELECT DISTINCT(f.id), f.judul, f.produser, f.direktur, f.sensor, f.bahasa, f.judul_tambahan, f.durasi, f.genre, f.deskripsi FROM jadwal j, film f WHERE j.id_film = f.id AND j.tanggal > ? LIMIT ? OFFSET ?;",
+                    preparedStatement -> {
+                        preparedStatement.setString(1, LocalDate.now().toString());
+                        preparedStatement.setInt(2, limit);
+                        preparedStatement.setInt(3, offset);
+                    },
+                    (rs, rowNum) ->
+                            new Film(
+                                    rs.getString("id"),
+                                    rs.getString("judul"),
+                                    rs.getString("produser"),
+                                    rs.getString("direktur"),
+                                    rs.getShort("sensor"),
+                                    rs.getString("bahasa"),
+                                    rs.getString("judul_tambahan"),
+                                    rs.getString("durasi"),
+                                    rs.getString("genre"),
+                                    rs.getString("deskripsi")
+                            )
+            );
+        } catch (IndexOutOfBoundsException e) {
+            filmList = null;
+        }
+
+        return filmList;
+    }
+
+    @Override
+    public List<Film> getFilmIsPlaying(LocalDate tanggal) {
+        List<Film> filmList;
+
+        try {
+            filmList = this.jdbcTemplate.query("SELECT DISTINCT(f.id), f.judul, f.produser, f.direktur, f.sensor, f.bahasa, f.judul_tambahan, f.durasi, f.genre, f.deskripsi FROM jadwal j, film f WHERE j.id_film = f.id AND j.tanggal = ?;",
+                    preparedStatement -> {
+                        preparedStatement.setString(1, tanggal.toString());
+                    },
+                    (rs, rowNum) ->
+                            new Film(
+                                    rs.getString("id"),
+                                    rs.getString("judul"),
+                                    rs.getString("produser"),
+                                    rs.getString("direktur"),
+                                    rs.getShort("sensor"),
+                                    rs.getString("bahasa"),
+                                    rs.getString("judul_tambahan"),
+                                    rs.getString("durasi"),
+                                    rs.getString("genre"),
+                                    rs.getString("deskripsi")
+                            )
+            );
+        } catch (IndexOutOfBoundsException e) {
+            filmList = null;
+        }
+
+        return filmList;
+    }
+
+    @Override
+    public List<Film> getFilmIsPlaying(LocalDate tanggal, int limit, int offset) {
+        List<Film> filmList;
+
+        try {
+            filmList = this.jdbcTemplate.query("SELECT DISTINCT(f.id), f.judul, f.produser, f.direktur, f.sensor, f.bahasa, f.judul_tambahan, f.durasi, f.genre, f.deskripsi FROM jadwal j, film f WHERE j.id_film = f.id AND j.tanggal = ? LIMIT ? OFFSET ?;",
+                    preparedStatement -> {
+                        preparedStatement.setString(1, tanggal.toString());
+                        preparedStatement.setInt(2, limit);
+                        preparedStatement.setInt(3, offset);
+                    },
+                    (rs, rowNum) ->
+                            new Film(
+                                    rs.getString("id"),
+                                    rs.getString("judul"),
+                                    rs.getString("produser"),
+                                    rs.getString("direktur"),
+                                    rs.getShort("sensor"),
+                                    rs.getString("bahasa"),
+                                    rs.getString("judul_tambahan"),
+                                    rs.getString("durasi"),
+                                    rs.getString("genre"),
+                                    rs.getString("deskripsi")
+                            )
+            );
+        } catch (IndexOutOfBoundsException e) {
+            filmList = null;
+        }
+
+        return filmList;
+    }
+
+    @Override
     public Film findByIdSpecific(String id) {
         Film film;
 

@@ -6,10 +6,12 @@ import com.nexsoft.bioskop.util.CustomErrorType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:3000")
@@ -136,6 +138,27 @@ public class FilmController {
     public ResponseEntity<?> playing()
     {
         List<Film> list = filmService.getFilmIsPlaying();
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
+    @GetMapping("/film/playing/limit/{limit}/offset/{offset}")
+    public ResponseEntity<?> playing(@PathVariable int limit, @PathVariable int offset)
+    {
+        List<Film> list = filmService.getFilmIsPlaying(limit, offset);
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
+    @GetMapping("/film/playing/tanggal/{tanggal}")
+    public ResponseEntity<?> playing(@PathVariable @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate tanggal)
+    {
+        List<Film> list = filmService.getFilmIsPlaying(tanggal);
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
+    @GetMapping("/film/playing/tanggal/{tanggal}/limit/{limit}/offset/{offset}")
+    public ResponseEntity<?> playing(@PathVariable @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate tanggal, @PathVariable int limit, @PathVariable int offset)
+    {
+        List<Film> list = filmService.getFilmIsPlaying(tanggal, limit, offset);
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 

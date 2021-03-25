@@ -31,8 +31,12 @@ public class PembelianServiceImpl implements PembelianService {
     @Override
     public List<Pembelian> findAll() {
         List<Pembelian> list = pembelianRepository.findAll();
-        System.out.println(list.get(0).getId());
         return list;
+    }
+
+    @Override
+    public List<Pembelian> findAll(int limit, int offset) {
+        return pembelianRepository.findAll(limit, offset);
     }
 
     @Override
@@ -46,8 +50,18 @@ public class PembelianServiceImpl implements PembelianService {
     }
 
     @Override
+    public List<Pembelian> findByUser(String idPelanggan, int limit, int offset) {
+        return pembelianRepository.findByUser(idPelanggan, limit, offset);
+    }
+
+    @Override
     public List<Pembelian> searchById(String id) {
         return pembelianRepository.findById(id);
+    }
+
+    @Override
+    public List<Pembelian> searchById(String id, int limit, int offset) {
+        return pembelianRepository.findById(id, limit, offset);
     }
 
     @Override
@@ -56,8 +70,18 @@ public class PembelianServiceImpl implements PembelianService {
     }
 
     @Override
+    public List<Pembelian> searchByCustomer(String name, int limit, int offset) {
+        return pembelianRepository.findByCustomer(name, limit, offset);
+    }
+
+    @Override
     public List<Pembelian> searchByFilm(String film) {
         return pembelianRepository.findByFilm(film);
+    }
+
+    @Override
+    public List<Pembelian> searchByFilm(String film, int limit, int offset) {
+        return pembelianRepository.findByFilm(film, limit, offset);
     }
 
     @Override
@@ -71,8 +95,18 @@ public class PembelianServiceImpl implements PembelianService {
     }
 
     @Override
+    public List<Pembelian> searchByDate(LocalDate date, int limit, int offset) {
+        return pembelianRepository.findByDate(date, limit, offset);
+    }
+
+    @Override
     public List<Pembelian> searchById(String id, String idCustomer) {
         return pembelianRepository.findById(id, idCustomer);
+    }
+
+    @Override
+    public List<Pembelian> searchById(String id, String idCustomer, int limit, int offset) {
+        return pembelianRepository.findById(id, idCustomer, limit, offset);
     }
 
     @Override
@@ -81,8 +115,18 @@ public class PembelianServiceImpl implements PembelianService {
     }
 
     @Override
+    public List<Pembelian> searchByFilm(String id, String idCustomer, int limit, int offset) {
+        return pembelianRepository.findByFilm(id, idCustomer, limit, offset);
+    }
+
+    @Override
     public List<Pembelian> searchByDate(LocalDate date, String idCustomer) {
         return pembelianRepository.findByDate(date, idCustomer);
+    }
+
+    @Override
+    public List<Pembelian> searchByDate(LocalDate date, String idCustomer, int limit, int offset) {
+        return pembelianRepository.findByDate(date, idCustomer, limit, offset);
     }
 
     @Override

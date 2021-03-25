@@ -49,6 +49,17 @@ public class PembelianController {
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
+    @GetMapping("/pembelian/limit/{limit}/offset/{offset}")
+    public ResponseEntity<?> getAll(@PathVariable int limit, @PathVariable int offset)
+    {
+        List<Pembelian> list = pembelianService.findAll(limit, offset);
+        if(list == null)
+        {
+            return new ResponseEntity<>(list, HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
     @GetMapping("/pembelian/jadwal/{idJadwal}")
     public ResponseEntity<?> getBySchedule(@PathVariable String idJadwal)
     {
@@ -63,10 +74,24 @@ public class PembelianController {
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
+    @GetMapping("/pembelian/pengguna/{idPengguna}/limit/{limit}/offset/{offset}")
+    public ResponseEntity<?> getByUser(@PathVariable String idPengguna, @PathVariable int limit, @PathVariable int offset)
+    {
+        List<Pembelian> list = pembelianService.findByUser(idPengguna, limit, offset);
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
     @GetMapping("/pembelian/id/{id}")
     public ResponseEntity<?> searchById(@PathVariable String id)
     {
         List<Pembelian> list = pembelianService.searchById(id);
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
+    @GetMapping("/pembelian/id/{id}/limit/{limit}/offset/{offset}")
+    public ResponseEntity<?> searchById(@PathVariable String id, @PathVariable int limit, @PathVariable int offset)
+    {
+        List<Pembelian> list = pembelianService.searchById(id, limit, offset);
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
@@ -77,10 +102,24 @@ public class PembelianController {
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
+    @GetMapping("/pembelian/id/{id}/customer/{idPembeli}/limit/{limit}/offset/{offset}")
+    public ResponseEntity<?> searchById(@PathVariable String id, @PathVariable String idPembeli, @PathVariable int limit, @PathVariable int offset)
+    {
+        List<Pembelian> list = pembelianService.searchById(id, idPembeli, limit, offset);
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
     @GetMapping("/pembelian/pembeli/{nama}")
     public ResponseEntity<?> searchByCustomer(@PathVariable String nama)
     {
         List<Pembelian> list = pembelianService.searchByCustomer(nama);
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
+    @GetMapping("/pembelian/pembeli/{nama}/limit/{limit}/offset/{offset}")
+    public ResponseEntity<?> searchByCustomer(@PathVariable String nama, @PathVariable int limit, @PathVariable int offset)
+    {
+        List<Pembelian> list = pembelianService.searchByCustomer(nama, limit, offset);
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
@@ -91,10 +130,24 @@ public class PembelianController {
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
+    @GetMapping("/pembelian/film/{film}/limit/{limit}/offset/{offset}")
+    public ResponseEntity<?> searchByFilm(@PathVariable String film, @PathVariable int limit, @PathVariable int offset)
+    {
+        List<Pembelian> list = pembelianService.searchByFilm(film, limit, offset);
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
     @GetMapping("/pembelian/film/{film}/customer/{idPembeli}")
     public ResponseEntity<?> searchByFilm(@PathVariable String film, @PathVariable String idPembeli)
     {
         List<Pembelian> list = pembelianService.searchByFilm(film, idPembeli);
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
+    @GetMapping("/pembelian/film/{film}/customer/{idPembeli}/limit/{limit}/offset/{offset}")
+    public ResponseEntity<?> searchByFilm(@PathVariable String film, @PathVariable String idPembeli, @PathVariable int limit, @PathVariable int offset)
+    {
+        List<Pembelian> list = pembelianService.searchByFilm(film, idPembeli, limit, offset);
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
@@ -105,10 +158,24 @@ public class PembelianController {
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
+    @GetMapping("/pembelian/tanggal/{tanggal}/limit/{limit}/offset/{offset}")
+    public ResponseEntity<?> searchByDate(@PathVariable @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate tanggal, @PathVariable int limit, @PathVariable int offset)
+    {
+        List<Pembelian> list = pembelianService.searchByDate(tanggal, limit, offset);
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
     @GetMapping("/pembelian/tanggal/{tanggal}/customer/{idPembeli}")
     public ResponseEntity<?> searchByDate(@PathVariable @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate tanggal, @PathVariable String idPembeli)
     {
         List<Pembelian> list = pembelianService.searchByDate(tanggal, idPembeli);
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
+    @GetMapping("/pembelian/tanggal/{tanggal}/customer/{idPembeli}/limit/{limit}/offset/{offset}")
+    public ResponseEntity<?> searchByDate(@PathVariable @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate tanggal, @PathVariable String idPembeli, @PathVariable int limit, @PathVariable int offset)
+    {
+        List<Pembelian> list = pembelianService.searchByDate(tanggal, idPembeli, limit, offset);
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 }

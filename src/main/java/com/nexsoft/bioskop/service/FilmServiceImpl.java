@@ -5,6 +5,7 @@ import com.nexsoft.bioskop.repository.FilmRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -79,6 +80,21 @@ public class FilmServiceImpl implements FilmService {
     @Override
     public List<Film> getFilmIsPlaying() {
         return filmRepository.getFilmIsPlaying();
+    }
+
+    @Override
+    public List<Film> getFilmIsPlaying(int limit, int offset) {
+        return filmRepository.getFilmIsPlaying(limit, offset);
+    }
+
+    @Override
+    public List<Film> getFilmIsPlaying(LocalDate tanggal) {
+        return filmRepository.getFilmIsPlaying(tanggal);
+    }
+
+    @Override
+    public List<Film> getFilmIsPlaying(LocalDate tanggal, int limit, int offset) {
+        return filmRepository.getFilmIsPlaying(tanggal, limit, offset);
     }
 
     @Override

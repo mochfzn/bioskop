@@ -2,6 +2,7 @@ package com.nexsoft.bioskop.service;
 
 import com.nexsoft.bioskop.model.Film;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface FilmService {
@@ -15,6 +16,9 @@ public interface FilmService {
     List<Film> searchById(String id);
     List<Film> searchById(String id, int limit, int offset);
     List<Film> getFilmIsPlaying();
+    List<Film> getFilmIsPlaying(int limit, int offset);
+    List<Film> getFilmIsPlaying(LocalDate tanggal);
+    List<Film> getFilmIsPlaying(LocalDate tanggal, int limit, int offset);
     boolean isExist(Film film);
     String validation(Film film);
 }
