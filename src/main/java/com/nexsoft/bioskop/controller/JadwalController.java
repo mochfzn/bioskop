@@ -83,7 +83,7 @@ public class JadwalController {
     public ResponseEntity<?> searchByDate(@PathVariable @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate tanggal, @PathVariable int limit, @PathVariable int offset)
     {
         List<Jadwal> list;
-        list = jadwalService.searchByDate(tanggal);
+        list = jadwalService.searchByDate(tanggal, limit, offset);
 
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
