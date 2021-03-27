@@ -64,6 +64,7 @@ class Laporan extends Component {
                 amount: 0
             }
          }
+        this.valueSelect = "";
         this.tableHeader = ["ID Tiket", "Pembeli", "Film", "Tanggal", "Aksi"];
         this.searchOption = ["ID Tiket","Pembeli", "Film", "Tanggal"];
     }
@@ -552,7 +553,7 @@ class Laporan extends Component {
                 <Alert>{this.state.alert}</Alert>
                 <Table tableHeader={this.tableHeader} searchOption={this.searchOption} searchText={this.state.search} onChangeSelect={this.onChangeSelect}
                  onChangeSearch={this.onChangeSearch} showButton={this.state.showButtonSearch} onClickSearch={this.onClickSearch} paging={this.state.paging} 
-                 onChangeLimit={this.onChangeLimit} limit={this.state.paging.limit} setCurrPage={this.setCurrPage}>
+                 onChangeLimit={this.onChangeLimit} limit={this.state.paging.limit} setCurrPage={this.setCurrPage} valueSelect={this.valueSelect}>
                     {
                         this.state.data.map((value, index) => {
                             return (

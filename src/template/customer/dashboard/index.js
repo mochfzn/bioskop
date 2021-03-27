@@ -19,7 +19,7 @@ class Dashboard extends Component {
                 startRow: 1,
                 maxRow: 5,
                 page: 0,
-                limit: 7,
+                limit: 4,
                 currPage: 1,
                 offset: 0,
                 amount: 0
@@ -267,6 +267,7 @@ class Dashboard extends Component {
                     </Div>
                     <Div class="content">
                         {
+                            (this.state.data.length !== 0) ?
                             this.state.data.map((value, index) => {
                                 return(
                                     <Div class="movie" key={index}>
@@ -276,7 +277,11 @@ class Dashboard extends Component {
                                         </Div>
                                     </Div>
                                 )
-                            })
+                            }) :
+                            <Div class="empty-message" style={{width: "1100px", margin: "auto"}}>
+                                <i class="far fa-frown" style={{fontSize: "250px", color: "#99B7B8", textAlign: "center", display: "block"}}></i>
+                                <span style={{fontFamily: "Comic Sans, Comic Sans MS, cursive", color: "#99B7B8", fontSize: "55px", textAlign: "center", display: "block"}}>Tidak ada film yang tayang</span>
+                            </Div>
                         }
                     </Div>
                     <Div class="halaman">

@@ -274,7 +274,7 @@ class Jadwal extends Component {
             });
         })
         .then(() => {
-            this.searchByDate(dateSearch);
+            this.searchByDate();
         })
         .catch((e) => {
             this.setState({alert: "Gagal mengambil data! ", e});
@@ -282,7 +282,7 @@ class Jadwal extends Component {
         });
     }
 
-    searchByDate = value => {
+    searchByDate = () => {
         const alert = document.getElementById("alert");
 
         if(this.state.search === "") 
@@ -335,6 +335,10 @@ class Jadwal extends Component {
         else if(this.valueSelect === "Film")
         {
             this.countDataSearchByFilm(this.state.search);
+        }
+        else if(this.valueSelect === "Tanggal")
+        {
+            this.onClickSearch();
         }
     }
 
@@ -675,7 +679,7 @@ class Jadwal extends Component {
                 </Div>
                 <Table tableHeader={this.tableHeader} searchOption={this.searchOption} showButton={this.state.showButtonSearch} searchText={this.state.search} 
                     onChangeSelect={this.onChangeSearchSelect} onChangeSearch={this.onChangeSearchText} onClickSearch={this.onClickSearch} paging={this.state.paging}
-                    onChangeLimit={this.onChangeLimit} limit={this.state.paging.limit} setCurrPage={this.setCurrPage}>
+                    onChangeLimit={this.onChangeLimit} limit={this.state.paging.limit} setCurrPage={this.setCurrPage} valueSelect={this.valueSelect}>
                     {
                         this.state.data.map((value, index) => {
                             return (

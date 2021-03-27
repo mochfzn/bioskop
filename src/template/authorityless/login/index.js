@@ -29,6 +29,17 @@ class Login extends Component {
 
     componentDidMount() {
         document.body.classList.add("background");
+
+        if(this.props.success.savePassword === true)
+        {
+            const alert = document.getElementById("alert");
+            alert.classList.add("success");
+
+            this.setState({ alert: "Simpan kata sandi berhasil, silahkan masuk." });
+            alert.style.display = "block";
+
+            this.props.setSuccess("savePassword", false);
+        }
     }
 
     toRegistration = () => {
@@ -39,6 +50,7 @@ class Login extends Component {
 
     doLogin = () => {
         const alert = document.getElementById("alert");
+        alert.classList.remove("success");
 
         if(this.validation() === true)
         {

@@ -27,6 +27,7 @@ class SavePassword extends Component {
 
     componentDidMount() {
         document.body.classList.add("background");
+
         this.setState({
             user: {
                 nama: this.props.user.nama,
@@ -37,6 +38,17 @@ class SavePassword extends Component {
                 hakAkses: this.props.user.hakAkses,
             }
         });
+
+        if(this.props.success.registration === true)
+        {
+            const alert = document.getElementById("alert");
+            alert.classList.add("success");
+
+            this.setState({ alert: "Registrasi berhasil, silahkan masukkan kata sandi." });
+            alert.style.display = "block";
+
+            this.props.setSuccess("registration", false);
+        }
     }
 
     onChange = (el, attribut) => {
@@ -47,6 +59,7 @@ class SavePassword extends Component {
 
     onClickSubmit = () => {
         const alert = document.getElementById("alert");
+        alert.classList.remove("success");
 
         if(this.validation() === true)
         {
@@ -75,6 +88,7 @@ class SavePassword extends Component {
                 }
                 else
                 {
+                    this.props.setSuccess("savePassword", true);
                     this.toLogin();
                 }
             })

@@ -14,6 +14,11 @@
     z-index: 1;
 }
 
+.container > .success {
+    border: 2px solid #017EB1;
+    color: #017EB1;
+}
+
 .container > .notification > span:first-child {
     display: block;
     text-align: justify;
@@ -44,4 +49,9 @@
     transform: translateX(-50%);
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     z-index: 1;
+}
+
+.container > .navigation + .success {
+    border: 2px solid seagreen;
+    color: seagreen;
 }

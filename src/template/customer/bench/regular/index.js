@@ -54,14 +54,12 @@ class Regular extends Component {
     }
 
     onClickSeatChosen = event => {
-        // console.log("CLICKED : "+ event.target.value);
-        // console.log(this.props.benchChoice.find(event.target.value))
         let pesan;
         let amount;
         let cek;
         
         cek = this.props.benchChoice.findIndex(e => {
-            return e===event.target.value
+            return e === event.target.value
         });
 
         if(cek === -1)
@@ -131,6 +129,8 @@ class Regular extends Component {
     }
 
     onClickBack = () => {
+        this.props.setSeat("");
+
         this.setState({
             back: true
         });
@@ -212,12 +212,9 @@ class Regular extends Component {
                     purchasing: {},
                     finish: true
                 });
+
+                this.props.setSeat("");
             }
-        })
-        .then(() => {
-            this.setState({
-                
-            })
         })
         .catch((e) => {
             this.setState({alert: "Gagal mengirimkan data! " + e});

@@ -569,7 +569,7 @@ class Ruang extends Component {
                 </Div>
                 <Table tableHeader={this.tableHeader} searchOption={this.searchOption} searchText={this.state.search} onChangeSelect={this.onChangeSelect}
                     onChangeSearch={this.onChangeSearch} paging={this.state.paging} onChangeLimit={this.onChangeLimit} limit={this.state.paging.limit} 
-                    setCurrPage={this.setCurrPage}>
+                    setCurrPage={this.setCurrPage} valueSelect={this.valueSelect}>
                     {
                         this.state.data.map((value, index) => {
                             return (

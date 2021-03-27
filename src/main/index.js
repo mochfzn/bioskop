@@ -45,7 +45,11 @@ class Main extends Component {
             },
             purchasingBySchedule: [],
             seatAmount: "",
-            benchChoice: []
+            benchChoice: [],
+            success: {
+                registration: false,
+                savePassword: false
+            }
         }
     }
 
@@ -73,6 +77,15 @@ class Main extends Component {
         });
     }
 
+    setSuccess = (attribute, value) => {
+        let success = this.state.success;
+        success[attribute] = value;
+
+        this.setState({
+            success
+        });
+    }
+
     render() { 
         return ( 
             <div className="container">
@@ -93,10 +106,10 @@ class Main extends Component {
                         <History />
                     </Route>
                     <Route path="/customer/bench/vip">
-                        <Vip seatAmount={this.state.seatAmount} schedule={this.state.schedule} user={this.state.user} benchChoice={this.state.benchChoice} />
+                        <Vip seatAmount={this.state.seatAmount} schedule={this.state.schedule} user={this.state.user} benchChoice={this.state.benchChoice} setSeat={this.setSeat} />
                     </Route>
                     <Route path="/customer/bench/regular">
-                        <Regular seatAmount={this.state.seatAmount} schedule={this.state.schedule} user={this.state.user} benchChoice={this.state.benchChoice} />
+                        <Regular seatAmount={this.state.seatAmount} schedule={this.state.schedule} user={this.state.user} benchChoice={this.state.benchChoice} setSeat={this.setSeat} />
                     </Route>
                     <Route path="/customer">
                         <DashboardCustomer />
@@ -120,16 +133,16 @@ class Main extends Component {
                         <DashboardAdmin />
                     </Route>
                     <Route path="/save-password">
-                        <SavePassword user={this.state.user} />
+                        <SavePassword user={this.state.user} success={this.state.success} setSuccess={this.setSuccess} />
                     </Route>
                     <Route path="/password">
                         <Password user={this.state.user} />
                     </Route>
                     <Route path="/registration">
-                        <Registration setUser={this.setUser} />
+                        <Registration setUser={this.setUser} setSuccess={this.setSuccess} />
                     </Route>
                     <Route path="/">
-                        <Login setUser={this.setUser} />
+                        <Login setUser={this.setUser} success={this.state.success} setSuccess={this.setSuccess} />
                     </Route>
                 </Switch>
             </div>

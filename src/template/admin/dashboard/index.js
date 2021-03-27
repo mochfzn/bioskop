@@ -36,8 +36,12 @@ class Dashboard extends Component {
             hari = '0' + hari.toString();
 
         let dateSearch = hari + "-" + bulan + "-" + tahun;
+        let dateView = tahun + "-" + bulan + "-" + hari;
         this.getFilmScheduled(dateSearch);
         this.ticketSold(dateSearch);
+        this.setState({
+            date: dateView
+        });
     }
 
     getFilmScheduled = date => {
@@ -138,7 +142,7 @@ class Dashboard extends Component {
         this.ticketSold(dateSearch);
     }
 
-    render() { 
+    render() {
         if(this.props.login === false)
         {
             return <Redirect to="/" />
@@ -188,12 +192,42 @@ class Dashboard extends Component {
                         </Div>
                     </Div>
                     <Div class="tombol-utama">
-                        <Div class="tombol" onClick={() => this.onChangeNavigation("pengguna")}><i class="fas fa-user-alt"></i></Div>
-                        <Div class="tombol" onClick={() => this.onChangeNavigation("ruang")}><i class="fas fa-home"></i></Div>
-                        <Div class="tombol" onClick={() => this.onChangeNavigation("film")}><i class="fas fa-film"></i></Div>
-                        <Div class="tombol" onClick={() => this.onChangeNavigation("jadwal")}><i class="fas fa-calendar-alt"></i></Div>
-                        <Div class="tombol" onClick={() => this.onChangeNavigation("profil")}><i class="fas fa-edit"></i></Div>
-                        <Div class="tombol" onClick={() => this.onChangeNavigation("keluar")}><i class="fas fa-sign-out-alt"></i></Div>
+                        <Div class="tombol" onClick={() => this.onChangeNavigation("pengguna")}>
+                            <i className="fas fa-user-alt"></i>
+                            <Div class="tooltiptext">
+                                Master Pengguna
+                            </Div>
+                        </Div>
+                        <Div class="tombol" onClick={() => this.onChangeNavigation("ruang")}>
+                            <i className="fas fa-home"></i>
+                            <Div class="tooltiptext">
+                                Master Ruang
+                            </Div>
+                        </Div>
+                        <Div class="tombol" onClick={() => this.onChangeNavigation("film")}>
+                            <i className="fas fa-film"></i>
+                            <Div class="tooltiptext">
+                                Master Film
+                            </Div>
+                        </Div>
+                        <Div class="tombol" onClick={() => this.onChangeNavigation("jadwal")}>
+                            <i className="fas fa-calendar-alt"></i>
+                            <Div class="tooltiptext">
+                                Master Jadwal
+                            </Div>
+                        </Div>
+                        <Div class="tombol" onClick={() => this.onChangeNavigation("profil")}>
+                            <i className="fas fa-edit"></i>
+                            <Div class="tooltiptext">
+                                Profil
+                            </Div>
+                        </Div>
+                        <Div class="tombol" onClick={() => this.onChangeNavigation("keluar")}>
+                            <i className="fas fa-sign-out-alt"></i>
+                            <Div class="tooltiptext">
+                                Keluar
+                            </Div>
+                        </Div>
                     </Div>
                 </Div>
             </React.Fragment>

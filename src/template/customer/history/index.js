@@ -66,6 +66,7 @@ class History extends Component {
                 amount: 0
             }
          }
+        this.valueSelect = "";
         this.tableHeader = ["Kode Tiket", "Film", "Tanggal", "Tipe", "Jumlah Tiket", "Aksi"];
         this.searchOption = ["Kode Tiket", "Film", "Tanggal"];
     }
@@ -506,7 +507,7 @@ class History extends Component {
                 <Alert>{this.state.alert}</Alert>
                 <Table tableHeader={this.tableHeader} searchOption={this.searchOption} searchText={this.state.search} onChangeSelect={this.onChangeSelect}
                  onChangeSearch={this.onChangeSearch} showButton={this.state.showButtonSearch} onClickSearch={this.onClickSearch} paging={this.state.paging}
-                 onChangeLimit={this.onChangeLimit} limit={this.state.paging.limit} setCurrPage={this.setCurrPage}>
+                 onChangeLimit={this.onChangeLimit} limit={this.state.paging.limit} setCurrPage={this.setCurrPage} valueSelect={this.valueSelect}>
                     {
                         this.state.data.map((value, index) => {
                             return (

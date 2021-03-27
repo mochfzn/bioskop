@@ -636,7 +636,7 @@ class Pengguna extends Component {
                         <Text id="telepon" name="telepon" class="input" placeholder="Telp ex: 08xxxxxxxxxxx" value={telepon} onChange={el => this.onChangeText(el, "telepon")} />
                         <Text id="email" name="email" class="input" placeholder="Surel ex: xxx.xxx@xxx.xxx" value={email} onChange={el => this.onChangeText(el, "email")} />
                         <Text id="username" name="username" class="input" placeholder="Nama Pengguna" value={username} onChange={el => this.onChangeText(el, "username")} />
-                        <textarea id="alamat" name="alamat" class="textarea" placeholder="Alamat" value={alamat} onChange={el => this.onChangeText(el, "alamat")}></textarea>
+                        <textarea id="alamat" name="alamat" className="textarea" placeholder="Alamat" value={alamat} onChange={el => this.onChangeText(el, "alamat")}></textarea>
                     </Div>
                     <Div class="tombol">
                         <Button id="reset" name="reset" class="button-batal" value="Batal" onClick={this.reset} />
@@ -645,7 +645,7 @@ class Pengguna extends Component {
                 </Div>
                 <Table tableHeader={this.tableHeader} searchOption={this.searchOption} searchText={this.state.search} onChangeSelect={this.onChangeSelect}
                     onChangeSearch={this.onChangeSearch} paging={this.state.paging} onChangeLimit={this.onChangeLimit} limit={this.state.paging.limit} 
-                    setCurrPage={this.setCurrPage}>
+                    setCurrPage={this.setCurrPage} valueSelect={this.valueSelect}>
                     {
                         this.state.data.map((value, index) => {
                             return (

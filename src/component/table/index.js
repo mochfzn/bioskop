@@ -35,7 +35,7 @@ class Table extends Component {
     render() { 
         // variabel
         const { startRow, maxRow, page, currPage } = this.state.paging;
-        let date, text, show, pages;
+        let date, text, show, pages, disabled;
 
         // Inisialisasi
         date = 
@@ -44,11 +44,16 @@ class Table extends Component {
                 <Button id="cari" name="cari" class="button" value="Cari" onClick={this.props.onClickSearch} />
             </React.Fragment>;
         text = <Text name="cari" class="input" placeholder="Cari" value={this.props.searchText} onChange={this.props.onChangeSearch} />;
+        disabled = <Text name="cari" class="input" placeholder="Cari" disabled="disabled" />;
         pages = [];
 
         if(this.props.showButton === true)
         {
             show = date;
+        }
+        else if(this.props.valueSelect === "")
+        {
+            show = disabled;
         }
         else 
         {

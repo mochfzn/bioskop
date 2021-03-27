@@ -6,8 +6,27 @@ import './style.css';
 class Alert extends Component {
     constructor(props) {
         super(props);
-        this.state = {  }
+        this.state = { 
+            //success: false
+         }
     }
+
+    // static getDerivedStateFromProps(props, state) {
+    //     return {success: props.success}
+    // }
+
+    // componentDidMount() {
+    //     const alert = document.getElementById("alert");
+
+    //     if(alert.style.display === "block")
+    //     {
+    //         setTimeout(() => {
+    //             this.close();
+    //         }, 3000);
+    //     }
+
+    //     console.log("Masuk component did mount");
+    // }
 
     componentDidUpdate() {
         const alert = document.getElementById("alert");

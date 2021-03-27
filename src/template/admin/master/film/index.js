@@ -691,17 +691,34 @@ class Film extends Component {
                     </Div>
                     <Div class="form">
                         <Div class="col-1">
-                            <Text name="nama" class="input" placeholder="Judul" value={judul} onChange={el => this.onChangeText(el, "judul")} />
-                            <Text name="nama" class="input" placeholder="Produser" value={produser} onChange={el => this.onChangeText(el, "produser")} />
-                            <Text name="nama" class="input" placeholder="Direktur" value={direktur} onChange={el => this.onChangeText(el, "direktur")} />
+                            <Text name="judul" class="input" placeholder="Judul" value={judul} onChange={el => this.onChangeText(el, "judul")} />
+                            <Text name="produser" class="input" placeholder="Produser" value={produser} onChange={el => this.onChangeText(el, "produser")} />
+                            <Text name="direktur" class="input" placeholder="Direktur" value={direktur} onChange={el => this.onChangeText(el, "direktur")} />
                             <Select name="sensor" class="select" value={sensor} onChange={el => this.onChangeText(el, "sensor")}>
                                 <Option value="" disabled="disabled">Peringkat Sensor</Option>
                                 <Option value="1">Semua umur</Option>
                                 <Option value="2">13 keatas</Option>
                                 <Option value="3">17 keatas</Option>
                             </Select>
-                            <Text name="nama" class="input" placeholder="Bahasa" value={bahasa} onChange={el => this.onChangeText(el, "bahasa")} />
-                            <Text name="nama" class="input" placeholder="Judul Tambahan" value={judulTambahan} onChange={el => this.onChangeText(el, "judulTambahan")} />
+                            <Select name="bahasa" class="select" value={bahasa} onChange={el => this.onChangeText(el, "bahasa")}>
+                                <Option value="" disabled="disabled">Bahasa</Option>
+                                <Option value="Inggris">Inggris</Option>
+                                <Option value="Indonesia">Indonesia</Option>
+                                <Option value="Jepang">Jepang</Option>
+                                <Option value="China">China</Option>
+                                <Option value="Korea">Korea</Option>
+                                <Option value="Thailand">Thailand</Option>
+                                <Option value="India">India</Option>
+                                <Option value="Lainnya">Lainnya</Option>
+                            </Select>
+                            {/* <Text name="nama" class="input" placeholder="Bahasa" value={bahasa} onChange={el => this.onChangeText(el, "bahasa")} /> */}
+                            {/* <Text name="nama" class="input" placeholder="Terjemahan" value={judulTambahan} onChange={el => this.onChangeText(el, "judulTambahan")} /> */}
+                            <Select name="judul-tambahan" class="select" value={judulTambahan} onChange={el => this.onChangeText(el, "judulTambahan")}>
+                                <Option value="" disabled="disabled">Terjemahan</Option>
+                                <Option value="Indonesia">Indonesia</Option>
+                                <Option value="Inggris">Inggris</Option>
+                                <Option value="Lainnya">Lainnya</Option>
+                            </Select>
                             <input type="time" name="nama" className="input" placeholder="Durasi" step="1" value={durasi} onChange={el => this.onChangeText(el, "durasi")} />
                         </Div>
                         <Div class="col-2">
@@ -772,7 +789,7 @@ class Film extends Component {
                 </Div>
                 <Table tableHeader={this.tableHeader} searchOption={this.searchOption} searchText={this.state.search} onChangeSelect={this.onChangeSelect}
                     onChangeSearch={this.onChangeSearch} paging={this.state.paging} onChangeLimit={this.onChangeLimit} limit={this.state.paging.limit} 
-                    setCurrPage={this.setCurrPage}>
+                    setCurrPage={this.setCurrPage} valueSelect={this.valueSelect}>
                     {
                         this.state.data.map((value, index) => {
                             let sensor;

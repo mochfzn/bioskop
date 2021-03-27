@@ -74,6 +74,7 @@ class Registration extends Component {
                 else
                 {
                     this.props.setUser(this.state.user);
+                    this.props.setSuccess("registration", true);
                     this.toSavePassword();
                 }
             })
