@@ -78,27 +78,42 @@ public class PenggunaController {
     @GetMapping("/pengguna/")
     public ResponseEntity<?> getAll()
     {
-        List<Pengguna> list = penggunaService.findAll();
-
-        if(list.isEmpty())
+        try
         {
+            List<Pengguna> list = penggunaService.findAll();
+
+            if(list.isEmpty())
+            {
+                return new ResponseEntity<>(list, HttpStatus.OK);
+            }
+
             return new ResponseEntity<>(list, HttpStatus.OK);
         }
+        catch(Exception e)
+        {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.OK);
+        }
 
-        return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
     @GetMapping("/pengguna/limit/{limit}/offset/{offset}")
     public ResponseEntity<?> getAll(@PathVariable int limit, @PathVariable int offset)
     {
-        List<Pengguna> list = penggunaService.findAll(limit, offset);
-
-        if(list.isEmpty())
+        try
         {
+            List<Pengguna> list = penggunaService.findAll(limit, offset);
+
+            if(list.isEmpty())
+            {
+                return new ResponseEntity<>(list, HttpStatus.OK);
+            }
+
             return new ResponseEntity<>(list, HttpStatus.OK);
         }
-
-        return new ResponseEntity<>(list, HttpStatus.OK);
+        catch (Exception e)
+        {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.OK);
+        }
     }
 
     @PostMapping("/pengguna/save-password/")

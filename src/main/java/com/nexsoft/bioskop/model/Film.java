@@ -29,12 +29,19 @@ public class Film {
         this.bahasa = bahasa;
         this.judulTambahan = judulTambahan;
 
-        String[] arrTime = durasi.split(":");
-        int hour = Integer.parseInt(arrTime[0]);
-        int minute = Integer.parseInt(arrTime[1]);
-        int second = Integer.parseInt(arrTime[2]);
+        if(durasi != null)
+        {
+            String[] arrTime = durasi.split(":");
+            int hour = Integer.parseInt(arrTime[0]);
+            int minute = Integer.parseInt(arrTime[1]);
+            int second = Integer.parseInt(arrTime[2]);
 
-        this.durasi = LocalTime.of(hour,minute,second);
+            this.durasi = LocalTime.of(hour,minute,second);
+        }
+        else
+        {
+            this.durasi = LocalTime.of(0,0,0);
+        }
 
         this.genre = new ArrayList<>();
         String[] array = genre.split(",");
