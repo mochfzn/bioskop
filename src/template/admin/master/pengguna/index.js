@@ -126,7 +126,24 @@ class Pengguna extends Component {
     onClickUpdate = objek => {
         this.valueSubmit = "Ubah";
 
-        const newUser = objek;
+        const newUser = {
+            id: "",
+            nama: "",
+            alamat: "",
+            telepon: "",
+            email: "",
+            username: "",
+            hakAkses: 0
+        };
+
+        newUser.id = objek.id;
+        newUser.nama = objek.nama;
+        newUser.alamat = objek.alamat;
+        newUser.telepon = objek.telepon;
+        newUser.email = objek.email;
+        newUser.username = objek.username;
+        newUser.hakAkses = objek.hakAkses;
+
         this.setState({
             user: newUser
         });

@@ -82,6 +82,10 @@
     opacity: 0.9;
 }
 
+.confirm > .modal-content > .container > .clearfix > .danger {
+    background-color: #F44336;
+}
+
 .confirm > .modal-content > .container > .clearfix > .cancelbtn:hover {
     opacity: 1;
 }

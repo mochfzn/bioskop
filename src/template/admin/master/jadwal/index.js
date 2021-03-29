@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import './style.css';
 import Navigation from '../../navigation';
-import { Table, Alert, Div, TableRow, TableData, Select, Option, Button, Confirm, Tanggal } from '../../../../component';
+import { Table, Alert, Div, TableRow, TableData, Select, Option, Button, ConfirmSubmit, Tanggal } from '../../../../component';
 
 class Jadwal extends Component {
     constructor(props) {
@@ -566,14 +566,14 @@ class Jadwal extends Component {
     }
 
     showConfirm = () => {
-        const confirm = document.getElementById("confirm");
+        const confirm = document.getElementById("confirm-submit");
         confirm.style.display = "block";
     }
 
     changeSaveConfirm = () => {
         this.save();
 
-        const confirm = document.getElementById("confirm");
+        const confirm = document.getElementById("confirm-submit");
         confirm.style.display = "none";
     }
 
@@ -695,7 +695,7 @@ class Jadwal extends Component {
                         })
                     }
                 </Table>
-                <Confirm title="Simpan Jadwal!" question="Apakah Anda yakin ingin menyimpan jadwal film tersebut?" changeSaveConfirm={this.changeSaveConfirm}>
+                <ConfirmSubmit title="Simpan Jadwal!" question="Apakah Anda yakin ingin menyimpan jadwal film tersebut?" confirmName="Simpan" confirm={this.changeSaveConfirm}>
                     <table>
                         <tbody>
                             <tr>
@@ -720,7 +720,7 @@ class Jadwal extends Component {
                             </tr>
                         </tbody>
                     </table>
-                </Confirm>
+                </ConfirmSubmit>
             </React.Fragment>
          );
     }

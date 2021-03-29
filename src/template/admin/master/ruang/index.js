@@ -139,7 +139,18 @@ class Ruang extends Component {
     onClickUpdate = objek => {
         this.valueSubmit = "Ubah";
 
-        const newRoom = objek;
+        const newRoom = {
+            id: "",
+            nama: "",
+            jenis: "",
+            harga: ""
+        };
+
+        newRoom.id = objek.id;
+        newRoom.nama = objek.nama;
+        newRoom.jenis = objek.jenis;
+        newRoom.harga = objek.harga;
+
         this.setState({
             ruang: newRoom
         });

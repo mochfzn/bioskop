@@ -3,6 +3,7 @@
     height: 34px;
     padding-top: 20px;
     margin: 0 auto;
+    z-index: 1;
 }
 
 .container > .navigation > img {
@@ -128,6 +129,28 @@
 }
 
 .container > .navigation > .profil > .profilbtn > a:hover {
+    color: #0A7EA2; 
+    border-color: #0A7EA2;
+}
+
+.container > .navigation > .profil > .profilbtn > .button {
+    width: 88px;
+    height: 34px;
+    color: #165076; 
+    border: 2px solid #165076; 
+    background-color: white;
+    border-radius: 20px; 
+    text-decoration: none;
+    line-height: 30px;
+    text-align: center;
+    font-size: 13px;
+    display: block;
+    margin-bottom: 5px;
+    z-index: 1;
+    cursor: pointer;
+}
+
+.container > .navigation > .profil > .profilbtn > .button:hover {
     color: #0A7EA2; 
     border-color: #0A7EA2;
 }

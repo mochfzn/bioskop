@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 
-import { Alert, Div, Button } from '../../../component';
+import { Alert, Div, Button, Password as InputPassword } from '../../../component';
 import './style.css';
 
 class SavePassword extends Component {
@@ -163,8 +163,8 @@ class SavePassword extends Component {
                 <Alert>{this.state.alert}</Alert>
                 <Div class="simpan-kata-sandi">
                     <span>Simpan Kata Sandi</span>
-                    <input type="password" className="input" placeholder="Kata Sandi" value={password} onChange={el => this.onChange(el, "password")} />
-                    <input type="password" className="input" placeholder="Ulang Kata Sandi" value={repeatPassword} onChange={el => this.onChange(el, "repeatPassword")} />
+                    <InputPassword id="password" name="password" class="input" placeholder="Kata Sandi" value={password} onChange={el => this.onChange(el, "password")} />
+                    <InputPassword id="repeat-password" name="repeat-password" class="input" placeholder="Ulang Kata Sandi" value={repeatPassword} onChange={el => this.onChange(el, "repeatPassword")} />
                     <Button class="button" value="Simpan" onClick={this.onClickSubmit} />
                     <Button class="button" value="Batal" onClick={this.back} />
                 </Div>

@@ -35,7 +35,7 @@ class Alert extends Component {
         {
             setTimeout(() => {
                 this.close();
-            }, 3000);
+            }, 10000);
         }
     }
 

@@ -1,6 +1,6 @@
 import Alert from "./alert";
 import Button from "./button";
-import Confirm from "./confirm";
+import { Danger as ConfirmDanger, Submit as ConfirmSubmit } from "./confirm";
 import Div from "./div";
 import Label from "./label";
 import { Detail as ModalDetail, Purchasing as ModalPurchasing } from "./modal";
@@ -14,4 +14,4 @@ import Text from "./text";
 import Tanggal from "./tanggal";
 import Password from "./password";
 
-export { Alert, Button, Confirm, Div, Label, ModalDetail, ModalPurchasing, Option, Paragraph, Select, Table, TableData, TableRow, Text, Tanggal, Password };
+export { Alert, Button, ConfirmDanger, ConfirmSubmit, Div, Label, ModalDetail, ModalPurchasing, Option, Paragraph, Select, Table, TableData, TableRow, Text, Tanggal, Password };

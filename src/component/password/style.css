@@ -16,3 +16,11 @@
     display: inline;
 }
 
+.simpan-kata-sandi .visible-eye {
+    position: relative;
+    top: -28px;
+    left: 130px;
+    font-size: 20px !important;
+    color: rgb(130, 130, 130);
+    display: inline !important;
+}

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import '../style.css';
 import Navigation from '../../navigation';
-import { Div, Button, Confirm, Alert } from '../../../../component';
+import { Div, Button, ConfirmSubmit, Alert } from '../../../../component';
 
 class Vip extends Component {
     constructor(props) {
@@ -55,52 +55,60 @@ class Vip extends Component {
     onClickSeatChosen = event => {
         let pesan;
         let amount;
+        let cek;
 
-        if(event.target.classList.contains("biru"))
+        cek = this.props.benchChoice.findIndex(e => {
+            return e === event.target.value
+        });
+
+        if(cek === -1)
         {
-            event.target.classList.remove("biru");
-            this.removeNotAllowedButton();
-
-            amount = Number(this.state.seatAmount);
-            amount = amount + 1;
-
-            if(amount !== Number(this.props.seatAmount))
+            if(event.target.classList.contains("biru"))
             {
-                pesan = "Pilih " + amount + " bangku lagi.";
-            }
-            else if(amount === Number(this.props.seatAmount))
-            {
-                pesan = "Pilih " + amount + " bangku.";
-            }
-
-            this.setState({
-                seatAmount: amount,
-                pesan: pesan
-            });
-        }
-        else
-        {
-            if( this.state.seatAmount !== 0)
-            {
-                event.target.classList.add("biru");
+                event.target.classList.remove("biru");
+                this.removeNotAllowedButton();
 
                 amount = Number(this.state.seatAmount);
-                amount = amount - 1;
-    
-                if(amount !== 0)
+                amount = amount + 1;
+
+                if(amount !== Number(this.props.seatAmount))
                 {
                     pesan = "Pilih " + amount + " bangku lagi.";
                 }
-                else
+                else if(amount === Number(this.props.seatAmount))
                 {
-                    pesan = "";
-                    this.addNotAllowedButton();
+                    pesan = "Pilih " + amount + " bangku.";
                 }
-    
+
                 this.setState({
                     seatAmount: amount,
                     pesan: pesan
                 });
+            }
+            else
+            {
+                if( this.state.seatAmount !== 0)
+                {
+                    event.target.classList.add("biru");
+
+                    amount = Number(this.state.seatAmount);
+                    amount = amount - 1;
+        
+                    if(amount !== 0)
+                    {
+                        pesan = "Pilih " + amount + " bangku lagi.";
+                    }
+                    else
+                    {
+                        pesan = "";
+                        this.addNotAllowedButton();
+                    }
+        
+                    this.setState({
+                        seatAmount: amount,
+                        pesan: pesan
+                    });
+                }
             }
         }
     }
@@ -114,7 +122,7 @@ class Vip extends Component {
         }
         else
         {
-            const confirm = document.getElementById("confirm");
+            const confirm = document.getElementById("confirm-submit");
             confirm.style.display = "block";
         }   
     }
@@ -123,6 +131,8 @@ class Vip extends Component {
         this.setState({
             back: true
         });
+
+        this.props.setSeat("");
     }
 
     addNotAllowedButton = () => {
@@ -142,7 +152,8 @@ class Vip extends Component {
 
         for(let button of buttons)
         {
-            button.classList.remove("blocked");
+            if(!button.classList.contains("merah"))
+                button.classList.remove("blocked");
         }
     }
 
@@ -173,6 +184,8 @@ class Vip extends Component {
             purchasing: purchasingNew
         });
 
+        // >> ==== Hapus === <<
+        console.log("Purchasing => ", this.state.purchasing);
         this.save();
     }
 
@@ -197,6 +210,9 @@ class Vip extends Component {
             }
             else
             {
+                this.props.setSeat("");
+                this.props.setSuccess("buyTicket", true);
+
                 this.setState({
                     purchasing: {},
                     finish: true
@@ -262,7 +278,7 @@ class Vip extends Component {
                         <Div class="layar">Layar</Div>
                         <Div class="keterangan">
                             <Div class="legend">
-                                <Div class="kotak-abu"></Div><span>Tidak tersedia</span>
+                                {/* <Div class="kotak-abu"></Div><span>Tidak tersedia</span> */}
                                 <Div class="kotak-merah"></Div><span>Sudah dipesan</span>
                                 <Div class="kotak-hijau"></Div><span>Tersedia</span>
                                 <Div class="kotak-biru"></Div><span>dipilih</span>
@@ -275,7 +291,7 @@ class Vip extends Component {
                         </Div>
                     </Div>
                 </Div>
-                <Confirm title="Simpan Posisi Duduk!" question="Apakah Anda ingin menyimpan posisi tempat duduk yang dipilih?" changeSaveConfirm={this.changeSaveConfirm} />
+                <ConfirmSubmit title="Simpan Posisi Duduk!" question="Apakah Anda ingin menyimpan posisi tempat duduk yang dipilih?" confirmName="Simpan" confirm={this.changeSaveConfirm} />
             </React.Fragment>
          );
     }

@@ -36,10 +36,10 @@ class Registration extends Component {
     }
 
     onClickSubmit = () => {
-        const alert = document.getElementById("alert");
-
         if(this.validation() === true)
         {
+            const alert = document.getElementById("alert");
+
             fetch('http://localhost:8080/bioskop/pengguna/', {
                 method: "post",
                 headers: {
@@ -144,7 +144,7 @@ class Registration extends Component {
         {
             if(this.state.user.email.length > 100)
             {
-                this.setState({alert: "Telepon tidak boleh lebih dari 14 nomor!"});
+                this.setState({alert: "Email tidak boleh lebih dari 100 karakter!"});
                 alert.style.display = "block";
                 return false;
             }

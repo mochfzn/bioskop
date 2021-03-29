@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import '../style.css';
 import Navigation from '../../navigation';
-import { Div, Button, Confirm, Alert } from '../../../../component';
+import { Div, Button, ConfirmSubmit, Alert } from '../../../../component';
 
 class Regular extends Component {
     constructor(props) {
@@ -47,7 +47,6 @@ class Regular extends Component {
                 {
                     button.classList.add("merah");
                     button.classList.add("blocked");
-                    button.removeEventListener("click", this.onClickSeatChosen);
                 }
             })
         }
@@ -123,7 +122,7 @@ class Regular extends Component {
         }
         else
         {
-            const confirm = document.getElementById("confirm");
+            const confirm = document.getElementById("confirm-submit");
             confirm.style.display = "block";
         }   
     }
@@ -134,6 +133,8 @@ class Regular extends Component {
         this.setState({
             back: true
         });
+
+        this.props.setSeat("");
     }
 
     addNotAllowedButton = () => {
@@ -208,12 +209,13 @@ class Regular extends Component {
             }
             else
             {
+                this.props.setSeat("");
+                this.props.setSuccess("buyTicket", true);
+
                 this.setState({
                     purchasing: {},
                     finish: true
                 });
-
-                this.props.setSeat("");
             }
         })
         .catch((e) => {
@@ -326,7 +328,7 @@ class Regular extends Component {
                         </Div>
                     </Div>
                 </Div>
-                <Confirm title="Simpan Posisi Duduk!" question="Apakah Anda ingin menyimpan posisi tempat duduk yang dipilih?" changeSaveConfirm={this.changeSaveConfirm} />
+                <ConfirmSubmit title="Simpan Posisi Duduk!" question="Apakah Anda ingin menyimpan posisi tempat duduk yang dipilih?" confirmName="Simpan" confirm={this.changeSaveConfirm} />
             </React.Fragment>
          );
     }

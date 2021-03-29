@@ -31,6 +31,17 @@ class Dashboard extends Component {
         document.body.classList.remove("background");
         document.getElementById("view-all").style.display = "none";
 
+        if(this.props.success.buyTicket === true)
+        {
+            const alert = document.getElementById("alert");
+            alert.classList.add("success");
+
+            this.setState({ alert: "Pembelian tiket berhasil." });
+            alert.style.display = "block";
+
+            this.props.setSuccess("buyTicket", false);
+        }
+
         this.countData();
     }
 
@@ -230,7 +241,7 @@ class Dashboard extends Component {
             paging
         }, () => this.settingPaging());
 
-        this.showTable();
+        this.countData();
     }
 
     render() { 
@@ -290,11 +301,11 @@ class Dashboard extends Component {
                             (page > 1) ? 
                                 <React.Fragment>
                                     {
-                                        (this.state.paging.currPage > 1) ? <Button class="button" value="&laquo;" onClick={() => this.props.setCurrPage(this.state.paging.currPage - 1)} /> : ""
+                                        (this.state.paging.currPage > 1) ? <Button class="button" value="&laquo;" onClick={() => this.setCurrPage(this.state.paging.currPage - 1)} /> : ""
                                     }
                                     {pages}
                                     {
-                                        (this.state.paging.currPage < this.state.paging.page) ? <Button class="button" value="&raquo;" onClick={() => this.props.setCurrPage(this.state.paging.currPage + 1)} /> : ""
+                                        (this.state.paging.currPage < this.state.paging.page) ? <Button class="button" value="&raquo;" onClick={() => this.setCurrPage(this.state.paging.currPage + 1)} /> : ""
                                     }
                                 </React.Fragment> :
                                 ""

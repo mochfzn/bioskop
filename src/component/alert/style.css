@@ -52,6 +52,6 @@
 }
 
 .container > .navigation + .success {
-    border: 2px solid seagreen;
-    color: seagreen;
+    border: 2px solid skyblue;
+    color: #017EB1;
 }

@@ -92,7 +92,7 @@
     margin-left: 660px;
 }
   
-.container > .pelanggan > .halaman > .pagination > a {
+.container > .pelanggan > .halaman > .pagination > .button {
     color: #D9E4E7;
     float: left;
     padding: 5px 16px;
@@ -101,20 +101,20 @@
     border: 1px solid #537D7F;
 }
 
-.container > .pelanggan > .halaman > .pagination > a.active {
+.container > .pelanggan > .halaman > .pagination > .active {
     background-color: #F16A29;
     color: white;
     border: 1px solid #537D7F;
 }
 
-.container > .pelanggan > .halaman > .pagination > a:hover:not(.active) {background-color: #ddd;}
+.container > .pelanggan > .halaman > .pagination > .button:hover:not(.active) {background-color: #99B7B8;}
 
-.container > .pelanggan > .halaman > .pagination > a:first-child {
+.container > .pelanggan > .halaman > .pagination > .button:first-child {
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
 }
 
-.container > .pelanggan > .halaman > .pagination > a:last-child {
+.container > .pelanggan > .halaman > .pagination > .button:last-child {
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
 }

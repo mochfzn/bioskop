@@ -48,7 +48,8 @@ class Main extends Component {
             benchChoice: [],
             success: {
                 registration: false,
-                savePassword: false
+                savePassword: false,
+                buyTicket: false
             }
         }
     }
@@ -106,13 +107,13 @@ class Main extends Component {
                         <History />
                     </Route>
                     <Route path="/customer/bench/vip">
-                        <Vip seatAmount={this.state.seatAmount} schedule={this.state.schedule} user={this.state.user} benchChoice={this.state.benchChoice} setSeat={this.setSeat} />
+                        <Vip seatAmount={this.state.seatAmount} schedule={this.state.schedule} user={this.state.user} benchChoice={this.state.benchChoice} setSeat={this.setSeat} success={this.state.success} setSuccess={this.setSuccess} />
                     </Route>
                     <Route path="/customer/bench/regular">
-                        <Regular seatAmount={this.state.seatAmount} schedule={this.state.schedule} user={this.state.user} benchChoice={this.state.benchChoice} setSeat={this.setSeat} />
+                        <Regular seatAmount={this.state.seatAmount} schedule={this.state.schedule} user={this.state.user} benchChoice={this.state.benchChoice} setSeat={this.setSeat} success={this.state.success} setSuccess={this.setSuccess} />
                     </Route>
                     <Route path="/customer">
-                        <DashboardCustomer />
+                        <DashboardCustomer success={this.state.success} setSuccess={this.setSuccess} />
                     </Route>
                     <Route path="/admin/master/ruang">
                         <Ruang />
