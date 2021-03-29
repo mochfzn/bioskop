@@ -290,7 +290,7 @@ class Dashboard extends Component {
                                 )
                             }) :
                             <Div class="empty-message" style={{width: "1100px", margin: "auto"}}>
-                                <i class="far fa-frown" style={{fontSize: "250px", color: "#99B7B8", textAlign: "center", display: "block"}}></i>
+                                <i className="far fa-frown" style={{fontSize: "250px", color: "#99B7B8", textAlign: "center", display: "block"}}></i>
                                 <span style={{fontFamily: "Comic Sans, Comic Sans MS, cursive", color: "#99B7B8", fontSize: "55px", textAlign: "center", display: "block"}}>Tidak ada film yang tayang</span>
                             </Div>
                         }
