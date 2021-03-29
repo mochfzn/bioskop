@@ -1,6 +1,5 @@
 package com.nexsoft.bioskop.repository;
 
-import com.nexsoft.bioskop.model.Jadwal;
 import com.nexsoft.bioskop.model.Pembelian;
 
 import java.time.LocalDate;

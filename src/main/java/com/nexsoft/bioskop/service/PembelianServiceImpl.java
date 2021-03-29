@@ -1,6 +1,5 @@
 package com.nexsoft.bioskop.service;
 
-import com.nexsoft.bioskop.model.Jadwal;
 import com.nexsoft.bioskop.model.Pembelian;
 import com.nexsoft.bioskop.repository.PembelianRepository;
 import org.springframework.beans.factory.annotation.Autowired;

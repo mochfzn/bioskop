@@ -170,7 +170,7 @@ public class PenggunaServiceImpl implements PenggunaService {
 
         if(pengguna.getUsername().length() > 50)
         {
-            return "\"Nama pengguna tidak boleh lebih dari 50 karakter!";
+            return "Nama pengguna tidak boleh lebih dari 50 karakter!";
         }
 
         if((pengguna.getEmail() != null) || (pengguna.getEmail() != ""))
