@@ -18,6 +18,7 @@ import bigfootFamily from './bigfoot-family.jpg';
 import alienXmas from './alien-xmas.jpg';
 import overTheMoon from './over-the-moon.jpg';
 import aWhiskerAway from './a-whisker-away.jpg';
+import teddy from './teddy.jpg';
 import notFound from './not-found.png';
 
 let Gambar = [
@@ -41,6 +42,7 @@ let Gambar = [
     {title: "Alien Xmas", image: alienXmas},
     {title: "Over The Moon", image: overTheMoon},
     {title: "A Whisker Away", image: aWhiskerAway},
+    {title: "Teddy", image: teddy},
     {title: "Not Found", image: notFound}
 ];
 
